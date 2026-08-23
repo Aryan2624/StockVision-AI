@@ -1,0 +1,22 @@
+{
+    "1D": {
+        "median_absolute_error_percent": 0.6804,
+        "q80_absolute_error_percent": 1.404,
+        "q90_absolute_error_percent": 2.0066
+    },
+    "3D": {
+        "median_absolute_error_percent": 1.2147,
+        "q80_absolute_error_percent": 2.5336,
+        "q90_absolute_error_percent": 3.593
+    },
+    "5D": {
+        "median_absolute_error_percent": 1.6052,
+        "q80_absolute_error_percent": 3.5851,
+        "q90_absolute_error_percent": 4.9054
+    },
+    "10D": {
+        "median_absolute_error_percent": 2.643,
+        "q80_absolute_error_percent": 5.6838,
+        "q90_absolute_error_percent": 6.83
+    }
+}

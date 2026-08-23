@@ -1,0 +1,175 @@
+{
+    "experiment": "StockVision V6 Classical Model Benchmark",
+    "features": [
+        "RETURN_1",
+        "RETURN_3",
+        "RETURN_5",
+        "RETURN_10",
+        "HIGH_LOW_RANGE",
+        "OPEN_CLOSE_RETURN",
+        "SMA20_DISTANCE",
+        "EMA20_DISTANCE",
+        "RSI14_NORMALIZED",
+        "MACD_HIST_PERCENT",
+        "VOLATILITY_10",
+        "VOLATILITY_20",
+        "ATR14_PERCENT",
+        "VOLUME_ZSCORE_20",
+        "BOLLINGER_POSITION",
+        "NIFTY_RETURN_1",
+        "NIFTY_RETURN_5",
+        "NIFTY_SMA20_DISTANCE",
+        "NIFTY_VOLATILITY_20",
+        "RELATIVE_RETURN_1",
+        "RELATIVE_RETURN_5",
+        "ROLLING_BETA_20"
+    ],
+    "feature_count": 22,
+    "target": "5-Day Bearish / Neutral / Bullish",
+    "majority_class": "BULLISH",
+    "majority_baseline_accuracy_percent": 35.44,
+    "split": {
+        "train_last_date": "2023-08-16",
+        "validation_start_date": "2023-08-24",
+        "validation_last_date": "2025-02-07",
+        "test_start_date": "2025-02-17"
+    },
+    "results": [
+        {
+            "model": "Logistic Regression",
+            "accuracy_percent": 34.62,
+            "balanced_accuracy_percent": 36.82,
+            "macro_f1_percent": 30.91,
+            "class_metrics": {
+                "BEARISH": {
+                    "precision_percent": 39.09,
+                    "recall_percent": 11.6,
+                    "f1_percent": 17.89,
+                    "support": 1931
+                },
+                "NEUTRAL": {
+                    "precision_percent": 32.86,
+                    "recall_percent": 75.29,
+                    "f1_percent": 45.75,
+                    "support": 1623
+                },
+                "BULLISH": {
+                    "precision_percent": 37.92,
+                    "recall_percent": 23.58,
+                    "f1_percent": 29.08,
+                    "support": 1951
+                }
+            },
+            "confusion_matrix": [
+                [
+                    224,
+                    1226,
+                    481
+                ],
+                [
+                    129,
+                    1222,
+                    272
+                ],
+                [
+                    220,
+                    1271,
+                    460
+                ]
+            ]
+        },
+        {
+            "model": "Random Forest",
+            "accuracy_percent": 35.89,
+            "balanced_accuracy_percent": 37.14,
+            "macro_f1_percent": 35.1,
+            "class_metrics": {
+                "BEARISH": {
+                    "precision_percent": 41.23,
+                    "recall_percent": 27.4,
+                    "f1_percent": 32.92,
+                    "support": 1931
+                },
+                "NEUTRAL": {
+                    "precision_percent": 33.36,
+                    "recall_percent": 58.6,
+                    "f1_percent": 42.51,
+                    "support": 1623
+                },
+                "BULLISH": {
+                    "precision_percent": 36.18,
+                    "recall_percent": 25.42,
+                    "f1_percent": 29.86,
+                    "support": 1951
+                }
+            },
+            "confusion_matrix": [
+                [
+                    529,
+                    884,
+                    518
+                ],
+                [
+                    315,
+                    951,
+                    357
+                ],
+                [
+                    439,
+                    1016,
+                    496
+                ]
+            ]
+        },
+        {
+            "model": "Gradient Boosting",
+            "accuracy_percent": 35.62,
+            "balanced_accuracy_percent": 37.06,
+            "macro_f1_percent": 34.45,
+            "class_metrics": {
+                "BEARISH": {
+                    "precision_percent": 39.94,
+                    "recall_percent": 26.1,
+                    "f1_percent": 31.57,
+                    "support": 1931
+                },
+                "NEUTRAL": {
+                    "precision_percent": 33.16,
+                    "recall_percent": 61.86,
+                    "f1_percent": 43.17,
+                    "support": 1623
+                },
+                "BULLISH": {
+                    "precision_percent": 37.28,
+                    "recall_percent": 23.22,
+                    "f1_percent": 28.62,
+                    "support": 1951
+                }
+            },
+            "confusion_matrix": [
+                [
+                    504,
+                    982,
+                    445
+                ],
+                [
+                    302,
+                    1004,
+                    317
+                ],
+                [
+                    456,
+                    1042,
+                    453
+                ]
+            ]
+        }
+    ],
+    "v6_bilstm": {
+        "model": "Universal V6 BiLSTM",
+        "accuracy_percent": 33.73,
+        "balanced_accuracy_percent": 35.52,
+        "macro_f1_percent": 31.36
+    },
+    "best_classical_model": "Random Forest"
+}

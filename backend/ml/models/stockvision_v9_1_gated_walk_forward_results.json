@@ -1,0 +1,3868 @@
+{
+    "experiment": "StockVision V9.1 Validation-Gated Walk-Forward",
+    "method": "Validation-only group gating with purged walk-forward",
+    "target": "5-day stock excess return vs NIFTY 50",
+    "target_horizon_days": 5,
+    "gate_margin_macro_f1_pp": 0.5,
+    "gate_groups": [
+        "BANKING",
+        "IT",
+        "OTHER"
+    ],
+    "symbol_group_mapping": {
+        "HDFCBANK.NS": "BANKING",
+        "ICICIBANK.NS": "BANKING",
+        "AXISBANK.NS": "BANKING",
+        "SBIN.NS": "BANKING",
+        "KOTAKBANK.NS": "BANKING",
+        "TCS.NS": "IT",
+        "INFY.NS": "IT",
+        "WIPRO.NS": "IT",
+        "HCLTECH.NS": "IT",
+        "RELIANCE.NS": "OTHER",
+        "ITC.NS": "OTHER",
+        "LT.NS": "OTHER",
+        "BHARTIARTL.NS": "OTHER",
+        "MARUTI.NS": "OTHER",
+        "SUNPHARMA.NS": "OTHER"
+    },
+    "feature_count": 29,
+    "folds": [
+        {
+            "validation_year": 2021,
+            "test_year": 2022,
+            "selected_model": "Random Forest",
+            "selection_train_last_date": "2020-12-23",
+            "validation_start": "2021-01-01",
+            "validation_last_date": "2021-12-24",
+            "test_start": "2022-01-03",
+            "global_validation_results": {
+                "Logistic Regression": {
+                    "samples": 3645,
+                    "accuracy_percent": 36.02,
+                    "balanced_accuracy_percent": 36.68,
+                    "macro_f1_percent": 34.58,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 44.84,
+                            "recall_percent": 33.28,
+                            "f1_percent": 38.21,
+                            "support": 1358
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 33.16,
+                            "recall_percent": 58.22,
+                            "f1_percent": 42.25,
+                            "support": 1101
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 31.25,
+                            "recall_percent": 18.55,
+                            "f1_percent": 23.28,
+                            "support": 1186
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            452,
+                            632,
+                            274
+                        ],
+                        [
+                            250,
+                            641,
+                            210
+                        ],
+                        [
+                            306,
+                            660,
+                            220
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "samples": 3645,
+                    "accuracy_percent": 37.75,
+                    "balanced_accuracy_percent": 37.42,
+                    "macro_f1_percent": 37.4,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 43.63,
+                            "recall_percent": 43.59,
+                            "f1_percent": 43.61,
+                            "support": 1358
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.99,
+                            "recall_percent": 35.88,
+                            "f1_percent": 35.43,
+                            "support": 1101
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 33.56,
+                            "recall_percent": 32.8,
+                            "f1_percent": 33.18,
+                            "support": 1186
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            592,
+                            343,
+                            423
+                        ],
+                        [
+                            359,
+                            395,
+                            347
+                        ],
+                        [
+                            406,
+                            391,
+                            389
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "samples": 3645,
+                    "accuracy_percent": 35.88,
+                    "balanced_accuracy_percent": 35.58,
+                    "macro_f1_percent": 35.57,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 42.17,
+                            "recall_percent": 39.25,
+                            "f1_percent": 40.66,
+                            "support": 1358
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 32.01,
+                            "recall_percent": 30.06,
+                            "f1_percent": 31.01,
+                            "support": 1101
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 32.96,
+                            "recall_percent": 37.44,
+                            "f1_percent": 35.06,
+                            "support": 1186
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            533,
+                            344,
+                            481
+                        ],
+                        [
+                            348,
+                            331,
+                            422
+                        ],
+                        [
+                            383,
+                            359,
+                            444
+                        ]
+                    ]
+                }
+            },
+            "gate_decisions": {
+                "BANKING": {
+                    "action": "MOMENTUM",
+                    "validation_rows": 1215,
+                    "model_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 35.97,
+                        "balanced_accuracy_percent": 35.19,
+                        "macro_f1_percent": 35.2,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 44.03,
+                                "recall_percent": 41.09,
+                                "f1_percent": 42.51,
+                                "support": 494
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 34.96,
+                                "recall_percent": 35.23,
+                                "f1_percent": 35.1,
+                                "support": 386
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 26.85,
+                                "recall_percent": 29.25,
+                                "f1_percent": 28.0,
+                                "support": 335
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                203,
+                                142,
+                                149
+                            ],
+                            [
+                                132,
+                                136,
+                                118
+                            ],
+                            [
+                                126,
+                                111,
+                                98
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 36.87,
+                        "balanced_accuracy_percent": 35.99,
+                        "macro_f1_percent": 35.99,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 43.35,
+                                "recall_percent": 42.91,
+                                "f1_percent": 43.13,
+                                "support": 494
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 35.68,
+                                "recall_percent": 35.49,
+                                "f1_percent": 35.58,
+                                "support": 386
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 28.95,
+                                "recall_percent": 29.55,
+                                "f1_percent": 29.25,
+                                "support": 335
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                212,
+                                133,
+                                149
+                            ],
+                            [
+                                155,
+                                137,
+                                94
+                            ],
+                            [
+                                122,
+                                114,
+                                99
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 40.66,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 19.27,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 40.66,
+                                "recall_percent": 100.0,
+                                "f1_percent": 57.81,
+                                "support": 494
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 386
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 335
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                494,
+                                0,
+                                0
+                            ],
+                            [
+                                386,
+                                0,
+                                0
+                            ],
+                            [
+                                335,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 35.2,
+                    "best_baseline_macro_f1": 35.99,
+                    "reason": "ML did not beat best validation baseline by required margin"
+                },
+                "IT": {
+                    "action": "MODEL",
+                    "validation_rows": 972,
+                    "model_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 41.26,
+                        "balanced_accuracy_percent": 41.56,
+                        "macro_f1_percent": 41.26,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 40.68,
+                                "recall_percent": 44.41,
+                                "f1_percent": 42.46,
+                                "support": 295
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 38.11,
+                                "recall_percent": 42.23,
+                                "f1_percent": 40.06,
+                                "support": 296
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 45.03,
+                                "recall_percent": 38.06,
+                                "f1_percent": 41.25,
+                                "support": 381
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                131,
+                                78,
+                                86
+                            ],
+                            [
+                                80,
+                                125,
+                                91
+                            ],
+                            [
+                                111,
+                                125,
+                                145
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 35.6,
+                        "balanced_accuracy_percent": 35.01,
+                        "macro_f1_percent": 35.0,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 32.09,
+                                "recall_percent": 32.2,
+                                "f1_percent": 32.15,
+                                "support": 295
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 31.4,
+                                "recall_percent": 31.08,
+                                "f1_percent": 31.24,
+                                "support": 296
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 41.51,
+                                "recall_percent": 41.73,
+                                "f1_percent": 41.62,
+                                "support": 381
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                95,
+                                79,
+                                121
+                            ],
+                            [
+                                101,
+                                92,
+                                103
+                            ],
+                            [
+                                100,
+                                122,
+                                159
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 30.35,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 15.52,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 30.35,
+                                "recall_percent": 100.0,
+                                "f1_percent": 46.57,
+                                "support": 295
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 296
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 381
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                295,
+                                0,
+                                0
+                            ],
+                            [
+                                296,
+                                0,
+                                0
+                            ],
+                            [
+                                381,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 41.26,
+                    "best_baseline_macro_f1": 35.0,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                },
+                "OTHER": {
+                    "action": "MODEL",
+                    "validation_rows": 1458,
+                    "model_metrics": {
+                        "samples": 1458,
+                        "accuracy_percent": 36.9,
+                        "balanced_accuracy_percent": 36.13,
+                        "macro_f1_percent": 36.13,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 44.95,
+                                "recall_percent": 45.34,
+                                "f1_percent": 45.14,
+                                "support": 569
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 32.52,
+                                "recall_percent": 31.98,
+                                "f1_percent": 32.25,
+                                "support": 419
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 30.93,
+                                "recall_percent": 31.06,
+                                "f1_percent": 31.0,
+                                "support": 470
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                258,
+                                123,
+                                188
+                            ],
+                            [
+                                147,
+                                134,
+                                138
+                            ],
+                            [
+                                169,
+                                155,
+                                146
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1458,
+                        "accuracy_percent": 33.47,
+                        "balanced_accuracy_percent": 33.13,
+                        "macro_f1_percent": 33.13,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 36.08,
+                                "recall_percent": 36.2,
+                                "f1_percent": 36.14,
+                                "support": 569
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 29.36,
+                                "recall_percent": 29.36,
+                                "f1_percent": 29.36,
+                                "support": 419
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 33.97,
+                                "recall_percent": 33.83,
+                                "f1_percent": 33.9,
+                                "support": 470
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                206,
+                                167,
+                                196
+                            ],
+                            [
+                                183,
+                                123,
+                                113
+                            ],
+                            [
+                                182,
+                                129,
+                                159
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1458,
+                        "accuracy_percent": 39.03,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 18.71,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 39.03,
+                                "recall_percent": 100.0,
+                                "f1_percent": 56.14,
+                                "support": 569
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 419
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 470
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                569,
+                                0,
+                                0
+                            ],
+                            [
+                                419,
+                                0,
+                                0
+                            ],
+                            [
+                                470,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 36.13,
+                    "best_baseline_macro_f1": 33.13,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                }
+            },
+            "test_metrics": {
+                "majority": {
+                    "samples": 3720,
+                    "accuracy_percent": 32.85,
+                    "balanced_accuracy_percent": 33.33,
+                    "macro_f1_percent": 16.48,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 32.85,
+                            "recall_percent": 100.0,
+                            "f1_percent": 49.45,
+                            "support": 1222
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1230
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1268
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            1222,
+                            0,
+                            0
+                        ],
+                        [
+                            1230,
+                            0,
+                            0
+                        ],
+                        [
+                            1268,
+                            0,
+                            0
+                        ]
+                    ]
+                },
+                "momentum": {
+                    "samples": 3720,
+                    "accuracy_percent": 32.42,
+                    "balanced_accuracy_percent": 32.43,
+                    "macro_f1_percent": 32.44,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 31.8,
+                            "recall_percent": 32.16,
+                            "f1_percent": 31.98,
+                            "support": 1222
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.79,
+                            "recall_percent": 34.23,
+                            "f1_percent": 34.51,
+                            "support": 1230
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 30.77,
+                            "recall_percent": 30.91,
+                            "f1_percent": 30.84,
+                            "support": 1268
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            393,
+                            359,
+                            470
+                        ],
+                        [
+                            397,
+                            421,
+                            412
+                        ],
+                        [
+                            446,
+                            430,
+                            392
+                        ]
+                    ]
+                },
+                "ungated_v9": {
+                    "samples": 3720,
+                    "accuracy_percent": 36.48,
+                    "balanced_accuracy_percent": 36.43,
+                    "macro_f1_percent": 36.37,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 35.97,
+                            "recall_percent": 31.59,
+                            "f1_percent": 33.64,
+                            "support": 1222
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 37.13,
+                            "recall_percent": 37.89,
+                            "f1_percent": 37.51,
+                            "support": 1230
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 36.28,
+                            "recall_percent": 39.83,
+                            "f1_percent": 37.97,
+                            "support": 1268
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            386,
+                            383,
+                            453
+                        ],
+                        [
+                            330,
+                            466,
+                            434
+                        ],
+                        [
+                            357,
+                            406,
+                            505
+                        ]
+                    ]
+                },
+                "gated_v9_1": {
+                    "samples": 3720,
+                    "accuracy_percent": 33.41,
+                    "balanced_accuracy_percent": 33.35,
+                    "macro_f1_percent": 33.25,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 31.63,
+                            "recall_percent": 27.33,
+                            "f1_percent": 29.32,
+                            "support": 1222
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 35.23,
+                            "recall_percent": 34.72,
+                            "f1_percent": 34.97,
+                            "support": 1230
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 33.2,
+                            "recall_percent": 38.01,
+                            "f1_percent": 35.44,
+                            "support": 1268
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            334,
+                            378,
+                            510
+                        ],
+                        [
+                            343,
+                            427,
+                            460
+                        ],
+                        [
+                            379,
+                            407,
+                            482
+                        ]
+                    ]
+                }
+            },
+            "gate_usage": {
+                "MODEL": 2480,
+                "MOMENTUM": 1240
+            }
+        },
+        {
+            "validation_year": 2022,
+            "test_year": 2023,
+            "selected_model": "Random Forest",
+            "selection_train_last_date": "2021-12-24",
+            "validation_start": "2022-01-03",
+            "validation_last_date": "2022-12-23",
+            "test_start": "2023-01-02",
+            "global_validation_results": {
+                "Logistic Regression": {
+                    "samples": 3645,
+                    "accuracy_percent": 36.43,
+                    "balanced_accuracy_percent": 36.62,
+                    "macro_f1_percent": 34.22,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 36.93,
+                            "recall_percent": 17.54,
+                            "f1_percent": 23.78,
+                            "support": 1209
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 35.41,
+                            "recall_percent": 62.13,
+                            "f1_percent": 45.11,
+                            "support": 1191
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 38.33,
+                            "recall_percent": 30.2,
+                            "f1_percent": 33.78,
+                            "support": 1245
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            212,
+                            679,
+                            318
+                        ],
+                        [
+                            164,
+                            740,
+                            287
+                        ],
+                        [
+                            198,
+                            671,
+                            376
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "samples": 3645,
+                    "accuracy_percent": 36.27,
+                    "balanced_accuracy_percent": 36.23,
+                    "macro_f1_percent": 36.16,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 35.98,
+                            "recall_percent": 31.84,
+                            "f1_percent": 33.79,
+                            "support": 1209
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 36.42,
+                            "recall_percent": 36.27,
+                            "f1_percent": 36.35,
+                            "support": 1191
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 36.36,
+                            "recall_percent": 40.56,
+                            "f1_percent": 38.34,
+                            "support": 1245
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            385,
+                            371,
+                            453
+                        ],
+                        [
+                            328,
+                            432,
+                            431
+                        ],
+                        [
+                            357,
+                            383,
+                            505
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "samples": 3645,
+                    "accuracy_percent": 35.61,
+                    "balanced_accuracy_percent": 35.53,
+                    "macro_f1_percent": 35.43,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 35.15,
+                            "recall_percent": 34.66,
+                            "f1_percent": 34.9,
+                            "support": 1209
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 36.26,
+                            "recall_percent": 30.48,
+                            "f1_percent": 33.12,
+                            "support": 1191
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 35.54,
+                            "recall_percent": 41.45,
+                            "f1_percent": 38.26,
+                            "support": 1245
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            419,
+                            324,
+                            466
+                        ],
+                        [
+                            358,
+                            363,
+                            470
+                        ],
+                        [
+                            415,
+                            314,
+                            516
+                        ]
+                    ]
+                }
+            },
+            "gate_decisions": {
+                "BANKING": {
+                    "action": "MODEL",
+                    "validation_rows": 1215,
+                    "model_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 39.92,
+                        "balanced_accuracy_percent": 39.99,
+                        "macro_f1_percent": 39.9,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 39.24,
+                                "recall_percent": 40.91,
+                                "f1_percent": 40.06,
+                                "support": 352
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 37.62,
+                                "recall_percent": 39.85,
+                                "f1_percent": 38.7,
+                                "support": 404
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 42.86,
+                                "recall_percent": 39.22,
+                                "f1_percent": 40.96,
+                                "support": 459
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                144,
+                                103,
+                                105
+                            ],
+                            [
+                                108,
+                                161,
+                                135
+                            ],
+                            [
+                                115,
+                                164,
+                                180
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 30.62,
+                        "balanced_accuracy_percent": 30.29,
+                        "macro_f1_percent": 30.3,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 26.21,
+                                "recall_percent": 26.14,
+                                "f1_percent": 26.17,
+                                "support": 352
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 31.9,
+                                "recall_percent": 31.19,
+                                "f1_percent": 31.54,
+                                "support": 404
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 32.84,
+                                "recall_percent": 33.55,
+                                "f1_percent": 33.19,
+                                "support": 459
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                92,
+                                101,
+                                159
+                            ],
+                            [
+                                122,
+                                126,
+                                156
+                            ],
+                            [
+                                137,
+                                168,
+                                154
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 28.97,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 14.98,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 28.97,
+                                "recall_percent": 100.0,
+                                "f1_percent": 44.93,
+                                "support": 352
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 404
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 459
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                352,
+                                0,
+                                0
+                            ],
+                            [
+                                404,
+                                0,
+                                0
+                            ],
+                            [
+                                459,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 39.9,
+                    "best_baseline_macro_f1": 30.3,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                },
+                "IT": {
+                    "action": "MOMENTUM",
+                    "validation_rows": 972,
+                    "model_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 29.94,
+                        "balanced_accuracy_percent": 32.25,
+                        "macro_f1_percent": 29.51,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 28.84,
+                                "recall_percent": 16.15,
+                                "f1_percent": 20.7,
+                                "support": 384
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 35.74,
+                                "recall_percent": 29.82,
+                                "f1_percent": 32.51,
+                                "support": 332
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 27.08,
+                                "recall_percent": 50.78,
+                                "f1_percent": 35.33,
+                                "support": 256
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                62,
+                                117,
+                                205
+                            ],
+                            [
+                                88,
+                                99,
+                                145
+                            ],
+                            [
+                                65,
+                                61,
+                                130
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 37.96,
+                        "balanced_accuracy_percent": 36.68,
+                        "macro_f1_percent": 36.67,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 43.83,
+                                "recall_percent": 45.31,
+                                "f1_percent": 44.56,
+                                "support": 384
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 39.51,
+                                "recall_percent": 38.55,
+                                "f1_percent": 39.02,
+                                "support": 332
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 26.69,
+                                "recall_percent": 26.17,
+                                "f1_percent": 26.43,
+                                "support": 256
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                174,
+                                120,
+                                90
+                            ],
+                            [
+                                110,
+                                128,
+                                94
+                            ],
+                            [
+                                113,
+                                76,
+                                67
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 39.51,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 18.88,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 39.51,
+                                "recall_percent": 100.0,
+                                "f1_percent": 56.64,
+                                "support": 384
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 332
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 256
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                384,
+                                0,
+                                0
+                            ],
+                            [
+                                332,
+                                0,
+                                0
+                            ],
+                            [
+                                256,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 29.51,
+                    "best_baseline_macro_f1": 36.67,
+                    "reason": "ML did not beat best validation baseline by required margin"
+                },
+                "OTHER": {
+                    "action": "MODEL",
+                    "validation_rows": 1458,
+                    "model_metrics": {
+                        "samples": 1458,
+                        "accuracy_percent": 37.45,
+                        "balanced_accuracy_percent": 37.48,
+                        "macro_f1_percent": 37.43,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 36.68,
+                                "recall_percent": 37.84,
+                                "f1_percent": 37.25,
+                                "support": 473
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 35.76,
+                                "recall_percent": 37.8,
+                                "f1_percent": 36.75,
+                                "support": 455
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 39.88,
+                                "recall_percent": 36.79,
+                                "f1_percent": 38.27,
+                                "support": 530
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                179,
+                                151,
+                                143
+                            ],
+                            [
+                                132,
+                                172,
+                                151
+                            ],
+                            [
+                                177,
+                                158,
+                                195
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1458,
+                        "accuracy_percent": 30.18,
+                        "balanced_accuracy_percent": 30.16,
+                        "macro_f1_percent": 30.18,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 26.42,
+                                "recall_percent": 26.64,
+                                "f1_percent": 26.53,
+                                "support": 473
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 32.96,
+                                "recall_percent": 32.53,
+                                "f1_percent": 32.74,
+                                "support": 455
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 31.2,
+                                "recall_percent": 31.32,
+                                "f1_percent": 31.26,
+                                "support": 530
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                126,
+                                131,
+                                216
+                            ],
+                            [
+                                157,
+                                148,
+                                150
+                            ],
+                            [
+                                194,
+                                170,
+                                166
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1458,
+                        "accuracy_percent": 32.44,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 16.33,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 32.44,
+                                "recall_percent": 100.0,
+                                "f1_percent": 48.99,
+                                "support": 473
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 455
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 530
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                473,
+                                0,
+                                0
+                            ],
+                            [
+                                455,
+                                0,
+                                0
+                            ],
+                            [
+                                530,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 37.43,
+                    "best_baseline_macro_f1": 30.18,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                }
+            },
+            "test_metrics": {
+                "majority": {
+                    "samples": 3675,
+                    "accuracy_percent": 30.8,
+                    "balanced_accuracy_percent": 33.33,
+                    "macro_f1_percent": 15.7,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 30.8,
+                            "recall_percent": 100.0,
+                            "f1_percent": 47.1,
+                            "support": 1132
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1449
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1094
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            1132,
+                            0,
+                            0
+                        ],
+                        [
+                            1449,
+                            0,
+                            0
+                        ],
+                        [
+                            1094,
+                            0,
+                            0
+                        ]
+                    ]
+                },
+                "momentum": {
+                    "samples": 3675,
+                    "accuracy_percent": 33.14,
+                    "balanced_accuracy_percent": 32.52,
+                    "macro_f1_percent": 32.52,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 28.76,
+                            "recall_percent": 28.18,
+                            "f1_percent": 28.47,
+                            "support": 1132
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 39.0,
+                            "recall_percent": 39.41,
+                            "f1_percent": 39.2,
+                            "support": 1449
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 29.76,
+                            "recall_percent": 29.98,
+                            "f1_percent": 29.87,
+                            "support": 1094
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            319,
+                            460,
+                            353
+                        ],
+                        [
+                            457,
+                            571,
+                            421
+                        ],
+                        [
+                            333,
+                            433,
+                            328
+                        ]
+                    ]
+                },
+                "ungated_v9": {
+                    "samples": 3675,
+                    "accuracy_percent": 38.75,
+                    "balanced_accuracy_percent": 35.04,
+                    "macro_f1_percent": 30.24,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 37.86,
+                            "recall_percent": 6.89,
+                            "f1_percent": 11.66,
+                            "support": 1132
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 40.09,
+                            "recall_percent": 76.47,
+                            "f1_percent": 52.6,
+                            "support": 1449
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 33.76,
+                            "recall_percent": 21.76,
+                            "f1_percent": 26.46,
+                            "support": 1094
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            78,
+                            859,
+                            195
+                        ],
+                        [
+                            69,
+                            1108,
+                            272
+                        ],
+                        [
+                            59,
+                            797,
+                            238
+                        ]
+                    ]
+                },
+                "gated_v9_1": {
+                    "samples": 3675,
+                    "accuracy_percent": 37.63,
+                    "balanced_accuracy_percent": 34.74,
+                    "macro_f1_percent": 32.11,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 30.77,
+                            "recall_percent": 12.01,
+                            "f1_percent": 17.28,
+                            "support": 1132
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 40.42,
+                            "recall_percent": 67.08,
+                            "f1_percent": 50.44,
+                            "support": 1449
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 33.21,
+                            "recall_percent": 25.14,
+                            "f1_percent": 28.62,
+                            "support": 1094
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            136,
+                            755,
+                            241
+                        ],
+                        [
+                            165,
+                            972,
+                            312
+                        ],
+                        [
+                            141,
+                            678,
+                            275
+                        ]
+                    ]
+                }
+            },
+            "gate_usage": {
+                "MODEL": 2695,
+                "MOMENTUM": 980
+            }
+        },
+        {
+            "validation_year": 2023,
+            "test_year": 2024,
+            "selected_model": "Hist Gradient Boosting",
+            "selection_train_last_date": "2022-12-23",
+            "validation_start": "2023-01-02",
+            "validation_last_date": "2023-12-21",
+            "test_start": "2024-01-01",
+            "global_validation_results": {
+                "Logistic Regression": {
+                    "samples": 3600,
+                    "accuracy_percent": 39.69,
+                    "balanced_accuracy_percent": 34.75,
+                    "macro_f1_percent": 26.84,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 29.91,
+                            "recall_percent": 2.92,
+                            "f1_percent": 5.32,
+                            "support": 1096
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 40.6,
+                            "recall_percent": 87.72,
+                            "f1_percent": 55.51,
+                            "support": 1425
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 35.51,
+                            "recall_percent": 13.62,
+                            "f1_percent": 19.69,
+                            "support": 1079
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            32,
+                            936,
+                            128
+                        ],
+                        [
+                            36,
+                            1250,
+                            139
+                        ],
+                        [
+                            39,
+                            893,
+                            147
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "samples": 3600,
+                    "accuracy_percent": 38.83,
+                    "balanced_accuracy_percent": 34.91,
+                    "macro_f1_percent": 29.89,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 36.81,
+                            "recall_percent": 6.11,
+                            "f1_percent": 10.49,
+                            "support": 1096
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 40.17,
+                            "recall_percent": 77.12,
+                            "f1_percent": 52.82,
+                            "support": 1425
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 34.02,
+                            "recall_percent": 21.5,
+                            "f1_percent": 26.35,
+                            "support": 1079
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            67,
+                            846,
+                            183
+                        ],
+                        [
+                            59,
+                            1099,
+                            267
+                        ],
+                        [
+                            56,
+                            791,
+                            232
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "samples": 3600,
+                    "accuracy_percent": 37.33,
+                    "balanced_accuracy_percent": 35.27,
+                    "macro_f1_percent": 34.11,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 32.47,
+                            "recall_percent": 17.24,
+                            "f1_percent": 22.53,
+                            "support": 1096
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.13,
+                            "recall_percent": 57.61,
+                            "f1_percent": 48.0,
+                            "support": 1425
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 32.68,
+                            "recall_percent": 30.95,
+                            "f1_percent": 31.79,
+                            "support": 1079
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            189,
+                            603,
+                            304
+                        ],
+                        [
+                            220,
+                            821,
+                            384
+                        ],
+                        [
+                            173,
+                            572,
+                            334
+                        ]
+                    ]
+                }
+            },
+            "gate_decisions": {
+                "BANKING": {
+                    "action": "MOMENTUM",
+                    "validation_rows": 1200,
+                    "model_metrics": {
+                        "samples": 1200,
+                        "accuracy_percent": 36.42,
+                        "balanced_accuracy_percent": 33.97,
+                        "macro_f1_percent": 31.92,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 32.89,
+                                "recall_percent": 12.63,
+                                "f1_percent": 18.25,
+                                "support": 396
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 43.43,
+                                "recall_percent": 57.87,
+                                "f1_percent": 49.62,
+                                "support": 508
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 25.07,
+                                "recall_percent": 31.42,
+                                "f1_percent": 27.89,
+                                "support": 296
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                50,
+                                219,
+                                127
+                            ],
+                            [
+                                63,
+                                294,
+                                151
+                            ],
+                            [
+                                39,
+                                164,
+                                93
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1200,
+                        "accuracy_percent": 34.5,
+                        "balanced_accuracy_percent": 32.96,
+                        "macro_f1_percent": 32.95,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 31.17,
+                                "recall_percent": 30.3,
+                                "f1_percent": 30.73,
+                                "support": 396
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 42.08,
+                                "recall_percent": 42.91,
+                                "f1_percent": 42.5,
+                                "support": 508
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 25.59,
+                                "recall_percent": 25.68,
+                                "f1_percent": 25.63,
+                                "support": 296
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                120,
+                                176,
+                                100
+                            ],
+                            [
+                                169,
+                                218,
+                                121
+                            ],
+                            [
+                                96,
+                                124,
+                                76
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1200,
+                        "accuracy_percent": 33.0,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 16.54,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 33.0,
+                                "recall_percent": 100.0,
+                                "f1_percent": 49.62,
+                                "support": 396
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 508
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 296
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                396,
+                                0,
+                                0
+                            ],
+                            [
+                                508,
+                                0,
+                                0
+                            ],
+                            [
+                                296,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 31.92,
+                    "best_baseline_macro_f1": 32.95,
+                    "reason": "ML did not beat best validation baseline by required margin"
+                },
+                "IT": {
+                    "action": "MODEL",
+                    "validation_rows": 960,
+                    "model_metrics": {
+                        "samples": 960,
+                        "accuracy_percent": 36.67,
+                        "balanced_accuracy_percent": 35.83,
+                        "macro_f1_percent": 34.62,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 33.15,
+                                "recall_percent": 20.27,
+                                "f1_percent": 25.15,
+                                "support": 301
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 38.24,
+                                "recall_percent": 56.85,
+                                "f1_percent": 45.72,
+                                "support": 343
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 36.09,
+                                "recall_percent": 30.38,
+                                "f1_percent": 32.99,
+                                "support": 316
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                61,
+                                155,
+                                85
+                            ],
+                            [
+                                63,
+                                195,
+                                85
+                            ],
+                            [
+                                60,
+                                160,
+                                96
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 960,
+                        "accuracy_percent": 31.77,
+                        "balanced_accuracy_percent": 31.59,
+                        "macro_f1_percent": 31.58,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 26.87,
+                                "recall_percent": 26.25,
+                                "f1_percent": 26.55,
+                                "support": 301
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 34.38,
+                                "recall_percent": 34.99,
+                                "f1_percent": 34.68,
+                                "support": 343
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 33.44,
+                                "recall_percent": 33.54,
+                                "f1_percent": 33.49,
+                                "support": 316
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                79,
+                                125,
+                                97
+                            ],
+                            [
+                                109,
+                                120,
+                                114
+                            ],
+                            [
+                                106,
+                                104,
+                                106
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 960,
+                        "accuracy_percent": 31.35,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 15.91,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 31.35,
+                                "recall_percent": 100.0,
+                                "f1_percent": 47.74,
+                                "support": 301
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 343
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 316
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                301,
+                                0,
+                                0
+                            ],
+                            [
+                                343,
+                                0,
+                                0
+                            ],
+                            [
+                                316,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 34.62,
+                    "best_baseline_macro_f1": 31.58,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                },
+                "OTHER": {
+                    "action": "MODEL",
+                    "validation_rows": 1440,
+                    "model_metrics": {
+                        "samples": 1440,
+                        "accuracy_percent": 38.54,
+                        "balanced_accuracy_percent": 36.15,
+                        "macro_f1_percent": 35.41,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 31.71,
+                                "recall_percent": 19.55,
+                                "f1_percent": 24.19,
+                                "support": 399
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 41.04,
+                                "recall_percent": 57.84,
+                                "f1_percent": 48.01,
+                                "support": 574
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 37.66,
+                                "recall_percent": 31.05,
+                                "f1_percent": 34.04,
+                                "support": 467
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                78,
+                                229,
+                                92
+                            ],
+                            [
+                                94,
+                                332,
+                                148
+                            ],
+                            [
+                                74,
+                                248,
+                                145
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1440,
+                        "accuracy_percent": 32.85,
+                        "balanced_accuracy_percent": 32.06,
+                        "macro_f1_percent": 32.06,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 26.24,
+                                "recall_percent": 26.57,
+                                "f1_percent": 26.4,
+                                "support": 399
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 39.75,
+                                "recall_percent": 39.2,
+                                "f1_percent": 39.47,
+                                "support": 574
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 30.21,
+                                "recall_percent": 30.41,
+                                "f1_percent": 30.31,
+                                "support": 467
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                106,
+                                145,
+                                148
+                            ],
+                            [
+                                169,
+                                225,
+                                180
+                            ],
+                            [
+                                129,
+                                196,
+                                142
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1440,
+                        "accuracy_percent": 27.71,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 14.46,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 27.71,
+                                "recall_percent": 100.0,
+                                "f1_percent": 43.39,
+                                "support": 399
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 574
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 467
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                399,
+                                0,
+                                0
+                            ],
+                            [
+                                574,
+                                0,
+                                0
+                            ],
+                            [
+                                467,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 35.41,
+                    "best_baseline_macro_f1": 32.06,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                }
+            },
+            "test_metrics": {
+                "majority": {
+                    "samples": 3690,
+                    "accuracy_percent": 33.17,
+                    "balanced_accuracy_percent": 33.33,
+                    "macro_f1_percent": 16.61,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.17,
+                            "recall_percent": 100.0,
+                            "f1_percent": 49.82,
+                            "support": 1224
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1219
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1247
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            1224,
+                            0,
+                            0
+                        ],
+                        [
+                            1219,
+                            0,
+                            0
+                        ],
+                        [
+                            1247,
+                            0,
+                            0
+                        ]
+                    ]
+                },
+                "momentum": {
+                    "samples": 3690,
+                    "accuracy_percent": 33.58,
+                    "balanced_accuracy_percent": 33.58,
+                    "macro_f1_percent": 33.59,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 31.98,
+                            "recall_percent": 32.11,
+                            "f1_percent": 32.04,
+                            "support": 1224
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 35.74,
+                            "recall_percent": 35.68,
+                            "f1_percent": 35.71,
+                            "support": 1219
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 33.04,
+                            "recall_percent": 32.96,
+                            "f1_percent": 33.0,
+                            "support": 1247
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            393,
+                            376,
+                            455
+                        ],
+                        [
+                            406,
+                            435,
+                            378
+                        ],
+                        [
+                            430,
+                            406,
+                            411
+                        ]
+                    ]
+                },
+                "ungated_v9": {
+                    "samples": 3690,
+                    "accuracy_percent": 34.5,
+                    "balanced_accuracy_percent": 34.48,
+                    "macro_f1_percent": 34.42,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 34.06,
+                            "recall_percent": 30.47,
+                            "f1_percent": 32.17,
+                            "support": 1224
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.24,
+                            "recall_percent": 35.27,
+                            "f1_percent": 34.75,
+                            "support": 1219
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 35.1,
+                            "recall_percent": 37.69,
+                            "f1_percent": 36.35,
+                            "support": 1247
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            373,
+                            410,
+                            441
+                        ],
+                        [
+                            361,
+                            430,
+                            428
+                        ],
+                        [
+                            361,
+                            416,
+                            470
+                        ]
+                    ]
+                },
+                "gated_v9_1": {
+                    "samples": 3690,
+                    "accuracy_percent": 33.98,
+                    "balanced_accuracy_percent": 33.99,
+                    "macro_f1_percent": 33.98,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.86,
+                            "recall_percent": 33.25,
+                            "f1_percent": 33.55,
+                            "support": 1224
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.14,
+                            "recall_percent": 34.78,
+                            "f1_percent": 34.46,
+                            "support": 1219
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 33.95,
+                            "recall_percent": 33.92,
+                            "f1_percent": 33.94,
+                            "support": 1247
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            407,
+                            397,
+                            420
+                        ],
+                        [
+                            392,
+                            424,
+                            403
+                        ],
+                        [
+                            403,
+                            421,
+                            423
+                        ]
+                    ]
+                }
+            },
+            "gate_usage": {
+                "MODEL": 2460,
+                "MOMENTUM": 1230
+            }
+        },
+        {
+            "validation_year": 2024,
+            "test_year": 2025,
+            "selected_model": "Hist Gradient Boosting",
+            "selection_train_last_date": "2023-12-21",
+            "validation_start": "2024-01-01",
+            "validation_last_date": "2024-12-23",
+            "test_start": "2025-01-01",
+            "global_validation_results": {
+                "Logistic Regression": {
+                    "samples": 3615,
+                    "accuracy_percent": 33.58,
+                    "balanced_accuracy_percent": 33.73,
+                    "macro_f1_percent": 31.65,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 36.35,
+                            "recall_percent": 24.22,
+                            "f1_percent": 29.07,
+                            "support": 1193
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 33.27,
+                            "recall_percent": 58.17,
+                            "f1_percent": 42.33,
+                            "support": 1193
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 31.47,
+                            "recall_percent": 18.8,
+                            "f1_percent": 23.54,
+                            "support": 1229
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            289,
+                            662,
+                            242
+                        ],
+                        [
+                            238,
+                            694,
+                            261
+                        ],
+                        [
+                            268,
+                            730,
+                            231
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "samples": 3615,
+                    "accuracy_percent": 34.02,
+                    "balanced_accuracy_percent": 34.03,
+                    "macro_f1_percent": 33.78,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 32.59,
+                            "recall_percent": 26.99,
+                            "f1_percent": 29.53,
+                            "support": 1193
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.27,
+                            "recall_percent": 41.07,
+                            "f1_percent": 37.36,
+                            "support": 1193
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 34.92,
+                            "recall_percent": 34.01,
+                            "f1_percent": 34.46,
+                            "support": 1229
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            322,
+                            471,
+                            400
+                        ],
+                        [
+                            324,
+                            490,
+                            379
+                        ],
+                        [
+                            342,
+                            469,
+                            418
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "samples": 3615,
+                    "accuracy_percent": 34.5,
+                    "balanced_accuracy_percent": 34.46,
+                    "macro_f1_percent": 34.41,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.89,
+                            "recall_percent": 30.76,
+                            "f1_percent": 32.25,
+                            "support": 1193
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.28,
+                            "recall_percent": 34.45,
+                            "f1_percent": 34.36,
+                            "support": 1193
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 35.18,
+                            "recall_percent": 38.16,
+                            "f1_percent": 36.61,
+                            "support": 1229
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            367,
+                            387,
+                            439
+                        ],
+                        [
+                            357,
+                            411,
+                            425
+                        ],
+                        [
+                            359,
+                            401,
+                            469
+                        ]
+                    ]
+                }
+            },
+            "gate_decisions": {
+                "BANKING": {
+                    "action": "MODEL",
+                    "validation_rows": 1205,
+                    "model_metrics": {
+                        "samples": 1205,
+                        "accuracy_percent": 34.61,
+                        "balanced_accuracy_percent": 34.52,
+                        "macro_f1_percent": 33.95,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 30.0,
+                                "recall_percent": 22.6,
+                                "f1_percent": 25.78,
+                                "support": 385
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 38.19,
+                                "recall_percent": 38.19,
+                                "f1_percent": 38.19,
+                                "support": 453
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 33.98,
+                                "recall_percent": 42.78,
+                                "f1_percent": 37.88,
+                                "support": 367
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                87,
+                                148,
+                                150
+                            ],
+                            [
+                                125,
+                                173,
+                                155
+                            ],
+                            [
+                                78,
+                                132,
+                                157
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1205,
+                        "accuracy_percent": 32.78,
+                        "balanced_accuracy_percent": 32.46,
+                        "macro_f1_percent": 32.46,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 29.64,
+                                "recall_percent": 29.87,
+                                "f1_percent": 29.75,
+                                "support": 385
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 37.78,
+                                "recall_percent": 37.53,
+                                "f1_percent": 37.65,
+                                "support": 453
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 29.97,
+                                "recall_percent": 29.97,
+                                "f1_percent": 29.97,
+                                "support": 367
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                115,
+                                143,
+                                127
+                            ],
+                            [
+                                153,
+                                170,
+                                130
+                            ],
+                            [
+                                120,
+                                137,
+                                110
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1205,
+                        "accuracy_percent": 31.95,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 16.14,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 31.95,
+                                "recall_percent": 100.0,
+                                "f1_percent": 48.43,
+                                "support": 385
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 453
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 367
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                385,
+                                0,
+                                0
+                            ],
+                            [
+                                453,
+                                0,
+                                0
+                            ],
+                            [
+                                367,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 33.95,
+                    "best_baseline_macro_f1": 32.46,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                },
+                "IT": {
+                    "action": "MOMENTUM",
+                    "validation_rows": 964,
+                    "model_metrics": {
+                        "samples": 964,
+                        "accuracy_percent": 32.78,
+                        "balanced_accuracy_percent": 31.98,
+                        "macro_f1_percent": 31.86,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 32.89,
+                                "recall_percent": 37.96,
+                                "f1_percent": 35.24,
+                                "support": 324
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 24.08,
+                                "recall_percent": 22.52,
+                                "f1_percent": 23.27,
+                                "support": 262
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 38.84,
+                                "recall_percent": 35.45,
+                                "f1_percent": 37.07,
+                                "support": 378
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                123,
+                                88,
+                                113
+                            ],
+                            [
+                                105,
+                                59,
+                                98
+                            ],
+                            [
+                                146,
+                                98,
+                                134
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 964,
+                        "accuracy_percent": 32.16,
+                        "balanced_accuracy_percent": 31.56,
+                        "macro_f1_percent": 31.56,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 31.42,
+                                "recall_percent": 32.1,
+                                "f1_percent": 31.76,
+                                "support": 324
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 26.95,
+                                "recall_percent": 26.34,
+                                "f1_percent": 26.64,
+                                "support": 262
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 36.34,
+                                "recall_percent": 36.24,
+                                "f1_percent": 36.29,
+                                "support": 378
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                104,
+                                85,
+                                135
+                            ],
+                            [
+                                88,
+                                69,
+                                105
+                            ],
+                            [
+                                139,
+                                102,
+                                137
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 964,
+                        "accuracy_percent": 33.61,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 16.77,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 33.61,
+                                "recall_percent": 100.0,
+                                "f1_percent": 50.31,
+                                "support": 324
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 262
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 378
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                324,
+                                0,
+                                0
+                            ],
+                            [
+                                262,
+                                0,
+                                0
+                            ],
+                            [
+                                378,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 31.86,
+                    "best_baseline_macro_f1": 31.56,
+                    "reason": "ML did not beat best validation baseline by required margin"
+                },
+                "OTHER": {
+                    "action": "MOMENTUM",
+                    "validation_rows": 1446,
+                    "model_metrics": {
+                        "samples": 1446,
+                        "accuracy_percent": 35.55,
+                        "balanced_accuracy_percent": 35.55,
+                        "macro_f1_percent": 35.53,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 37.47,
+                                "recall_percent": 32.44,
+                                "f1_percent": 34.77,
+                                "support": 484
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 35.73,
+                                "recall_percent": 37.45,
+                                "f1_percent": 36.57,
+                                "support": 478
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 33.84,
+                                "recall_percent": 36.78,
+                                "f1_percent": 35.25,
+                                "support": 484
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                157,
+                                151,
+                                176
+                            ],
+                            [
+                                127,
+                                179,
+                                172
+                            ],
+                            [
+                                135,
+                                171,
+                                178
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1446,
+                        "accuracy_percent": 35.2,
+                        "balanced_accuracy_percent": 35.21,
+                        "macro_f1_percent": 35.22,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 33.74,
+                                "recall_percent": 33.88,
+                                "f1_percent": 33.81,
+                                "support": 484
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 38.53,
+                                "recall_percent": 38.28,
+                                "f1_percent": 38.41,
+                                "support": 478
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 33.4,
+                                "recall_percent": 33.47,
+                                "f1_percent": 33.44,
+                                "support": 484
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                164,
+                                136,
+                                184
+                            ],
+                            [
+                                156,
+                                183,
+                                139
+                            ],
+                            [
+                                166,
+                                156,
+                                162
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1446,
+                        "accuracy_percent": 33.47,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 16.72,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 33.47,
+                                "recall_percent": 100.0,
+                                "f1_percent": 50.16,
+                                "support": 484
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 478
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 484
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                484,
+                                0,
+                                0
+                            ],
+                            [
+                                478,
+                                0,
+                                0
+                            ],
+                            [
+                                484,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 35.53,
+                    "best_baseline_macro_f1": 35.22,
+                    "reason": "ML did not beat best validation baseline by required margin"
+                }
+            },
+            "test_metrics": {
+                "majority": {
+                    "samples": 3721,
+                    "accuracy_percent": 30.85,
+                    "balanced_accuracy_percent": 33.33,
+                    "macro_f1_percent": 15.72,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 30.85,
+                            "recall_percent": 100.0,
+                            "f1_percent": 47.16,
+                            "support": 1148
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1458
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 1115
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            1148,
+                            0,
+                            0
+                        ],
+                        [
+                            1458,
+                            0,
+                            0
+                        ],
+                        [
+                            1115,
+                            0,
+                            0
+                        ]
+                    ]
+                },
+                "momentum": {
+                    "samples": 3721,
+                    "accuracy_percent": 33.7,
+                    "balanced_accuracy_percent": 32.93,
+                    "macro_f1_percent": 32.93,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 30.46,
+                            "recall_percent": 30.49,
+                            "f1_percent": 30.47,
+                            "support": 1148
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.27,
+                            "recall_percent": 41.5,
+                            "f1_percent": 41.38,
+                            "support": 1458
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 27.03,
+                            "recall_percent": 26.82,
+                            "f1_percent": 26.92,
+                            "support": 1115
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            350,
+                            405,
+                            393
+                        ],
+                        [
+                            439,
+                            605,
+                            414
+                        ],
+                        [
+                            360,
+                            456,
+                            299
+                        ]
+                    ]
+                },
+                "ungated_v9": {
+                    "samples": 3721,
+                    "accuracy_percent": 36.66,
+                    "balanced_accuracy_percent": 34.46,
+                    "macro_f1_percent": 33.14,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.12,
+                            "recall_percent": 18.29,
+                            "f1_percent": 23.57,
+                            "support": 1148
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.46,
+                            "recall_percent": 59.81,
+                            "f1_percent": 48.98,
+                            "support": 1458
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 28.66,
+                            "recall_percent": 25.29,
+                            "f1_percent": 26.87,
+                            "support": 1115
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            210,
+                            585,
+                            353
+                        ],
+                        [
+                            237,
+                            872,
+                            349
+                        ],
+                        [
+                            187,
+                            646,
+                            282
+                        ]
+                    ]
+                },
+                "gated_v9_1": {
+                    "samples": 3721,
+                    "accuracy_percent": 35.34,
+                    "balanced_accuracy_percent": 34.0,
+                    "macro_f1_percent": 33.73,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 32.3,
+                            "recall_percent": 29.09,
+                            "f1_percent": 30.61,
+                            "support": 1148
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.84,
+                            "recall_percent": 49.04,
+                            "f1_percent": 45.15,
+                            "support": 1458
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 27.2,
+                            "recall_percent": 23.86,
+                            "f1_percent": 25.42,
+                            "support": 1115
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            334,
+                            466,
+                            348
+                        ],
+                        [
+                            379,
+                            715,
+                            364
+                        ],
+                        [
+                            321,
+                            528,
+                            266
+                        ]
+                    ]
+                }
+            },
+            "gate_usage": {
+                "MOMENTUM": 2481,
+                "MODEL": 1240
+            }
+        },
+        {
+            "validation_year": 2025,
+            "test_year": 2026,
+            "selected_model": "Hist Gradient Boosting",
+            "selection_train_last_date": "2024-12-23",
+            "validation_start": "2025-01-01",
+            "validation_last_date": "2025-12-23",
+            "test_start": "2026-01-01",
+            "global_validation_results": {
+                "Logistic Regression": {
+                    "samples": 3646,
+                    "accuracy_percent": 39.0,
+                    "balanced_accuracy_percent": 34.78,
+                    "macro_f1_percent": 29.68,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 38.69,
+                            "recall_percent": 12.66,
+                            "f1_percent": 19.07,
+                            "support": 1122
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.35,
+                            "recall_percent": 80.74,
+                            "f1_percent": 54.69,
+                            "support": 1438
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 25.27,
+                            "recall_percent": 10.96,
+                            "f1_percent": 15.29,
+                            "support": 1086
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            142,
+                            791,
+                            189
+                        ],
+                        [
+                            114,
+                            1161,
+                            163
+                        ],
+                        [
+                            111,
+                            856,
+                            119
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "samples": 3646,
+                    "accuracy_percent": 37.88,
+                    "balanced_accuracy_percent": 34.88,
+                    "macro_f1_percent": 32.3,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.41,
+                            "recall_percent": 13.46,
+                            "f1_percent": 19.19,
+                            "support": 1122
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.48,
+                            "recall_percent": 68.08,
+                            "f1_percent": 51.55,
+                            "support": 1438
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 30.1,
+                            "recall_percent": 23.11,
+                            "f1_percent": 26.15,
+                            "support": 1086
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            151,
+                            668,
+                            303
+                        ],
+                        [
+                            179,
+                            979,
+                            280
+                        ],
+                        [
+                            122,
+                            713,
+                            251
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "samples": 3646,
+                    "accuracy_percent": 36.81,
+                    "balanced_accuracy_percent": 34.56,
+                    "macro_f1_percent": 33.33,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.33,
+                            "recall_percent": 18.72,
+                            "f1_percent": 23.97,
+                            "support": 1122
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.83,
+                            "recall_percent": 59.46,
+                            "f1_percent": 49.11,
+                            "support": 1438
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 28.5,
+                            "recall_percent": 25.51,
+                            "f1_percent": 26.92,
+                            "support": 1086
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            210,
+                            563,
+                            349
+                        ],
+                        [
+                            237,
+                            855,
+                            346
+                        ],
+                        [
+                            183,
+                            626,
+                            277
+                        ]
+                    ]
+                }
+            },
+            "gate_decisions": {
+                "BANKING": {
+                    "action": "MODEL",
+                    "validation_rows": 1215,
+                    "model_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 41.56,
+                        "balanced_accuracy_percent": 35.6,
+                        "macro_f1_percent": 34.41,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 29.41,
+                                "recall_percent": 19.48,
+                                "f1_percent": 23.44,
+                                "support": 308
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 47.84,
+                                "recall_percent": 68.05,
+                                "f1_percent": 56.18,
+                                "support": 554
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 30.49,
+                                "recall_percent": 19.26,
+                                "f1_percent": 23.61,
+                                "support": 353
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                60,
+                                190,
+                                58
+                            ],
+                            [
+                                80,
+                                377,
+                                97
+                            ],
+                            [
+                                64,
+                                221,
+                                68
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 36.38,
+                        "balanced_accuracy_percent": 33.67,
+                        "macro_f1_percent": 33.68,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 24.28,
+                                "recall_percent": 24.68,
+                                "f1_percent": 24.48,
+                                "support": 308
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 48.28,
+                                "recall_percent": 48.01,
+                                "f1_percent": 48.14,
+                                "support": 554
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 28.49,
+                                "recall_percent": 28.33,
+                                "f1_percent": 28.41,
+                                "support": 353
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                76,
+                                130,
+                                102
+                            ],
+                            [
+                                139,
+                                266,
+                                149
+                            ],
+                            [
+                                98,
+                                155,
+                                100
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1215,
+                        "accuracy_percent": 25.35,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 13.48,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 25.35,
+                                "recall_percent": 100.0,
+                                "f1_percent": 40.45,
+                                "support": 308
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 554
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 353
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                308,
+                                0,
+                                0
+                            ],
+                            [
+                                554,
+                                0,
+                                0
+                            ],
+                            [
+                                353,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 34.41,
+                    "best_baseline_macro_f1": 33.68,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                },
+                "IT": {
+                    "action": "MODEL",
+                    "validation_rows": 972,
+                    "model_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 33.23,
+                        "balanced_accuracy_percent": 34.47,
+                        "macro_f1_percent": 33.02,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 46.5,
+                                "recall_percent": 23.37,
+                                "f1_percent": 31.1,
+                                "support": 398
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 31.98,
+                                "recall_percent": 46.37,
+                                "f1_percent": 37.85,
+                                "support": 289
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 27.2,
+                                "recall_percent": 33.68,
+                                "f1_percent": 30.09,
+                                "support": 285
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                93,
+                                148,
+                                157
+                            ],
+                            [
+                                55,
+                                134,
+                                100
+                            ],
+                            [
+                                52,
+                                137,
+                                96
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 32.0,
+                        "balanced_accuracy_percent": 30.6,
+                        "macro_f1_percent": 30.61,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 42.61,
+                                "recall_percent": 42.71,
+                                "f1_percent": 42.66,
+                                "support": 398
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 28.17,
+                                "recall_percent": 27.68,
+                                "f1_percent": 27.92,
+                                "support": 289
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 21.11,
+                                "recall_percent": 21.4,
+                                "f1_percent": 21.25,
+                                "support": 285
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                170,
+                                101,
+                                127
+                            ],
+                            [
+                                108,
+                                80,
+                                101
+                            ],
+                            [
+                                121,
+                                103,
+                                61
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 972,
+                        "accuracy_percent": 40.95,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 19.37,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 40.95,
+                                "recall_percent": 100.0,
+                                "f1_percent": 58.1,
+                                "support": 398
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 289
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 285
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                398,
+                                0,
+                                0
+                            ],
+                            [
+                                289,
+                                0,
+                                0
+                            ],
+                            [
+                                285,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 33.02,
+                    "best_baseline_macro_f1": 30.61,
+                    "reason": "ML beats best validation baseline by at least 0.50 pp Macro F1"
+                },
+                "OTHER": {
+                    "action": "MOMENTUM",
+                    "validation_rows": 1459,
+                    "model_metrics": {
+                        "samples": 1459,
+                        "accuracy_percent": 35.23,
+                        "balanced_accuracy_percent": 32.25,
+                        "macro_f1_percent": 30.86,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 25.22,
+                                "recall_percent": 13.7,
+                                "f1_percent": 17.76,
+                                "support": 416
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 41.1,
+                                "recall_percent": 57.82,
+                                "f1_percent": 48.04,
+                                "support": 595
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 28.54,
+                                "recall_percent": 25.22,
+                                "f1_percent": 26.78,
+                                "support": 448
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                57,
+                                225,
+                                134
+                            ],
+                            [
+                                102,
+                                344,
+                                149
+                            ],
+                            [
+                                67,
+                                268,
+                                113
+                            ]
+                        ]
+                    },
+                    "momentum_metrics": {
+                        "samples": 1459,
+                        "accuracy_percent": 33.31,
+                        "balanced_accuracy_percent": 32.17,
+                        "macro_f1_percent": 32.16,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 24.82,
+                                "recall_percent": 24.52,
+                                "f1_percent": 24.67,
+                                "support": 416
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 42.13,
+                                "recall_percent": 41.85,
+                                "f1_percent": 41.99,
+                                "support": 595
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 29.54,
+                                "recall_percent": 30.13,
+                                "f1_percent": 29.83,
+                                "support": 448
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                102,
+                                155,
+                                159
+                            ],
+                            [
+                                183,
+                                249,
+                                163
+                            ],
+                            [
+                                126,
+                                187,
+                                135
+                            ]
+                        ]
+                    },
+                    "majority_metrics": {
+                        "samples": 1459,
+                        "accuracy_percent": 28.51,
+                        "balanced_accuracy_percent": 33.33,
+                        "macro_f1_percent": 14.79,
+                        "class_metrics": {
+                            "UNDERPERFORM": {
+                                "precision_percent": 28.51,
+                                "recall_percent": 100.0,
+                                "f1_percent": 44.37,
+                                "support": 416
+                            },
+                            "NEUTRAL": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 595
+                            },
+                            "OUTPERFORM": {
+                                "precision_percent": 0.0,
+                                "recall_percent": 0.0,
+                                "f1_percent": 0.0,
+                                "support": 448
+                            }
+                        },
+                        "confusion_matrix": [
+                            [
+                                416,
+                                0,
+                                0
+                            ],
+                            [
+                                595,
+                                0,
+                                0
+                            ],
+                            [
+                                448,
+                                0,
+                                0
+                            ]
+                        ]
+                    },
+                    "best_baseline": "MOMENTUM",
+                    "model_macro_f1": 30.86,
+                    "best_baseline_macro_f1": 32.16,
+                    "reason": "ML did not beat best validation baseline by required margin"
+                }
+            },
+            "test_metrics": {
+                "majority": {
+                    "samples": 2280,
+                    "accuracy_percent": 36.32,
+                    "balanced_accuracy_percent": 33.33,
+                    "macro_f1_percent": 17.76,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 36.32,
+                            "recall_percent": 100.0,
+                            "f1_percent": 53.28,
+                            "support": 828
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 715
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 0.0,
+                            "recall_percent": 0.0,
+                            "f1_percent": 0.0,
+                            "support": 737
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            828,
+                            0,
+                            0
+                        ],
+                        [
+                            715,
+                            0,
+                            0
+                        ],
+                        [
+                            737,
+                            0,
+                            0
+                        ]
+                    ]
+                },
+                "momentum": {
+                    "samples": 2280,
+                    "accuracy_percent": 35.26,
+                    "balanced_accuracy_percent": 35.08,
+                    "macro_f1_percent": 35.08,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 38.83,
+                            "recall_percent": 38.65,
+                            "f1_percent": 38.74,
+                            "support": 828
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 31.59,
+                            "recall_percent": 31.19,
+                            "f1_percent": 31.39,
+                            "support": 715
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 34.8,
+                            "recall_percent": 35.41,
+                            "f1_percent": 35.1,
+                            "support": 737
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            320,
+                            232,
+                            276
+                        ],
+                        [
+                            279,
+                            223,
+                            213
+                        ],
+                        [
+                            225,
+                            251,
+                            261
+                        ]
+                    ]
+                },
+                "ungated_v9": {
+                    "samples": 2280,
+                    "accuracy_percent": 34.96,
+                    "balanced_accuracy_percent": 34.84,
+                    "macro_f1_percent": 34.8,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 40.43,
+                            "recall_percent": 36.71,
+                            "f1_percent": 38.48,
+                            "support": 828
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 32.1,
+                            "recall_percent": 30.21,
+                            "f1_percent": 31.12,
+                            "support": 715
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 32.4,
+                            "recall_percent": 37.58,
+                            "f1_percent": 34.8,
+                            "support": 737
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            304,
+                            232,
+                            292
+                        ],
+                        [
+                            213,
+                            216,
+                            286
+                        ],
+                        [
+                            235,
+                            225,
+                            277
+                        ]
+                    ]
+                },
+                "gated_v9_1": {
+                    "samples": 2280,
+                    "accuracy_percent": 34.39,
+                    "balanced_accuracy_percent": 34.11,
+                    "macro_f1_percent": 34.05,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 39.3,
+                            "recall_percent": 39.49,
+                            "f1_percent": 39.4,
+                            "support": 828
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 31.03,
+                            "recall_percent": 27.69,
+                            "f1_percent": 29.27,
+                            "support": 715
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 31.98,
+                            "recall_percent": 35.14,
+                            "f1_percent": 33.48,
+                            "support": 737
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            327,
+                            212,
+                            289
+                        ],
+                        [
+                            255,
+                            198,
+                            262
+                        ],
+                        [
+                            250,
+                            228,
+                            259
+                        ]
+                    ]
+                }
+            },
+            "gate_usage": {
+                "MODEL": 1368,
+                "MOMENTUM": 912
+            }
+        }
+    ],
+    "aggregated": {
+        "samples": 17086,
+        "majority": {
+            "samples": 17086,
+            "accuracy_percent": 32.51,
+            "balanced_accuracy_percent": 33.33,
+            "macro_f1_percent": 16.35,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 32.51,
+                    "recall_percent": 100.0,
+                    "f1_percent": 49.06,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 0.0,
+                    "recall_percent": 0.0,
+                    "f1_percent": 0.0,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 0.0,
+                    "recall_percent": 0.0,
+                    "f1_percent": 0.0,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    5554,
+                    0,
+                    0
+                ],
+                [
+                    6071,
+                    0,
+                    0
+                ],
+                [
+                    5461,
+                    0,
+                    0
+                ]
+            ]
+        },
+        "momentum": {
+            "samples": 17086,
+            "accuracy_percent": 33.48,
+            "balanced_accuracy_percent": 33.36,
+            "macro_f1_percent": 33.36,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 32.0,
+                    "recall_percent": 31.96,
+                    "f1_percent": 31.98,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 37.19,
+                    "recall_percent": 37.14,
+                    "f1_percent": 37.17,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 30.88,
+                    "recall_percent": 30.97,
+                    "f1_percent": 30.92,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    1775,
+                    1832,
+                    1947
+                ],
+                [
+                    1978,
+                    2255,
+                    1838
+                ],
+                [
+                    1794,
+                    1976,
+                    1691
+                ]
+            ]
+        },
+        "ungated_v9": {
+            "samples": 17086,
+            "accuracy_percent": 36.37,
+            "balanced_accuracy_percent": 35.9,
+            "macro_f1_percent": 35.27,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 35.93,
+                    "recall_percent": 24.32,
+                    "f1_percent": 29.01,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 38.41,
+                    "recall_percent": 50.93,
+                    "f1_percent": 43.79,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 33.59,
+                    "recall_percent": 32.45,
+                    "f1_percent": 33.01,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    1351,
+                    2469,
+                    1734
+                ],
+                [
+                    1210,
+                    3092,
+                    1769
+                ],
+                [
+                    1199,
+                    2490,
+                    1772
+                ]
+            ]
+        },
+        "gated_v9_1": {
+            "samples": 17086,
+            "accuracy_percent": 34.99,
+            "balanced_accuracy_percent": 34.66,
+            "macro_f1_percent": 34.42,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 33.68,
+                    "recall_percent": 27.69,
+                    "f1_percent": 30.4,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 37.97,
+                    "recall_percent": 45.07,
+                    "f1_percent": 41.21,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 32.09,
+                    "recall_percent": 31.22,
+                    "f1_percent": 31.65,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    1538,
+                    2208,
+                    1808
+                ],
+                [
+                    1534,
+                    2736,
+                    1801
+                ],
+                [
+                    1494,
+                    2262,
+                    1705
+                ]
+            ]
+        },
+        "improvement_vs_majority_pp": 2.48,
+        "improvement_vs_momentum_pp": 1.51,
+        "improvement_vs_ungated_v9_pp": -1.38,
+        "stocks_beating_ungated_v9": 3,
+        "stocks_beating_momentum": 12,
+        "stocks_beating_majority": 11
+    }
+}

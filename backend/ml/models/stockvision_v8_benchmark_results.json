@@ -1,0 +1,252 @@
+{
+    "experiment": "StockVision V8 Proper Benchmark",
+    "feature_count": 52,
+    "features": [
+        "RETURN_1",
+        "RETURN_3",
+        "RETURN_5",
+        "RETURN_10",
+        "RETURN_20",
+        "HIGH_LOW_RANGE",
+        "OPEN_CLOSE_RETURN",
+        "GAP_RETURN",
+        "SMA10_DISTANCE",
+        "SMA20_DISTANCE",
+        "SMA50_DISTANCE",
+        "EMA10_DISTANCE",
+        "EMA20_DISTANCE",
+        "TREND_SLOPE_5",
+        "TREND_SLOPE_20",
+        "RSI14_NORMALIZED",
+        "MACD_PERCENT",
+        "MACD_HIST_PERCENT",
+        "MOMENTUM_ACCELERATION_5",
+        "VOLATILITY_5",
+        "VOLATILITY_10",
+        "VOLATILITY_20",
+        "VOLATILITY_RATIO_5_20",
+        "DOWNSIDE_VOLATILITY_20",
+        "ATR14_PERCENT",
+        "BOLLINGER_POSITION",
+        "BOLLINGER_WIDTH",
+        "VOLUME_CHANGE_1",
+        "VOLUME_ZSCORE_20",
+        "VOLUME_RATIO_20",
+        "NIFTY_RETURN_1",
+        "NIFTY_RETURN_5",
+        "NIFTY_RETURN_20",
+        "NIFTY_SMA20_DISTANCE",
+        "NIFTY_SMA50_DISTANCE",
+        "NIFTY_VOLATILITY_20",
+        "NIFTY_TREND_SLOPE_20",
+        "RELATIVE_RETURN_1",
+        "RELATIVE_RETURN_5",
+        "RELATIVE_RETURN_20",
+        "ROLLING_BETA_20",
+        "ROLLING_CORRELATION_20",
+        "BETA_CHANGE_5",
+        "SECTOR_RETURN_1",
+        "SECTOR_RETURN_5",
+        "SECTOR_VOLATILITY_20",
+        "SECTOR_TREND_20",
+        "RELATIVE_TO_SECTOR_1",
+        "RELATIVE_TO_SECTOR_5",
+        "BREADTH_POSITIVE_1D",
+        "BREADTH_POSITIVE_5D",
+        "BREADTH_ABOVE_SMA20"
+    ],
+    "target": "ATR-adjusted 5-day 3-class movement",
+    "split": {
+        "train_last_date": "2023-07-14",
+        "validation_start_date": "2023-07-24",
+        "validation_last_date": "2024-11-25",
+        "test_start_date": "2024-12-03"
+    },
+    "validation_majority_class": "NEUTRAL",
+    "validation_baseline_accuracy_percent": 40.87,
+    "validation_results": {
+        "Logistic Regression": {
+            "accuracy_percent": 34.02,
+            "balanced_accuracy_percent": 34.92,
+            "macro_f1_percent": 33.24,
+            "high_confidence_accuracy_percent": 0.0,
+            "high_confidence_coverage_percent": 0.06,
+            "brier_score": 0.6726,
+            "class_metrics": {
+                "BEARISH": {
+                    "precision_percent": 23.57,
+                    "recall_percent": 35.25,
+                    "f1_percent": 28.25,
+                    "support": 1220
+                },
+                "NEUTRAL": {
+                    "precision_percent": 48.01,
+                    "recall_percent": 21.52,
+                    "f1_percent": 29.72,
+                    "support": 2017
+                },
+                "BULLISH": {
+                    "precision_percent": 36.93,
+                    "recall_percent": 48.0,
+                    "f1_percent": 41.74,
+                    "support": 1698
+                }
+            },
+            "confusion_matrix": [
+                [
+                    430,
+                    237,
+                    553
+                ],
+                [
+                    744,
+                    434,
+                    839
+                ],
+                [
+                    650,
+                    233,
+                    815
+                ]
+            ]
+        },
+        "Random Forest": {
+            "accuracy_percent": 35.36,
+            "balanced_accuracy_percent": 34.57,
+            "macro_f1_percent": 33.82,
+            "high_confidence_accuracy_percent": 60.0,
+            "high_confidence_coverage_percent": 0.1,
+            "brier_score": 0.6639,
+            "class_metrics": {
+                "BEARISH": {
+                    "precision_percent": 23.18,
+                    "recall_percent": 23.44,
+                    "f1_percent": 23.31,
+                    "support": 1220
+                },
+                "NEUTRAL": {
+                    "precision_percent": 45.46,
+                    "recall_percent": 30.04,
+                    "f1_percent": 36.18,
+                    "support": 2017
+                },
+                "BULLISH": {
+                    "precision_percent": 36.02,
+                    "recall_percent": 50.24,
+                    "f1_percent": 41.96,
+                    "support": 1698
+                }
+            },
+            "confusion_matrix": [
+                [
+                    286,
+                    303,
+                    631
+                ],
+                [
+                    527,
+                    606,
+                    884
+                ],
+                [
+                    421,
+                    424,
+                    853
+                ]
+            ]
+        },
+        "Hist Gradient Boosting": {
+            "accuracy_percent": 35.99,
+            "balanced_accuracy_percent": 35.35,
+            "macro_f1_percent": 35.11,
+            "high_confidence_accuracy_percent": 47.88,
+            "high_confidence_coverage_percent": 10.5,
+            "brier_score": 0.6884,
+            "class_metrics": {
+                "BEARISH": {
+                    "precision_percent": 25.11,
+                    "recall_percent": 28.44,
+                    "f1_percent": 26.67,
+                    "support": 1220
+                },
+                "NEUTRAL": {
+                    "precision_percent": 43.56,
+                    "recall_percent": 34.9,
+                    "f1_percent": 38.76,
+                    "support": 2017
+                },
+                "BULLISH": {
+                    "precision_percent": 37.43,
+                    "recall_percent": 42.7,
+                    "f1_percent": 39.89,
+                    "support": 1698
+                }
+            },
+            "confusion_matrix": [
+                [
+                    347,
+                    382,
+                    491
+                ],
+                [
+                    592,
+                    704,
+                    721
+                ],
+                [
+                    443,
+                    530,
+                    725
+                ]
+            ]
+        }
+    },
+    "selected_model": "Hist Gradient Boosting",
+    "test_majority_class": "NEUTRAL",
+    "test_baseline_accuracy_percent": 42.81,
+    "final_test_metrics": {
+        "accuracy_percent": 32.41,
+        "balanced_accuracy_percent": 33.33,
+        "macro_f1_percent": 31.67,
+        "high_confidence_accuracy_percent": 40.07,
+        "high_confidence_coverage_percent": 11.06,
+        "brier_score": 0.7111,
+        "class_metrics": {
+            "BEARISH": {
+                "precision_percent": 26.68,
+                "recall_percent": 21.92,
+                "f1_percent": 24.07,
+                "support": 1483
+            },
+            "NEUTRAL": {
+                "precision_percent": 44.01,
+                "recall_percent": 28.76,
+                "f1_percent": 34.79,
+                "support": 2145
+            },
+            "BULLISH": {
+                "precision_percent": 28.52,
+                "recall_percent": 49.31,
+                "f1_percent": 36.14,
+                "support": 1383
+            }
+        },
+        "confusion_matrix": [
+            [
+                325,
+                440,
+                718
+            ],
+            [
+                537,
+                617,
+                991
+            ],
+            [
+                356,
+                345,
+                682
+            ]
+        ]
+    }
+}

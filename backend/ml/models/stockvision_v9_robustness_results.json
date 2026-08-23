@@ -1,0 +1,525 @@
+{
+    "experiment": "StockVision V9 Robustness Analysis",
+    "overall": {
+        "uniform_random_accuracy_percent": 33.33,
+        "majority": {
+            "samples": 17086,
+            "accuracy_percent": 32.51,
+            "balanced_accuracy_percent": 33.33,
+            "macro_f1_percent": 16.35,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 32.51,
+                    "recall_percent": 100.0,
+                    "f1_percent": 49.06,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 0.0,
+                    "recall_percent": 0.0,
+                    "f1_percent": 0.0,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 0.0,
+                    "recall_percent": 0.0,
+                    "f1_percent": 0.0,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    5554,
+                    0,
+                    0
+                ],
+                [
+                    6071,
+                    0,
+                    0
+                ],
+                [
+                    5461,
+                    0,
+                    0
+                ]
+            ]
+        },
+        "relative_momentum": {
+            "samples": 17086,
+            "accuracy_percent": 33.48,
+            "balanced_accuracy_percent": 33.36,
+            "macro_f1_percent": 33.36,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 32.0,
+                    "recall_percent": 31.96,
+                    "f1_percent": 31.98,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 37.19,
+                    "recall_percent": 37.14,
+                    "f1_percent": 37.17,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 30.88,
+                    "recall_percent": 30.97,
+                    "f1_percent": 30.92,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    1775,
+                    1832,
+                    1947
+                ],
+                [
+                    1978,
+                    2255,
+                    1838
+                ],
+                [
+                    1794,
+                    1976,
+                    1691
+                ]
+            ]
+        },
+        "v9_model": {
+            "samples": 17086,
+            "accuracy_percent": 36.37,
+            "balanced_accuracy_percent": 35.9,
+            "macro_f1_percent": 35.27,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 35.93,
+                    "recall_percent": 24.32,
+                    "f1_percent": 29.01,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 38.41,
+                    "recall_percent": 50.93,
+                    "f1_percent": 43.79,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 33.59,
+                    "recall_percent": 32.45,
+                    "f1_percent": 33.01,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    1351,
+                    2469,
+                    1734
+                ],
+                [
+                    1210,
+                    3092,
+                    1769
+                ],
+                [
+                    1199,
+                    2490,
+                    1772
+                ]
+            ]
+        },
+        "v9_improvement_vs_majority_pp": 3.86,
+        "v9_improvement_vs_momentum_pp": 2.89
+    },
+    "stock_summary": {
+        "stocks_beating_majority": 11,
+        "stocks_beating_majority_by_3pp": 9,
+        "stocks_beating_momentum": 13,
+        "total_stocks": 15
+    },
+    "per_stock": [
+        {
+            "SYMBOL": "ICICIBANK.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 40.91,
+            "Model_Macro_F1": 36.3,
+            "Model_Balanced_Accuracy": 36.76,
+            "Majority_Accuracy": 25.99,
+            "Momentum_Accuracy": 33.89,
+            "Improvement_vs_Majority": 14.92,
+            "Improvement_vs_Momentum": 7.02
+        },
+        {
+            "SYMBOL": "HDFCBANK.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 41.62,
+            "Model_Macro_F1": 34.98,
+            "Model_Balanced_Accuracy": 36.61,
+            "Majority_Accuracy": 28.09,
+            "Momentum_Accuracy": 35.12,
+            "Improvement_vs_Majority": 13.53,
+            "Improvement_vs_Momentum": 6.5
+        },
+        {
+            "SYMBOL": "BHARTIARTL.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 38.02,
+            "Model_Macro_F1": 36.82,
+            "Model_Balanced_Accuracy": 36.98,
+            "Majority_Accuracy": 26.16,
+            "Momentum_Accuracy": 32.31,
+            "Improvement_vs_Majority": 11.86,
+            "Improvement_vs_Momentum": 5.71
+        },
+        {
+            "SYMBOL": "LT.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 38.81,
+            "Model_Macro_F1": 38.32,
+            "Model_Balanced_Accuracy": 38.78,
+            "Majority_Accuracy": 30.2,
+            "Momentum_Accuracy": 32.48,
+            "Improvement_vs_Majority": 8.61,
+            "Improvement_vs_Momentum": 6.33
+        },
+        {
+            "SYMBOL": "RELIANCE.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 39.86,
+            "Model_Macro_F1": 35.61,
+            "Model_Balanced_Accuracy": 37.39,
+            "Majority_Accuracy": 33.1,
+            "Momentum_Accuracy": 33.45,
+            "Improvement_vs_Majority": 6.76,
+            "Improvement_vs_Momentum": 6.41
+        },
+        {
+            "SYMBOL": "AXISBANK.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 37.14,
+            "Model_Macro_F1": 36.62,
+            "Model_Balanced_Accuracy": 36.95,
+            "Majority_Accuracy": 31.61,
+            "Momentum_Accuracy": 32.57,
+            "Improvement_vs_Majority": 5.53,
+            "Improvement_vs_Momentum": 4.57
+        },
+        {
+            "SYMBOL": "SBIN.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 35.82,
+            "Model_Macro_F1": 35.08,
+            "Model_Balanced_Accuracy": 35.67,
+            "Majority_Accuracy": 30.82,
+            "Momentum_Accuracy": 34.68,
+            "Improvement_vs_Majority": 5.0,
+            "Improvement_vs_Momentum": 1.14
+        },
+        {
+            "SYMBOL": "SUNPHARMA.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 33.98,
+            "Model_Macro_F1": 33.32,
+            "Model_Balanced_Accuracy": 33.89,
+            "Majority_Accuracy": 29.94,
+            "Momentum_Accuracy": 32.92,
+            "Improvement_vs_Majority": 4.04,
+            "Improvement_vs_Momentum": 1.06
+        },
+        {
+            "SYMBOL": "KOTAKBANK.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 36.7,
+            "Model_Macro_F1": 35.52,
+            "Model_Balanced_Accuracy": 35.95,
+            "Majority_Accuracy": 33.27,
+            "Momentum_Accuracy": 31.34,
+            "Improvement_vs_Majority": 3.43,
+            "Improvement_vs_Momentum": 5.36
+        },
+        {
+            "SYMBOL": "MARUTI.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 35.03,
+            "Model_Macro_F1": 34.54,
+            "Model_Balanced_Accuracy": 35.05,
+            "Majority_Accuracy": 33.89,
+            "Momentum_Accuracy": 32.31,
+            "Improvement_vs_Majority": 1.14,
+            "Improvement_vs_Momentum": 2.72
+        },
+        {
+            "SYMBOL": "ITC.NS",
+            "Samples": 1140,
+            "Model_Accuracy": 33.51,
+            "Model_Macro_F1": 31.26,
+            "Model_Balanced_Accuracy": 32.89,
+            "Majority_Accuracy": 33.07,
+            "Momentum_Accuracy": 33.42,
+            "Improvement_vs_Majority": 0.44,
+            "Improvement_vs_Momentum": 0.09
+        },
+        {
+            "SYMBOL": "TCS.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 35.29,
+            "Model_Macro_F1": 34.12,
+            "Model_Balanced_Accuracy": 36.17,
+            "Majority_Accuracy": 39.07,
+            "Momentum_Accuracy": 32.92,
+            "Improvement_vs_Majority": -3.78,
+            "Improvement_vs_Momentum": 2.37
+        },
+        {
+            "SYMBOL": "HCLTECH.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 31.26,
+            "Model_Macro_F1": 31.24,
+            "Model_Balanced_Accuracy": 31.41,
+            "Majority_Accuracy": 35.21,
+            "Momentum_Accuracy": 36.08,
+            "Improvement_vs_Majority": -3.95,
+            "Improvement_vs_Momentum": -4.82
+        },
+        {
+            "SYMBOL": "INFY.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 34.86,
+            "Model_Macro_F1": 34.75,
+            "Model_Balanced_Accuracy": 35.46,
+            "Majority_Accuracy": 38.81,
+            "Momentum_Accuracy": 32.13,
+            "Improvement_vs_Majority": -3.95,
+            "Improvement_vs_Momentum": 2.73
+        },
+        {
+            "SYMBOL": "WIPRO.NS",
+            "Samples": 1139,
+            "Model_Accuracy": 32.84,
+            "Model_Macro_F1": 32.73,
+            "Model_Balanced_Accuracy": 33.26,
+            "Majority_Accuracy": 38.37,
+            "Momentum_Accuracy": 36.61,
+            "Improvement_vs_Majority": -5.53,
+            "Improvement_vs_Momentum": -3.77
+        }
+    ],
+    "non_overlapping_offsets": [
+        {
+            "offset": 0,
+            "samples": 3450,
+            "model_accuracy_percent": 35.97,
+            "majority_accuracy_percent": 32.49,
+            "momentum_accuracy_percent": 32.58,
+            "model_macro_f1_percent": 34.75,
+            "model_balanced_accuracy_percent": 35.5,
+            "improvement_vs_majority_pp": 3.48,
+            "improvement_vs_momentum_pp": 3.39
+        },
+        {
+            "offset": 1,
+            "samples": 3435,
+            "model_accuracy_percent": 37.41,
+            "majority_accuracy_percent": 32.26,
+            "momentum_accuracy_percent": 33.19,
+            "model_macro_f1_percent": 36.24,
+            "model_balanced_accuracy_percent": 36.97,
+            "improvement_vs_majority_pp": 5.15,
+            "improvement_vs_momentum_pp": 4.22
+        },
+        {
+            "offset": 2,
+            "samples": 3420,
+            "model_accuracy_percent": 35.96,
+            "majority_accuracy_percent": 32.57,
+            "momentum_accuracy_percent": 34.04,
+            "model_macro_f1_percent": 34.96,
+            "model_balanced_accuracy_percent": 35.6,
+            "improvement_vs_majority_pp": 3.39,
+            "improvement_vs_momentum_pp": 1.92
+        },
+        {
+            "offset": 3,
+            "samples": 3391,
+            "model_accuracy_percent": 36.8,
+            "majority_accuracy_percent": 32.7,
+            "momentum_accuracy_percent": 34.24,
+            "model_macro_f1_percent": 35.83,
+            "model_balanced_accuracy_percent": 36.34,
+            "improvement_vs_majority_pp": 4.1,
+            "improvement_vs_momentum_pp": 2.56
+        },
+        {
+            "offset": 4,
+            "samples": 3390,
+            "model_accuracy_percent": 35.72,
+            "majority_accuracy_percent": 32.51,
+            "momentum_accuracy_percent": 33.39,
+            "model_macro_f1_percent": 34.54,
+            "model_balanced_accuracy_percent": 35.1,
+            "improvement_vs_majority_pp": 3.21,
+            "improvement_vs_momentum_pp": 2.33
+        }
+    ],
+    "non_overlapping_summary": {
+        "average_model_accuracy_percent": 36.37,
+        "average_majority_accuracy_percent": 32.51,
+        "average_momentum_accuracy_percent": 33.49,
+        "average_improvement_vs_majority_pp": 3.87,
+        "average_improvement_vs_momentum_pp": 2.88,
+        "average_macro_f1_percent": 35.26,
+        "average_balanced_accuracy_percent": 35.9,
+        "minimum_model_accuracy_percent": 35.72,
+        "maximum_model_accuracy_percent": 37.41
+    },
+    "confidence_analysis": [
+        {
+            "threshold": 0.35,
+            "samples": 16157,
+            "coverage_percent": 94.56,
+            "accuracy_percent": 36.47
+        },
+        {
+            "threshold": 0.4,
+            "samples": 9262,
+            "coverage_percent": 54.21,
+            "accuracy_percent": 38.07
+        },
+        {
+            "threshold": 0.45,
+            "samples": 4202,
+            "coverage_percent": 24.59,
+            "accuracy_percent": 39.93
+        },
+        {
+            "threshold": 0.5,
+            "samples": 1821,
+            "coverage_percent": 10.66,
+            "accuracy_percent": 40.2
+        },
+        {
+            "threshold": 0.55,
+            "samples": 746,
+            "coverage_percent": 4.37,
+            "accuracy_percent": 40.48
+        },
+        {
+            "threshold": 0.6,
+            "samples": 310,
+            "coverage_percent": 1.81,
+            "accuracy_percent": 41.94
+        }
+    ],
+    "feature_importance": {
+        "diagnostic_validation_metrics": {
+            "accuracy_percent": 37.89,
+            "macro_f1_percent": 37.59,
+            "balanced_accuracy_percent": 37.6
+        },
+        "top_features": [
+            {
+                "FEATURE": "ATR14_PERCENT",
+                "IMPORTANCE_MEAN": 0.009529624436534833,
+                "IMPORTANCE_STD": 0.0076148028708518944
+            },
+            {
+                "FEATURE": "VOLATILITY_20",
+                "IMPORTANCE_MEAN": 0.007996639820058904,
+                "IMPORTANCE_STD": 0.0064065898311631165
+            },
+            {
+                "FEATURE": "VOLATILITY_10",
+                "IMPORTANCE_MEAN": 0.006487888642957207,
+                "IMPORTANCE_STD": 0.0015609400047498128
+            },
+            {
+                "FEATURE": "ROLLING_BETA_20",
+                "IMPORTANCE_MEAN": 0.005757867567847552,
+                "IMPORTANCE_STD": 0.0022305443991783237
+            },
+            {
+                "FEATURE": "SMA50_DISTANCE",
+                "IMPORTANCE_MEAN": 0.004648108041361165,
+                "IMPORTANCE_STD": 0.0031209588369451873
+            },
+            {
+                "FEATURE": "TREND_20",
+                "IMPORTANCE_MEAN": 0.004630662905964445,
+                "IMPORTANCE_STD": 0.002701969820407193
+            },
+            {
+                "FEATURE": "MACD_HIST_PERCENT",
+                "IMPORTANCE_MEAN": 0.004410009761648015,
+                "IMPORTANCE_STD": 0.0017565375866090286
+            },
+            {
+                "FEATURE": "RELATIVE_RETURN_20",
+                "IMPORTANCE_MEAN": 0.0038883186793021163,
+                "IMPORTANCE_STD": 0.001722396241562873
+            },
+            {
+                "FEATURE": "NIFTY_VOLATILITY_20",
+                "IMPORTANCE_MEAN": 0.003856096492987182,
+                "IMPORTANCE_STD": 0.003638856652833949
+            },
+            {
+                "FEATURE": "RETURN_20",
+                "IMPORTANCE_MEAN": 0.003852415725607816,
+                "IMPORTANCE_STD": 0.0027159957311902677
+            },
+            {
+                "FEATURE": "NIFTY_RETURN_1",
+                "IMPORTANCE_MEAN": 0.003596626821484583,
+                "IMPORTANCE_STD": 0.0015136561470172145
+            },
+            {
+                "FEATURE": "EMA20_DISTANCE",
+                "IMPORTANCE_MEAN": 0.00337999086115226,
+                "IMPORTANCE_STD": 0.0017600706765318018
+            },
+            {
+                "FEATURE": "NIFTY_RETURN_20",
+                "IMPORTANCE_MEAN": 0.0032668924078311902,
+                "IMPORTANCE_STD": 0.0018039511178980787
+            },
+            {
+                "FEATURE": "VOLUME_ZSCORE_20",
+                "IMPORTANCE_MEAN": 0.002516357909336897,
+                "IMPORTANCE_STD": 0.0022928518134604117
+            },
+            {
+                "FEATURE": "RETURN_5",
+                "IMPORTANCE_MEAN": 0.002355185308012253,
+                "IMPORTANCE_STD": 0.0016351681825085473
+            },
+            {
+                "FEATURE": "RETURN_1",
+                "IMPORTANCE_MEAN": 0.0018945259543900806,
+                "IMPORTANCE_STD": 0.001218730636685458
+            },
+            {
+                "FEATURE": "ROLLING_CORRELATION_20",
+                "IMPORTANCE_MEAN": 0.0016633342934679219,
+                "IMPORTANCE_STD": 0.0019969158437080758
+            },
+            {
+                "FEATURE": "VOLATILITY_RATIO",
+                "IMPORTANCE_MEAN": 0.0016398343019628282,
+                "IMPORTANCE_STD": 0.002379749490618382
+            },
+            {
+                "FEATURE": "SMA20_DISTANCE",
+                "IMPORTANCE_MEAN": 0.0005995158541213686,
+                "IMPORTANCE_STD": 0.001383808936236598
+            },
+            {
+                "FEATURE": "NIFTY_SMA20_DISTANCE",
+                "IMPORTANCE_MEAN": 0.00022040996555601212,
+                "IMPORTANCE_STD": 0.0011491450366836547
+            }
+        ]
+    }
+}

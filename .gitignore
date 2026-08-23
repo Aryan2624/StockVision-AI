@@ -1,0 +1,60 @@
+# =========================
+# Python cache
+# =========================
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# =========================
+# Python environments
+# =========================
+venv/
+.venv/
+ml_venv/
+**/venv/
+**/.venv/
+**/ml_venv/
+**/ml_venv*/
+backend/ml_venvml_venv/
+
+# =========================
+# Node / React
+# =========================
+node_modules/
+**/node_modules/
+dist/
+frontend/dist/
+
+# =========================
+# Environment / secrets
+# =========================
+.env
+.env.*
+*.key
+*.pem
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Cache / logs
+# =========================
+.cache/
+.ipynb_checkpoints/
+*.log
+
+# =========================
+# Raw datasets
+# =========================
+backend/ml/datasets/

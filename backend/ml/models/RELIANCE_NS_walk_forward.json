@@ -1,0 +1,385 @@
+{
+    "symbol": "RELIANCE.NS",
+    "model": "V3-like Multi-Horizon BiLSTM",
+    "evaluation": "Purged Walk-Forward Backtesting",
+    "features_used": 12,
+    "lookback_days": 60,
+    "horizons": [
+        1,
+        3,
+        5,
+        10
+    ],
+    "max_horizon_purge_days": 10,
+    "folds": [
+        {
+            "fold": 1,
+            "validation_year": 2021,
+            "test_year": 2022,
+            "best_epoch": 1,
+            "train_samples": 988,
+            "validation_samples": 238,
+            "test_samples": 248,
+            "metrics": {
+                "1D": {
+                    "return_mae_percent": 1.2563,
+                    "return_rmse_percent": 1.6818,
+                    "price_mae": 14.64,
+                    "price_rmse": 19.56,
+                    "mape_percent": 1.2587,
+                    "direction_accuracy_percent": 51.21,
+                    "return_correlation": -0.0189,
+                    "baseline_mae": 14.42,
+                    "baseline_rmse": 19.4,
+                    "improvement_vs_baseline_percent": -1.48,
+                    "beats_baseline": false
+                },
+                "3D": {
+                    "return_mae_percent": 2.414,
+                    "return_rmse_percent": 3.0255,
+                    "price_mae": 28.15,
+                    "price_rmse": 35.36,
+                    "mape_percent": 2.4276,
+                    "direction_accuracy_percent": 50.81,
+                    "return_correlation": 0.0656,
+                    "baseline_mae": 27.66,
+                    "baseline_rmse": 34.65,
+                    "improvement_vs_baseline_percent": -1.79,
+                    "beats_baseline": false
+                },
+                "5D": {
+                    "return_mae_percent": 2.985,
+                    "return_rmse_percent": 3.7707,
+                    "price_mae": 35.02,
+                    "price_rmse": 44.54,
+                    "mape_percent": 3.004,
+                    "direction_accuracy_percent": 49.6,
+                    "return_correlation": -0.0538,
+                    "baseline_mae": 34.37,
+                    "baseline_rmse": 43.84,
+                    "improvement_vs_baseline_percent": -1.89,
+                    "beats_baseline": false
+                },
+                "10D": {
+                    "return_mae_percent": 4.2965,
+                    "return_rmse_percent": 5.3165,
+                    "price_mae": 50.78,
+                    "price_rmse": 63.7,
+                    "mape_percent": 4.3886,
+                    "direction_accuracy_percent": 52.02,
+                    "return_correlation": 0.3101,
+                    "baseline_mae": 49.43,
+                    "baseline_rmse": 60.99,
+                    "improvement_vs_baseline_percent": -2.74,
+                    "beats_baseline": false
+                }
+            }
+        },
+        {
+            "fold": 2,
+            "validation_year": 2022,
+            "test_year": 2023,
+            "best_epoch": 3,
+            "train_samples": 1236,
+            "validation_samples": 238,
+            "test_samples": 245,
+            "metrics": {
+                "1D": {
+                    "return_mae_percent": 0.8435,
+                    "return_rmse_percent": 1.1071,
+                    "price_mae": 9.79,
+                    "price_rmse": 12.8,
+                    "mape_percent": 0.8423,
+                    "direction_accuracy_percent": 46.12,
+                    "return_correlation": -0.1053,
+                    "baseline_mae": 9.62,
+                    "baseline_rmse": 12.66,
+                    "improvement_vs_baseline_percent": -1.74,
+                    "beats_baseline": false
+                },
+                "3D": {
+                    "return_mae_percent": 1.5929,
+                    "return_rmse_percent": 2.0226,
+                    "price_mae": 18.51,
+                    "price_rmse": 23.61,
+                    "mape_percent": 1.5948,
+                    "direction_accuracy_percent": 54.29,
+                    "return_correlation": -0.0625,
+                    "baseline_mae": 18.3,
+                    "baseline_rmse": 23.33,
+                    "improvement_vs_baseline_percent": -1.18,
+                    "beats_baseline": false
+                },
+                "5D": {
+                    "return_mae_percent": 2.0133,
+                    "return_rmse_percent": 2.5114,
+                    "price_mae": 23.47,
+                    "price_rmse": 29.3,
+                    "mape_percent": 2.0215,
+                    "direction_accuracy_percent": 57.96,
+                    "return_correlation": 0.158,
+                    "baseline_mae": 24.0,
+                    "baseline_rmse": 29.42,
+                    "improvement_vs_baseline_percent": 2.19,
+                    "beats_baseline": true
+                },
+                "10D": {
+                    "return_mae_percent": 3.0414,
+                    "return_rmse_percent": 3.7529,
+                    "price_mae": 35.53,
+                    "price_rmse": 44.04,
+                    "mape_percent": 3.0456,
+                    "direction_accuracy_percent": 58.78,
+                    "return_correlation": -0.1765,
+                    "baseline_mae": 34.7,
+                    "baseline_rmse": 42.71,
+                    "improvement_vs_baseline_percent": -2.4,
+                    "beats_baseline": false
+                }
+            }
+        },
+        {
+            "fold": 3,
+            "validation_year": 2023,
+            "test_year": 2024,
+            "best_epoch": 2,
+            "train_samples": 1484,
+            "validation_samples": 235,
+            "test_samples": 246,
+            "metrics": {
+                "1D": {
+                    "return_mae_percent": 1.031,
+                    "return_rmse_percent": 1.4508,
+                    "price_mae": 14.61,
+                    "price_rmse": 20.66,
+                    "mape_percent": 1.0324,
+                    "direction_accuracy_percent": 52.44,
+                    "return_correlation": -0.0132,
+                    "baseline_mae": 14.57,
+                    "baseline_rmse": 20.52,
+                    "improvement_vs_baseline_percent": -0.32,
+                    "beats_baseline": false
+                },
+                "3D": {
+                    "return_mae_percent": 1.7397,
+                    "return_rmse_percent": 2.3487,
+                    "price_mae": 24.7,
+                    "price_rmse": 33.36,
+                    "mape_percent": 1.7422,
+                    "direction_accuracy_percent": 52.03,
+                    "return_correlation": 0.0027,
+                    "baseline_mae": 24.32,
+                    "baseline_rmse": 33.0,
+                    "improvement_vs_baseline_percent": -1.55,
+                    "beats_baseline": false
+                },
+                "5D": {
+                    "return_mae_percent": 2.2582,
+                    "return_rmse_percent": 2.9646,
+                    "price_mae": 32.01,
+                    "price_rmse": 42.22,
+                    "mape_percent": 2.276,
+                    "direction_accuracy_percent": 54.07,
+                    "return_correlation": -0.0321,
+                    "baseline_mae": 31.78,
+                    "baseline_rmse": 41.31,
+                    "improvement_vs_baseline_percent": -0.73,
+                    "beats_baseline": false
+                },
+                "10D": {
+                    "return_mae_percent": 3.475,
+                    "return_rmse_percent": 4.2562,
+                    "price_mae": 49.34,
+                    "price_rmse": 60.41,
+                    "mape_percent": 3.5296,
+                    "direction_accuracy_percent": 48.37,
+                    "return_correlation": -0.0733,
+                    "baseline_mae": 46.21,
+                    "baseline_rmse": 55.71,
+                    "improvement_vs_baseline_percent": -6.76,
+                    "beats_baseline": false
+                }
+            }
+        },
+        {
+            "fold": 4,
+            "validation_year": 2024,
+            "test_year": 2025,
+            "best_epoch": 3,
+            "train_samples": 1729,
+            "validation_samples": 236,
+            "test_samples": 248,
+            "metrics": {
+                "1D": {
+                    "return_mae_percent": 0.9116,
+                    "return_rmse_percent": 1.2365,
+                    "price_mae": 12.44,
+                    "price_rmse": 16.65,
+                    "mape_percent": 0.9086,
+                    "direction_accuracy_percent": 48.79,
+                    "return_correlation": 0.016,
+                    "baseline_mae": 12.33,
+                    "baseline_rmse": 16.66,
+                    "improvement_vs_baseline_percent": -0.91,
+                    "beats_baseline": false
+                },
+                "3D": {
+                    "return_mae_percent": 1.6934,
+                    "return_rmse_percent": 2.2276,
+                    "price_mae": 22.95,
+                    "price_rmse": 29.59,
+                    "mape_percent": 1.6848,
+                    "direction_accuracy_percent": 54.84,
+                    "return_correlation": 0.0988,
+                    "baseline_mae": 23.07,
+                    "baseline_rmse": 29.99,
+                    "improvement_vs_baseline_percent": 0.49,
+                    "beats_baseline": true
+                },
+                "5D": {
+                    "return_mae_percent": 2.2374,
+                    "return_rmse_percent": 2.9858,
+                    "price_mae": 30.3,
+                    "price_rmse": 39.8,
+                    "mape_percent": 2.2266,
+                    "direction_accuracy_percent": 60.89,
+                    "return_correlation": 0.0351,
+                    "baseline_mae": 30.86,
+                    "baseline_rmse": 39.9,
+                    "improvement_vs_baseline_percent": 1.79,
+                    "beats_baseline": true
+                },
+                "10D": {
+                    "return_mae_percent": 3.1779,
+                    "return_rmse_percent": 4.2915,
+                    "price_mae": 43.3,
+                    "price_rmse": 57.64,
+                    "mape_percent": 3.1345,
+                    "direction_accuracy_percent": 57.26,
+                    "return_correlation": -0.0772,
+                    "baseline_mae": 43.58,
+                    "baseline_rmse": 57.28,
+                    "improvement_vs_baseline_percent": 0.65,
+                    "beats_baseline": true
+                }
+            }
+        },
+        {
+            "fold": 5,
+            "validation_year": 2025,
+            "test_year": 2026,
+            "best_epoch": 1,
+            "train_samples": 1975,
+            "validation_samples": 238,
+            "test_samples": 147,
+            "metrics": {
+                "1D": {
+                    "return_mae_percent": 1.1508,
+                    "return_rmse_percent": 1.504,
+                    "price_mae": 15.8,
+                    "price_rmse": 20.81,
+                    "mape_percent": 1.155,
+                    "direction_accuracy_percent": 46.94,
+                    "return_correlation": -0.0593,
+                    "baseline_mae": 15.66,
+                    "baseline_rmse": 20.6,
+                    "improvement_vs_baseline_percent": -0.92,
+                    "beats_baseline": false
+                },
+                "3D": {
+                    "return_mae_percent": 2.0338,
+                    "return_rmse_percent": 2.5599,
+                    "price_mae": 28.08,
+                    "price_rmse": 35.77,
+                    "mape_percent": 2.0524,
+                    "direction_accuracy_percent": 40.82,
+                    "return_correlation": -0.0662,
+                    "baseline_mae": 26.83,
+                    "baseline_rmse": 34.38,
+                    "improvement_vs_baseline_percent": -4.67,
+                    "beats_baseline": false
+                },
+                "5D": {
+                    "return_mae_percent": 2.581,
+                    "return_rmse_percent": 3.2599,
+                    "price_mae": 35.81,
+                    "price_rmse": 45.91,
+                    "mape_percent": 2.6246,
+                    "direction_accuracy_percent": 46.26,
+                    "return_correlation": 0.09,
+                    "baseline_mae": 34.03,
+                    "baseline_rmse": 43.54,
+                    "improvement_vs_baseline_percent": -5.26,
+                    "beats_baseline": false
+                },
+                "10D": {
+                    "return_mae_percent": 3.4316,
+                    "return_rmse_percent": 4.2309,
+                    "price_mae": 47.85,
+                    "price_rmse": 60.23,
+                    "mape_percent": 3.5252,
+                    "direction_accuracy_percent": 35.37,
+                    "return_correlation": 0.0977,
+                    "baseline_mae": 43.56,
+                    "baseline_rmse": 56.3,
+                    "improvement_vs_baseline_percent": -9.84,
+                    "beats_baseline": false
+                }
+            }
+        }
+    ],
+    "aggregate_metrics": {
+        "1D": {
+            "return_mae_percent": 1.0292,
+            "return_rmse_percent": 1.4027,
+            "price_mae": 13.26,
+            "price_rmse": 18.12,
+            "mape_percent": 1.0296,
+            "direction_accuracy_percent": 49.29,
+            "return_correlation": -0.0201,
+            "baseline_mae": 13.12,
+            "baseline_rmse": 18.0,
+            "improvement_vs_baseline_percent": -1.04,
+            "beats_baseline": false
+        },
+        "3D": {
+            "return_mae_percent": 1.8834,
+            "return_rmse_percent": 2.453,
+            "price_mae": 24.18,
+            "price_rmse": 31.51,
+            "mape_percent": 1.8879,
+            "direction_accuracy_percent": 51.41,
+            "return_correlation": 0.0244,
+            "baseline_mae": 23.8,
+            "baseline_rmse": 31.08,
+            "improvement_vs_baseline_percent": -1.57,
+            "beats_baseline": false
+        },
+        "5D": {
+            "return_mae_percent": 2.4015,
+            "return_rmse_percent": 3.1154,
+            "price_mae": 30.94,
+            "price_rmse": 40.32,
+            "mape_percent": 2.4146,
+            "direction_accuracy_percent": 54.41,
+            "return_correlation": 0.0097,
+            "baseline_mae": 30.75,
+            "baseline_rmse": 39.64,
+            "improvement_vs_baseline_percent": -0.62,
+            "beats_baseline": false
+        },
+        "10D": {
+            "return_mae_percent": 3.4904,
+            "return_rmse_percent": 4.4161,
+            "price_mae": 45.16,
+            "price_rmse": 57.4,
+            "mape_percent": 3.5259,
+            "direction_accuracy_percent": 51.68,
+            "return_correlation": 0.003,
+            "baseline_mae": 43.51,
+            "baseline_rmse": 54.86,
+            "improvement_vs_baseline_percent": -3.79,
+            "beats_baseline": false
+        }
+    }
+}

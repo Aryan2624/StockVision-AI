@@ -1,0 +1,67 @@
+{
+    "symbol": "RELIANCE.NS",
+    "model": "Multi-Horizon BiLSTM",
+    "lookback_days": 60,
+    "features_used": 12,
+    "horizons": [
+        1,
+        3,
+        5,
+        10
+    ],
+    "rows": 2439,
+    "metrics": {
+        "1D": {
+            "return_mae_percent": 0.9852,
+            "return_rmse_percent": 1.3351,
+            "price_mae": 13.57,
+            "price_rmse": 18.33,
+            "mape_percent": 0.9851,
+            "r2": 0.9615,
+            "direction_accuracy_percent": 51.91,
+            "baseline_mae": 13.5,
+            "baseline_rmse": 18.25,
+            "improvement_vs_baseline_percent": -0.56,
+            "beats_baseline": false
+        },
+        "3D": {
+            "return_mae_percent": 1.7909,
+            "return_rmse_percent": 2.358,
+            "price_mae": 24.6,
+            "price_rmse": 32.16,
+            "mape_percent": 1.7893,
+            "r2": 0.8797,
+            "direction_accuracy_percent": 51.64,
+            "baseline_mae": 24.38,
+            "baseline_rmse": 31.8,
+            "improvement_vs_baseline_percent": -0.89,
+            "beats_baseline": false
+        },
+        "5D": {
+            "return_mae_percent": 2.4121,
+            "return_rmse_percent": 3.1281,
+            "price_mae": 33.23,
+            "price_rmse": 43.0,
+            "mape_percent": 2.4183,
+            "r2": 0.7816,
+            "direction_accuracy_percent": 49.73,
+            "baseline_mae": 32.06,
+            "baseline_rmse": 41.5,
+            "improvement_vs_baseline_percent": -3.65,
+            "beats_baseline": false
+        },
+        "10D": {
+            "return_mae_percent": 3.4353,
+            "return_rmse_percent": 4.4589,
+            "price_mae": 47.46,
+            "price_rmse": 61.49,
+            "mape_percent": 3.4416,
+            "r2": 0.5378,
+            "direction_accuracy_percent": 47.81,
+            "baseline_mae": 44.65,
+            "baseline_rmse": 58.26,
+            "improvement_vs_baseline_percent": -6.29,
+            "beats_baseline": false
+        }
+    }
+}

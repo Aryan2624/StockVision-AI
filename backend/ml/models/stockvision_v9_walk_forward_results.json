@@ -1,0 +1,1054 @@
+{
+    "experiment": "StockVision V9 Purged Walk-Forward",
+    "target": "5-day excess return versus NIFTY 50",
+    "target_threshold_percent": 1.0,
+    "feature_count": 29,
+    "feature_columns": [
+        "RETURN_1",
+        "RETURN_3",
+        "RETURN_5",
+        "RETURN_10",
+        "RETURN_20",
+        "SMA20_DISTANCE",
+        "SMA50_DISTANCE",
+        "EMA20_DISTANCE",
+        "TREND_20",
+        "RSI14_NORMALIZED",
+        "MACD_HIST_PERCENT",
+        "VOLATILITY_10",
+        "VOLATILITY_20",
+        "ATR14_PERCENT",
+        "VOLATILITY_RATIO",
+        "VOLUME_CHANGE",
+        "VOLUME_ZSCORE_20",
+        "NIFTY_RETURN_1",
+        "NIFTY_RETURN_5",
+        "NIFTY_RETURN_10",
+        "NIFTY_RETURN_20",
+        "NIFTY_SMA20_DISTANCE",
+        "NIFTY_VOLATILITY_20",
+        "RELATIVE_RETURN_1",
+        "RELATIVE_RETURN_5",
+        "RELATIVE_RETURN_10",
+        "RELATIVE_RETURN_20",
+        "ROLLING_BETA_20",
+        "ROLLING_CORRELATION_20"
+    ],
+    "purge_days": 5,
+    "folds": [
+        {
+            "validation_year": 2021,
+            "test_year": 2022,
+            "selected_model": "Random Forest",
+            "selection_train_last_date": "2020-12-23",
+            "validation_start": "2021-01-01",
+            "validation_last_date": "2021-12-24",
+            "test_start": "2022-01-03",
+            "validation_results": {
+                "Logistic Regression": {
+                    "accuracy_percent": 36.02,
+                    "balanced_accuracy_percent": 36.68,
+                    "macro_f1_percent": 34.58,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.0,
+                    "brier_score": 0.6654,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 44.84,
+                            "recall_percent": 33.28,
+                            "f1_percent": 38.21,
+                            "support": 1358
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 33.16,
+                            "recall_percent": 58.22,
+                            "f1_percent": 42.25,
+                            "support": 1101
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 31.25,
+                            "recall_percent": 18.55,
+                            "f1_percent": 23.28,
+                            "support": 1186
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            452,
+                            632,
+                            274
+                        ],
+                        [
+                            250,
+                            641,
+                            210
+                        ],
+                        [
+                            306,
+                            660,
+                            220
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "accuracy_percent": 37.75,
+                    "balanced_accuracy_percent": 37.42,
+                    "macro_f1_percent": 37.4,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.0,
+                    "brier_score": 0.6647,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 43.63,
+                            "recall_percent": 43.59,
+                            "f1_percent": 43.61,
+                            "support": 1358
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.99,
+                            "recall_percent": 35.88,
+                            "f1_percent": 35.43,
+                            "support": 1101
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 33.56,
+                            "recall_percent": 32.8,
+                            "f1_percent": 33.18,
+                            "support": 1186
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            592,
+                            343,
+                            423
+                        ],
+                        [
+                            359,
+                            395,
+                            347
+                        ],
+                        [
+                            406,
+                            391,
+                            389
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "accuracy_percent": 35.88,
+                    "balanced_accuracy_percent": 35.58,
+                    "macro_f1_percent": 35.57,
+                    "high_confidence_accuracy_percent": 36.92,
+                    "high_confidence_coverage_percent": 5.87,
+                    "brier_score": 0.6915,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 42.17,
+                            "recall_percent": 39.25,
+                            "f1_percent": 40.66,
+                            "support": 1358
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 32.01,
+                            "recall_percent": 30.06,
+                            "f1_percent": 31.01,
+                            "support": 1101
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 32.96,
+                            "recall_percent": 37.44,
+                            "f1_percent": 35.06,
+                            "support": 1186
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            533,
+                            344,
+                            481
+                        ],
+                        [
+                            348,
+                            331,
+                            422
+                        ],
+                        [
+                            383,
+                            359,
+                            444
+                        ]
+                    ]
+                }
+            },
+            "majority_class": "UNDERPERFORM",
+            "majority_baseline_accuracy_percent": 32.85,
+            "test_metrics": {
+                "accuracy_percent": 36.48,
+                "balanced_accuracy_percent": 36.43,
+                "macro_f1_percent": 36.37,
+                "high_confidence_accuracy_percent": 0.0,
+                "high_confidence_coverage_percent": 0.03,
+                "brier_score": 0.6631,
+                "class_metrics": {
+                    "UNDERPERFORM": {
+                        "precision_percent": 35.97,
+                        "recall_percent": 31.59,
+                        "f1_percent": 33.64,
+                        "support": 1222
+                    },
+                    "NEUTRAL": {
+                        "precision_percent": 37.13,
+                        "recall_percent": 37.89,
+                        "f1_percent": 37.51,
+                        "support": 1230
+                    },
+                    "OUTPERFORM": {
+                        "precision_percent": 36.28,
+                        "recall_percent": 39.83,
+                        "f1_percent": 37.97,
+                        "support": 1268
+                    }
+                },
+                "confusion_matrix": [
+                    [
+                        386,
+                        383,
+                        453
+                    ],
+                    [
+                        330,
+                        466,
+                        434
+                    ],
+                    [
+                        357,
+                        406,
+                        505
+                    ]
+                ]
+            }
+        },
+        {
+            "validation_year": 2022,
+            "test_year": 2023,
+            "selected_model": "Random Forest",
+            "selection_train_last_date": "2021-12-24",
+            "validation_start": "2022-01-03",
+            "validation_last_date": "2022-12-23",
+            "test_start": "2023-01-02",
+            "validation_results": {
+                "Logistic Regression": {
+                    "accuracy_percent": 36.43,
+                    "balanced_accuracy_percent": 36.62,
+                    "macro_f1_percent": 34.22,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.0,
+                    "brier_score": 0.6652,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 36.93,
+                            "recall_percent": 17.54,
+                            "f1_percent": 23.78,
+                            "support": 1209
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 35.41,
+                            "recall_percent": 62.13,
+                            "f1_percent": 45.11,
+                            "support": 1191
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 38.33,
+                            "recall_percent": 30.2,
+                            "f1_percent": 33.78,
+                            "support": 1245
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            212,
+                            679,
+                            318
+                        ],
+                        [
+                            164,
+                            740,
+                            287
+                        ],
+                        [
+                            198,
+                            671,
+                            376
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "accuracy_percent": 36.27,
+                    "balanced_accuracy_percent": 36.23,
+                    "macro_f1_percent": 36.16,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.03,
+                    "brier_score": 0.6638,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 35.98,
+                            "recall_percent": 31.84,
+                            "f1_percent": 33.79,
+                            "support": 1209
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 36.42,
+                            "recall_percent": 36.27,
+                            "f1_percent": 36.35,
+                            "support": 1191
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 36.36,
+                            "recall_percent": 40.56,
+                            "f1_percent": 38.34,
+                            "support": 1245
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            385,
+                            371,
+                            453
+                        ],
+                        [
+                            328,
+                            432,
+                            431
+                        ],
+                        [
+                            357,
+                            383,
+                            505
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "accuracy_percent": 35.61,
+                    "balanced_accuracy_percent": 35.53,
+                    "macro_f1_percent": 35.43,
+                    "high_confidence_accuracy_percent": 35.57,
+                    "high_confidence_coverage_percent": 4.09,
+                    "brier_score": 0.6871,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 35.15,
+                            "recall_percent": 34.66,
+                            "f1_percent": 34.9,
+                            "support": 1209
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 36.26,
+                            "recall_percent": 30.48,
+                            "f1_percent": 33.12,
+                            "support": 1191
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 35.54,
+                            "recall_percent": 41.45,
+                            "f1_percent": 38.26,
+                            "support": 1245
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            419,
+                            324,
+                            466
+                        ],
+                        [
+                            358,
+                            363,
+                            470
+                        ],
+                        [
+                            415,
+                            314,
+                            516
+                        ]
+                    ]
+                }
+            },
+            "majority_class": "UNDERPERFORM",
+            "majority_baseline_accuracy_percent": 30.8,
+            "test_metrics": {
+                "accuracy_percent": 38.75,
+                "balanced_accuracy_percent": 35.04,
+                "macro_f1_percent": 30.24,
+                "high_confidence_accuracy_percent": 0.0,
+                "high_confidence_coverage_percent": 0.03,
+                "brier_score": 0.6617,
+                "class_metrics": {
+                    "UNDERPERFORM": {
+                        "precision_percent": 37.86,
+                        "recall_percent": 6.89,
+                        "f1_percent": 11.66,
+                        "support": 1132
+                    },
+                    "NEUTRAL": {
+                        "precision_percent": 40.09,
+                        "recall_percent": 76.47,
+                        "f1_percent": 52.6,
+                        "support": 1449
+                    },
+                    "OUTPERFORM": {
+                        "precision_percent": 33.76,
+                        "recall_percent": 21.76,
+                        "f1_percent": 26.46,
+                        "support": 1094
+                    }
+                },
+                "confusion_matrix": [
+                    [
+                        78,
+                        859,
+                        195
+                    ],
+                    [
+                        69,
+                        1108,
+                        272
+                    ],
+                    [
+                        59,
+                        797,
+                        238
+                    ]
+                ]
+            }
+        },
+        {
+            "validation_year": 2023,
+            "test_year": 2024,
+            "selected_model": "Hist Gradient Boosting",
+            "selection_train_last_date": "2022-12-23",
+            "validation_start": "2023-01-02",
+            "validation_last_date": "2023-12-21",
+            "test_start": "2024-01-01",
+            "validation_results": {
+                "Logistic Regression": {
+                    "accuracy_percent": 39.69,
+                    "balanced_accuracy_percent": 34.75,
+                    "macro_f1_percent": 26.84,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.0,
+                    "brier_score": 0.6593,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 29.91,
+                            "recall_percent": 2.92,
+                            "f1_percent": 5.32,
+                            "support": 1096
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 40.6,
+                            "recall_percent": 87.72,
+                            "f1_percent": 55.51,
+                            "support": 1425
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 35.51,
+                            "recall_percent": 13.62,
+                            "f1_percent": 19.69,
+                            "support": 1079
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            32,
+                            936,
+                            128
+                        ],
+                        [
+                            36,
+                            1250,
+                            139
+                        ],
+                        [
+                            39,
+                            893,
+                            147
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "accuracy_percent": 38.83,
+                    "balanced_accuracy_percent": 34.91,
+                    "macro_f1_percent": 29.89,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.03,
+                    "brier_score": 0.6617,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 36.81,
+                            "recall_percent": 6.11,
+                            "f1_percent": 10.49,
+                            "support": 1096
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 40.17,
+                            "recall_percent": 77.12,
+                            "f1_percent": 52.82,
+                            "support": 1425
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 34.02,
+                            "recall_percent": 21.5,
+                            "f1_percent": 26.35,
+                            "support": 1079
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            67,
+                            846,
+                            183
+                        ],
+                        [
+                            59,
+                            1099,
+                            267
+                        ],
+                        [
+                            56,
+                            791,
+                            232
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "accuracy_percent": 37.33,
+                    "balanced_accuracy_percent": 35.27,
+                    "macro_f1_percent": 34.11,
+                    "high_confidence_accuracy_percent": 43.88,
+                    "high_confidence_coverage_percent": 5.44,
+                    "brier_score": 0.6836,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 32.47,
+                            "recall_percent": 17.24,
+                            "f1_percent": 22.53,
+                            "support": 1096
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.13,
+                            "recall_percent": 57.61,
+                            "f1_percent": 48.0,
+                            "support": 1425
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 32.68,
+                            "recall_percent": 30.95,
+                            "f1_percent": 31.79,
+                            "support": 1079
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            189,
+                            603,
+                            304
+                        ],
+                        [
+                            220,
+                            821,
+                            384
+                        ],
+                        [
+                            173,
+                            572,
+                            334
+                        ]
+                    ]
+                }
+            },
+            "majority_class": "UNDERPERFORM",
+            "majority_baseline_accuracy_percent": 33.17,
+            "test_metrics": {
+                "accuracy_percent": 34.5,
+                "balanced_accuracy_percent": 34.48,
+                "macro_f1_percent": 34.42,
+                "high_confidence_accuracy_percent": 37.96,
+                "high_confidence_coverage_percent": 2.93,
+                "brier_score": 0.6868,
+                "class_metrics": {
+                    "UNDERPERFORM": {
+                        "precision_percent": 34.06,
+                        "recall_percent": 30.47,
+                        "f1_percent": 32.17,
+                        "support": 1224
+                    },
+                    "NEUTRAL": {
+                        "precision_percent": 34.24,
+                        "recall_percent": 35.27,
+                        "f1_percent": 34.75,
+                        "support": 1219
+                    },
+                    "OUTPERFORM": {
+                        "precision_percent": 35.1,
+                        "recall_percent": 37.69,
+                        "f1_percent": 36.35,
+                        "support": 1247
+                    }
+                },
+                "confusion_matrix": [
+                    [
+                        373,
+                        410,
+                        441
+                    ],
+                    [
+                        361,
+                        430,
+                        428
+                    ],
+                    [
+                        361,
+                        416,
+                        470
+                    ]
+                ]
+            }
+        },
+        {
+            "validation_year": 2024,
+            "test_year": 2025,
+            "selected_model": "Hist Gradient Boosting",
+            "selection_train_last_date": "2023-12-21",
+            "validation_start": "2024-01-01",
+            "validation_last_date": "2024-12-23",
+            "test_start": "2025-01-01",
+            "validation_results": {
+                "Logistic Regression": {
+                    "accuracy_percent": 33.58,
+                    "balanced_accuracy_percent": 33.73,
+                    "macro_f1_percent": 31.65,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.0,
+                    "brier_score": 0.6692,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 36.35,
+                            "recall_percent": 24.22,
+                            "f1_percent": 29.07,
+                            "support": 1193
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 33.27,
+                            "recall_percent": 58.17,
+                            "f1_percent": 42.33,
+                            "support": 1193
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 31.47,
+                            "recall_percent": 18.8,
+                            "f1_percent": 23.54,
+                            "support": 1229
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            289,
+                            662,
+                            242
+                        ],
+                        [
+                            238,
+                            694,
+                            261
+                        ],
+                        [
+                            268,
+                            730,
+                            231
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "accuracy_percent": 34.02,
+                    "balanced_accuracy_percent": 34.03,
+                    "macro_f1_percent": 33.78,
+                    "high_confidence_accuracy_percent": 50.0,
+                    "high_confidence_coverage_percent": 0.11,
+                    "brier_score": 0.6694,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 32.59,
+                            "recall_percent": 26.99,
+                            "f1_percent": 29.53,
+                            "support": 1193
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.27,
+                            "recall_percent": 41.07,
+                            "f1_percent": 37.36,
+                            "support": 1193
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 34.92,
+                            "recall_percent": 34.01,
+                            "f1_percent": 34.46,
+                            "support": 1229
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            322,
+                            471,
+                            400
+                        ],
+                        [
+                            324,
+                            490,
+                            379
+                        ],
+                        [
+                            342,
+                            469,
+                            418
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "accuracy_percent": 34.5,
+                    "balanced_accuracy_percent": 34.46,
+                    "macro_f1_percent": 34.41,
+                    "high_confidence_accuracy_percent": 39.58,
+                    "high_confidence_coverage_percent": 2.66,
+                    "brier_score": 0.6864,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.89,
+                            "recall_percent": 30.76,
+                            "f1_percent": 32.25,
+                            "support": 1193
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 34.28,
+                            "recall_percent": 34.45,
+                            "f1_percent": 34.36,
+                            "support": 1193
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 35.18,
+                            "recall_percent": 38.16,
+                            "f1_percent": 36.61,
+                            "support": 1229
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            367,
+                            387,
+                            439
+                        ],
+                        [
+                            357,
+                            411,
+                            425
+                        ],
+                        [
+                            359,
+                            401,
+                            469
+                        ]
+                    ]
+                }
+            },
+            "majority_class": "UNDERPERFORM",
+            "majority_baseline_accuracy_percent": 30.85,
+            "test_metrics": {
+                "accuracy_percent": 36.66,
+                "balanced_accuracy_percent": 34.46,
+                "macro_f1_percent": 33.14,
+                "high_confidence_accuracy_percent": 47.45,
+                "high_confidence_coverage_percent": 3.68,
+                "brier_score": 0.6751,
+                "class_metrics": {
+                    "UNDERPERFORM": {
+                        "precision_percent": 33.12,
+                        "recall_percent": 18.29,
+                        "f1_percent": 23.57,
+                        "support": 1148
+                    },
+                    "NEUTRAL": {
+                        "precision_percent": 41.46,
+                        "recall_percent": 59.81,
+                        "f1_percent": 48.98,
+                        "support": 1458
+                    },
+                    "OUTPERFORM": {
+                        "precision_percent": 28.66,
+                        "recall_percent": 25.29,
+                        "f1_percent": 26.87,
+                        "support": 1115
+                    }
+                },
+                "confusion_matrix": [
+                    [
+                        210,
+                        585,
+                        353
+                    ],
+                    [
+                        237,
+                        872,
+                        349
+                    ],
+                    [
+                        187,
+                        646,
+                        282
+                    ]
+                ]
+            }
+        },
+        {
+            "validation_year": 2025,
+            "test_year": 2026,
+            "selected_model": "Hist Gradient Boosting",
+            "selection_train_last_date": "2024-12-23",
+            "validation_start": "2025-01-01",
+            "validation_last_date": "2025-12-23",
+            "test_start": "2026-01-01",
+            "validation_results": {
+                "Logistic Regression": {
+                    "accuracy_percent": 39.0,
+                    "balanced_accuracy_percent": 34.78,
+                    "macro_f1_percent": 29.68,
+                    "high_confidence_accuracy_percent": 0.0,
+                    "high_confidence_coverage_percent": 0.0,
+                    "brier_score": 0.6607,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 38.69,
+                            "recall_percent": 12.66,
+                            "f1_percent": 19.07,
+                            "support": 1122
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.35,
+                            "recall_percent": 80.74,
+                            "f1_percent": 54.69,
+                            "support": 1438
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 25.27,
+                            "recall_percent": 10.96,
+                            "f1_percent": 15.29,
+                            "support": 1086
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            142,
+                            791,
+                            189
+                        ],
+                        [
+                            114,
+                            1161,
+                            163
+                        ],
+                        [
+                            111,
+                            856,
+                            119
+                        ]
+                    ]
+                },
+                "Random Forest": {
+                    "accuracy_percent": 37.88,
+                    "balanced_accuracy_percent": 34.88,
+                    "macro_f1_percent": 32.3,
+                    "high_confidence_accuracy_percent": 55.56,
+                    "high_confidence_coverage_percent": 0.25,
+                    "brier_score": 0.6618,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.41,
+                            "recall_percent": 13.46,
+                            "f1_percent": 19.19,
+                            "support": 1122
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.48,
+                            "recall_percent": 68.08,
+                            "f1_percent": 51.55,
+                            "support": 1438
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 30.1,
+                            "recall_percent": 23.11,
+                            "f1_percent": 26.15,
+                            "support": 1086
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            151,
+                            668,
+                            303
+                        ],
+                        [
+                            179,
+                            979,
+                            280
+                        ],
+                        [
+                            122,
+                            713,
+                            251
+                        ]
+                    ]
+                },
+                "Hist Gradient Boosting": {
+                    "accuracy_percent": 36.81,
+                    "balanced_accuracy_percent": 34.56,
+                    "macro_f1_percent": 33.33,
+                    "high_confidence_accuracy_percent": 46.97,
+                    "high_confidence_coverage_percent": 3.62,
+                    "brier_score": 0.6735,
+                    "class_metrics": {
+                        "UNDERPERFORM": {
+                            "precision_percent": 33.33,
+                            "recall_percent": 18.72,
+                            "f1_percent": 23.97,
+                            "support": 1122
+                        },
+                        "NEUTRAL": {
+                            "precision_percent": 41.83,
+                            "recall_percent": 59.46,
+                            "f1_percent": 49.11,
+                            "support": 1438
+                        },
+                        "OUTPERFORM": {
+                            "precision_percent": 28.5,
+                            "recall_percent": 25.51,
+                            "f1_percent": 26.92,
+                            "support": 1086
+                        }
+                    },
+                    "confusion_matrix": [
+                        [
+                            210,
+                            563,
+                            349
+                        ],
+                        [
+                            237,
+                            855,
+                            346
+                        ],
+                        [
+                            183,
+                            626,
+                            277
+                        ]
+                    ]
+                }
+            },
+            "majority_class": "UNDERPERFORM",
+            "majority_baseline_accuracy_percent": 36.32,
+            "test_metrics": {
+                "accuracy_percent": 34.96,
+                "balanced_accuracy_percent": 34.84,
+                "macro_f1_percent": 34.8,
+                "high_confidence_accuracy_percent": 38.1,
+                "high_confidence_coverage_percent": 2.76,
+                "brier_score": 0.6853,
+                "class_metrics": {
+                    "UNDERPERFORM": {
+                        "precision_percent": 40.43,
+                        "recall_percent": 36.71,
+                        "f1_percent": 38.48,
+                        "support": 828
+                    },
+                    "NEUTRAL": {
+                        "precision_percent": 32.1,
+                        "recall_percent": 30.21,
+                        "f1_percent": 31.12,
+                        "support": 715
+                    },
+                    "OUTPERFORM": {
+                        "precision_percent": 32.4,
+                        "recall_percent": 37.58,
+                        "f1_percent": 34.8,
+                        "support": 737
+                    }
+                },
+                "confusion_matrix": [
+                    [
+                        304,
+                        232,
+                        292
+                    ],
+                    [
+                        213,
+                        216,
+                        286
+                    ],
+                    [
+                        235,
+                        225,
+                        277
+                    ]
+                ]
+            }
+        }
+    ],
+    "aggregated": {
+        "pooled_test_samples": 17086,
+        "pooled_majority_baseline_accuracy_percent": 32.51,
+        "metrics": {
+            "accuracy_percent": 36.37,
+            "balanced_accuracy_percent": 35.9,
+            "macro_f1_percent": 35.27,
+            "high_confidence_accuracy_percent": 41.94,
+            "high_confidence_coverage_percent": 1.81,
+            "brier_score": 0.6735,
+            "class_metrics": {
+                "UNDERPERFORM": {
+                    "precision_percent": 35.93,
+                    "recall_percent": 24.32,
+                    "f1_percent": 29.01,
+                    "support": 5554
+                },
+                "NEUTRAL": {
+                    "precision_percent": 38.41,
+                    "recall_percent": 50.93,
+                    "f1_percent": 43.79,
+                    "support": 6071
+                },
+                "OUTPERFORM": {
+                    "precision_percent": 33.59,
+                    "recall_percent": 32.45,
+                    "f1_percent": 33.01,
+                    "support": 5461
+                }
+            },
+            "confusion_matrix": [
+                [
+                    1351,
+                    2469,
+                    1734
+                ],
+                [
+                    1210,
+                    3092,
+                    1769
+                ],
+                [
+                    1199,
+                    2490,
+                    1772
+                ]
+            ]
+        }
+    }
+}
