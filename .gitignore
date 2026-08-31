@@ -58,3 +58,20 @@ Thumbs.db
 # Raw datasets
 # =========================
 backend/ml/datasets/
+# StockVision runtime data
+backend/data/
+backend/ml/data/
+
+# Local backup files
+backend/main_before_*.py
+backend/ml/*_before_*.py
+frontend/src/App_before_*.jsx
+frontend/src/App_broken_backup.jsx
+
+# Generated ML model binaries
+backend/ml/models/*.keras
+backend/ml/models/*.pkl
+
+# Python cache
+__pycache__/
+*.pyc
