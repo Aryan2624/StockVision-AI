@@ -75,3 +75,10 @@ backend/ml/models/*.pkl
 # Python cache
 __pycache__/
 *.pyc
+
+# Old experimental RELIANCE model metadata
+backend/ml/models/RELIANCE_NS_precision-v2.1_metadata.json
+backend/ml/models/RELIANCE_NS_precision-v2_metadata.json
+backend/ml/models/RELIANCE_NS_precision-x1_metadata.json
+backend/ml/models/RELIANCE_NS_precision-x2_metadata.json
+backend/ml/models/RELIANCE_NS_precision_metadata.json
