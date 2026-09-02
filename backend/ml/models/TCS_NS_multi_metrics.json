@@ -1,0 +1,67 @@
+{
+    "symbol": "TCS.NS",
+    "model": "Multi-Horizon BiLSTM",
+    "lookback_days": 60,
+    "features_used": 12,
+    "horizons": [
+        1,
+        3,
+        5,
+        10
+    ],
+    "rows": 2439,
+    "metrics": {
+        "1D": {
+            "return_mae_percent": 1.1338,
+            "return_rmse_percent": 1.6147,
+            "price_mae": 32.59,
+            "price_rmse": 45.57,
+            "mape_percent": 1.1397,
+            "r2": 0.9908,
+            "direction_accuracy_percent": 44.54,
+            "baseline_mae": 32.02,
+            "baseline_rmse": 45.2,
+            "improvement_vs_baseline_percent": -1.79,
+            "beats_baseline": false
+        },
+        "3D": {
+            "return_mae_percent": 2.1667,
+            "return_rmse_percent": 2.8019,
+            "price_mae": 63.05,
+            "price_rmse": 81.14,
+            "mape_percent": 2.1942,
+            "r2": 0.9704,
+            "direction_accuracy_percent": 40.71,
+            "baseline_mae": 60.39,
+            "baseline_rmse": 78.05,
+            "improvement_vs_baseline_percent": -4.4,
+            "beats_baseline": false
+        },
+        "5D": {
+            "return_mae_percent": 2.8638,
+            "return_rmse_percent": 3.6689,
+            "price_mae": 84.18,
+            "price_rmse": 108.88,
+            "mape_percent": 2.9174,
+            "r2": 0.946,
+            "direction_accuracy_percent": 43.99,
+            "baseline_mae": 80.39,
+            "baseline_rmse": 104.09,
+            "improvement_vs_baseline_percent": -4.71,
+            "beats_baseline": false
+        },
+        "10D": {
+            "return_mae_percent": 4.3928,
+            "return_rmse_percent": 5.5738,
+            "price_mae": 128.46,
+            "price_rmse": 167.26,
+            "mape_percent": 4.5718,
+            "r2": 0.8697,
+            "direction_accuracy_percent": 42.62,
+            "baseline_mae": 117.23,
+            "baseline_rmse": 149.94,
+            "improvement_vs_baseline_percent": -9.58,
+            "beats_baseline": false
+        }
+    }
+}

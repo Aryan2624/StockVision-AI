@@ -1,0 +1,778 @@
+{
+  "model_version": "precision-v3-universal",
+  "model_name": "Precision V3 Universal ATR-Normalized Ensemble",
+  "production_status": "EXPERIMENTAL",
+  "universe": [
+    "RELIANCE.NS",
+    "TCS.NS",
+    "INFY.NS",
+    "HDFCBANK.NS",
+    "ICICIBANK.NS",
+    "AXISBANK.NS",
+    "KOTAKBANK.NS",
+    "WIPRO.NS",
+    "HCLTECH.NS",
+    "TATAMOTORS.NS",
+    "SBIN.NS",
+    "ITC.NS",
+    "LT.NS",
+    "BHARTIARTL.NS",
+    "MARUTI.NS",
+    "SUNPHARMA.NS"
+  ],
+  "feature_count": 61,
+  "features": [
+    "RET1",
+    "RET2",
+    "RET3",
+    "RET5",
+    "RET10",
+    "GAP_PCT",
+    "INTRADAY_PCT",
+    "RANGE_PCT",
+    "CLOSE_LOCATION",
+    "MOVE_ATR_1D",
+    "MOVE_ATR_3D",
+    "MOVE_ATR_5D",
+    "ATR14_PCT",
+    "VOL5",
+    "VOL10",
+    "VOL20",
+    "SMA5_DIST",
+    "SMA10_DIST",
+    "SMA20_DIST",
+    "SMA50_DIST",
+    "EMA5_DIST",
+    "EMA10_DIST",
+    "EMA20_DIST",
+    "EMA50_DIST",
+    "EMA5_20_SPREAD",
+    "RSI14",
+    "MACD_PCT",
+    "MACD_SIGNAL_PCT",
+    "MACD_HIST_PCT",
+    "ROC5",
+    "ROC10",
+    "VOLUME_LOG_CHANGE",
+    "VOLUME_Z20",
+    "VOLUME_RATIO5_20",
+    "NIFTY_RET1",
+    "NIFTY_RET3",
+    "NIFTY_RET5",
+    "NIFTY_VOL10",
+    "RELATIVE_RET1",
+    "RELATIVE_RET5",
+    "SECTOR_RET1",
+    "SECTOR_RET5",
+    "RELATIVE_SECTOR_RET1",
+    "ABOVE_SMA20",
+    "ABOVE_SMA50",
+    "SYMBOL_RELIANCE",
+    "SYMBOL_TCS",
+    "SYMBOL_INFY",
+    "SYMBOL_HDFCBANK",
+    "SYMBOL_ICICIBANK",
+    "SYMBOL_AXISBANK",
+    "SYMBOL_KOTAKBANK",
+    "SYMBOL_WIPRO",
+    "SYMBOL_HCLTECH",
+    "SYMBOL_TATAMOTORS",
+    "SYMBOL_SBIN",
+    "SYMBOL_ITC",
+    "SYMBOL_LT",
+    "SYMBOL_BHARTIARTL",
+    "SYMBOL_MARUTI",
+    "SYMBOL_SUNPHARMA"
+  ],
+  "dataset": {
+    "rows": 28861,
+    "stocks": 15,
+    "date_start": "2018-11-09",
+    "date_end": "2026-08-26"
+  },
+  "calibration": {
+    "hist_weight": 0.0,
+    "gbr_weight": 0.0,
+    "ridge_weight": 0.0,
+    "baseline_weight": 1.0,
+    "shrinkage": 0.0,
+    "bias_normalized": 0.0,
+    "normalized_cap": null,
+    "validation_mae": 21.738499311903123,
+    "baseline_validation_mae": 21.738499311903123,
+    "validation_improvement_percent": 0.0,
+    "accepted": false
+  },
+  "validation_error_bands": {
+    "__GLOBAL__": {
+      "q10_rs": -25.6285400390625,
+      "q90_rs": 27.175048828125
+    },
+    "AXISBANK.NS": {
+      "q10_rs": -17.05234375,
+      "q90_rs": 20.317053222656256
+    },
+    "BHARTIARTL.NS": {
+      "q10_rs": -23.270166015624998,
+      "q90_rs": 31.63402099609376
+    },
+    "HCLTECH.NS": {
+      "q10_rs": -24.644018554687495,
+      "q90_rs": 28.91571044921876
+    },
+    "HDFCBANK.NS": {
+      "q10_rs": -11.253472900390625,
+      "q90_rs": 13.979223632812502
+    },
+    "ICICIBANK.NS": {
+      "q10_rs": -16.65997314453125,
+      "q90_rs": 18.64774169921875
+    },
+    "INFY.NS": {
+      "q10_rs": -28.8150390625,
+      "q90_rs": 29.9864501953125
+    },
+    "ITC.NS": {
+      "q10_rs": -5.125457763671875,
+      "q90_rs": 5.866485595703124
+    },
+    "KOTAKBANK.NS": {
+      "q10_rs": -5.017529296875,
+      "q90_rs": 6.377719116210939
+    },
+    "LT.NS": {
+      "q10_rs": -55.4953369140625,
+      "q90_rs": 59.62109375
+    },
+    "MARUTI.NS": {
+      "q10_rs": -168.55927734374998,
+      "q90_rs": 175.80683593750007
+    },
+    "RELIANCE.NS": {
+      "q10_rs": -20.6528564453125,
+      "q90_rs": 21.997448730468758
+    },
+    "SBIN.NS": {
+      "q10_rs": -13.255108642578126,
+      "q90_rs": 12.985473632812505
+    },
+    "SUNPHARMA.NS": {
+      "q10_rs": -25.3394287109375,
+      "q90_rs": 25.17294921875002
+    },
+    "TCS.NS": {
+      "q10_rs": -59.7027587890625,
+      "q90_rs": 51.66142578125
+    },
+    "WIPRO.NS": {
+      "q10_rs": -5.217979431152344,
+      "q90_rs": 5.034933471679688
+    }
+  },
+  "holdout_test": {
+    "model": {
+      "mae": 22.73162841796875,
+      "median_absolute_error": 8.3896484375,
+      "rmse": 57.390194147367104,
+      "mape_percent": 0.9913161524011578,
+      "direction_accuracy_percent": 9.734717416378317,
+      "within_2_rupees_percent": 18.938869665513263,
+      "within_5_rupees_percent": 37.64705882352941,
+      "within_10_rupees_percent": 54.67128027681662
+    },
+    "baseline": {
+      "mae": 22.73162841796875,
+      "median_absolute_error": 8.3896484375,
+      "rmse": 57.390194147367104,
+      "mape_percent": 0.9913161524011578,
+      "direction_accuracy_percent": 9.734717416378317,
+      "within_2_rupees_percent": 18.938869665513263,
+      "within_5_rupees_percent": 37.64705882352941,
+      "within_10_rupees_percent": 54.67128027681662
+    },
+    "mae_improvement_vs_baseline_percent": 0.0,
+    "beats_baseline": false,
+    "stocks_beating_baseline": 0,
+    "stock_count": 15,
+    "per_stock": {
+      "AXISBANK.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 12.780654854427985,
+          "median_absolute_error": 8.5933837890625,
+          "rmse": 18.417606597740892,
+          "mape_percent": 1.0258674057801838,
+          "direction_accuracy_percent": 9.688581314878892,
+          "within_2_rupees_percent": 15.22491349480969,
+          "within_5_rupees_percent": 33.56401384083045,
+          "within_10_rupees_percent": 57.43944636678201
+        },
+        "baseline": {
+          "mae": 12.780654854427985,
+          "median_absolute_error": 8.5933837890625,
+          "rmse": 18.417606597740892,
+          "mape_percent": 1.0258674057801838,
+          "direction_accuracy_percent": 9.688581314878892,
+          "within_2_rupees_percent": 15.22491349480969,
+          "within_5_rupees_percent": 33.56401384083045,
+          "within_10_rupees_percent": 57.43944636678201
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "BHARTIARTL.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 17.205446025491998,
+          "median_absolute_error": 13.8260498046875,
+          "rmse": 22.92096930197347,
+          "mape_percent": 0.8985733631328048,
+          "direction_accuracy_percent": 11.072664359861593,
+          "within_2_rupees_percent": 11.072664359861593,
+          "within_5_rupees_percent": 21.79930795847751,
+          "within_10_rupees_percent": 38.062283737024224
+        },
+        "baseline": {
+          "mae": 17.205446025491998,
+          "median_absolute_error": 13.8260498046875,
+          "rmse": 22.92096930197347,
+          "mape_percent": 0.8985733631328048,
+          "direction_accuracy_percent": 11.072664359861593,
+          "within_2_rupees_percent": 11.072664359861593,
+          "within_5_rupees_percent": 21.79930795847751,
+          "within_10_rupees_percent": 38.062283737024224
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "HCLTECH.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 16.0861317987673,
+          "median_absolute_error": 11.95849609375,
+          "rmse": 22.794826338885798,
+          "mape_percent": 1.1883002650758427,
+          "direction_accuracy_percent": 7.958477508650519,
+          "within_2_rupees_percent": 10.726643598615917,
+          "within_5_rupees_percent": 24.91349480968858,
+          "within_10_rupees_percent": 43.59861591695502
+        },
+        "baseline": {
+          "mae": 16.0861317987673,
+          "median_absolute_error": 11.95849609375,
+          "rmse": 22.794826338885798,
+          "mape_percent": 1.1883002650758427,
+          "direction_accuracy_percent": 7.958477508650519,
+          "within_2_rupees_percent": 10.726643598615917,
+          "within_5_rupees_percent": 24.91349480968858,
+          "within_10_rupees_percent": 43.59861591695502
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "HDFCBANK.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 7.335901385772599,
+          "median_absolute_error": 5.50885009765625,
+          "rmse": 10.288226742247097,
+          "mape_percent": 0.8648520088699146,
+          "direction_accuracy_percent": 13.84083044982699,
+          "within_2_rupees_percent": 23.875432525951556,
+          "within_5_rupees_percent": 45.32871972318339,
+          "within_10_rupees_percent": 73.35640138408304
+        },
+        "baseline": {
+          "mae": 7.335901385772599,
+          "median_absolute_error": 5.50885009765625,
+          "rmse": 10.288226742247097,
+          "mape_percent": 0.8648520088699146,
+          "direction_accuracy_percent": 13.84083044982699,
+          "within_2_rupees_percent": 23.875432525951556,
+          "within_5_rupees_percent": 45.32871972318339,
+          "within_10_rupees_percent": 73.35640138408304
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "ICICIBANK.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 11.537067980914792,
+          "median_absolute_error": 8.726318359375,
+          "rmse": 15.334053672065886,
+          "mape_percent": 0.8560758035335221,
+          "direction_accuracy_percent": 11.072664359861593,
+          "within_2_rupees_percent": 14.878892733564014,
+          "within_5_rupees_percent": 32.52595155709342,
+          "within_10_rupees_percent": 54.325259515570934
+        },
+        "baseline": {
+          "mae": 11.537067980914792,
+          "median_absolute_error": 8.726318359375,
+          "rmse": 15.334053672065886,
+          "mape_percent": 0.8560758035335221,
+          "direction_accuracy_percent": 11.072664359861593,
+          "within_2_rupees_percent": 14.878892733564014,
+          "within_5_rupees_percent": 32.52595155709342,
+          "within_10_rupees_percent": 54.325259515570934
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "INFY.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 16.578207788170417,
+          "median_absolute_error": 13.2076416015625,
+          "rmse": 22.934852188389623,
+          "mape_percent": 1.2697759379920552,
+          "direction_accuracy_percent": 8.304498269896193,
+          "within_2_rupees_percent": 10.034602076124568,
+          "within_5_rupees_percent": 23.52941176470588,
+          "within_10_rupees_percent": 41.522491349480966
+        },
+        "baseline": {
+          "mae": 16.578207788170417,
+          "median_absolute_error": 13.2076416015625,
+          "rmse": 22.934852188389623,
+          "mape_percent": 1.2697759379920552,
+          "direction_accuracy_percent": 8.304498269896193,
+          "within_2_rupees_percent": 10.034602076124568,
+          "within_5_rupees_percent": 23.52941176470588,
+          "within_10_rupees_percent": 41.522491349480966
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "ITC.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 2.6151393375594725,
+          "median_absolute_error": 2.097686767578125,
+          "rmse": 3.9501679531847156,
+          "mape_percent": 0.7959928683655948,
+          "direction_accuracy_percent": 8.650519031141869,
+          "within_2_rupees_percent": 47.40484429065744,
+          "within_5_rupees_percent": 89.96539792387543,
+          "within_10_rupees_percent": 98.6159169550173
+        },
+        "baseline": {
+          "mae": 2.6151393375594725,
+          "median_absolute_error": 2.097686767578125,
+          "rmse": 3.9501679531847156,
+          "mape_percent": 0.7959928683655948,
+          "direction_accuracy_percent": 8.650519031141869,
+          "within_2_rupees_percent": 47.40484429065744,
+          "within_5_rupees_percent": 89.96539792387543,
+          "within_10_rupees_percent": 98.6159169550173
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "KOTAKBANK.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 3.8781629516179175,
+          "median_absolute_error": 2.894989013671875,
+          "rmse": 5.393367574680424,
+          "mape_percent": 0.966675871179979,
+          "direction_accuracy_percent": 10.380622837370241,
+          "within_2_rupees_percent": 37.0242214532872,
+          "within_5_rupees_percent": 72.66435986159169,
+          "within_10_rupees_percent": 93.77162629757785
+        },
+        "baseline": {
+          "mae": 3.8781629516179175,
+          "median_absolute_error": 2.894989013671875,
+          "rmse": 5.393367574680424,
+          "mape_percent": 0.966675871179979,
+          "direction_accuracy_percent": 10.380622837370241,
+          "within_2_rupees_percent": 37.0242214532872,
+          "within_5_rupees_percent": 72.66435986159169,
+          "within_10_rupees_percent": 93.77162629757785
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "LT.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 38.61912203990052,
+          "median_absolute_error": 25.0,
+          "rmse": 57.26488356053585,
+          "mape_percent": 1.0081243576296577,
+          "direction_accuracy_percent": 8.304498269896193,
+          "within_2_rupees_percent": 5.88235294117647,
+          "within_5_rupees_percent": 11.072664359861593,
+          "within_10_rupees_percent": 21.10726643598616
+        },
+        "baseline": {
+          "mae": 38.61912203990052,
+          "median_absolute_error": 25.0,
+          "rmse": 57.26488356053585,
+          "mape_percent": 1.0081243576296577,
+          "direction_accuracy_percent": 8.304498269896193,
+          "within_2_rupees_percent": 5.88235294117647,
+          "within_5_rupees_percent": 11.072664359861593,
+          "within_10_rupees_percent": 21.10726643598616
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "MARUTI.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 145.13385664467992,
+          "median_absolute_error": 105.935546875,
+          "rmse": 202.5686391209256,
+          "mape_percent": 1.028725352429859,
+          "direction_accuracy_percent": 7.26643598615917,
+          "within_2_rupees_percent": 2.422145328719723,
+          "within_5_rupees_percent": 3.8062283737024223,
+          "within_10_rupees_percent": 5.190311418685121
+        },
+        "baseline": {
+          "mae": 145.13385664467992,
+          "median_absolute_error": 105.935546875,
+          "rmse": 202.5686391209256,
+          "mape_percent": 1.028725352429859,
+          "direction_accuracy_percent": 7.26643598615917,
+          "within_2_rupees_percent": 2.422145328719723,
+          "within_5_rupees_percent": 3.8062283737024223,
+          "within_10_rupees_percent": 5.190311418685121
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "RELIANCE.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 12.729010664467992,
+          "median_absolute_error": 9.9539794921875,
+          "rmse": 17.33473834442511,
+          "mape_percent": 0.9147629623222161,
+          "direction_accuracy_percent": 10.726643598615917,
+          "within_2_rupees_percent": 14.186851211072666,
+          "within_5_rupees_percent": 31.4878892733564,
+          "within_10_rupees_percent": 50.17301038062284
+        },
+        "baseline": {
+          "mae": 12.729010664467992,
+          "median_absolute_error": 9.9539794921875,
+          "rmse": 17.33473834442511,
+          "mape_percent": 0.9147629623222161,
+          "direction_accuracy_percent": 10.726643598615917,
+          "within_2_rupees_percent": 14.186851211072666,
+          "within_5_rupees_percent": 31.4878892733564,
+          "within_10_rupees_percent": 50.17301038062284
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "SBIN.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 9.408719706287846,
+          "median_absolute_error": 5.99200439453125,
+          "rmse": 14.059329623755705,
+          "mape_percent": 0.95060794425031,
+          "direction_accuracy_percent": 10.380622837370241,
+          "within_2_rupees_percent": 17.99307958477509,
+          "within_5_rupees_percent": 42.21453287197232,
+          "within_10_rupees_percent": 68.16608996539793
+        },
+        "baseline": {
+          "mae": 9.408719706287846,
+          "median_absolute_error": 5.99200439453125,
+          "rmse": 14.059329623755705,
+          "mape_percent": 0.95060794425031,
+          "direction_accuracy_percent": 10.380622837370241,
+          "within_2_rupees_percent": 17.99307958477509,
+          "within_5_rupees_percent": 42.21453287197232,
+          "within_10_rupees_percent": 68.16608996539793
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "SUNPHARMA.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 14.251052170063797,
+          "median_absolute_error": 10.17333984375,
+          "rmse": 20.29007273565401,
+          "mape_percent": 0.8225976281612193,
+          "direction_accuracy_percent": 9.342560553633218,
+          "within_2_rupees_percent": 12.110726643598616,
+          "within_5_rupees_percent": 27.68166089965398,
+          "within_10_rupees_percent": 49.82698961937716
+        },
+        "baseline": {
+          "mae": 14.251052170063797,
+          "median_absolute_error": 10.17333984375,
+          "rmse": 20.29007273565401,
+          "mape_percent": 0.8225976281612193,
+          "direction_accuracy_percent": 9.342560553633218,
+          "within_2_rupees_percent": 12.110726643598616,
+          "within_5_rupees_percent": 27.68166089965398,
+          "within_10_rupees_percent": 49.82698961937716
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "TCS.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 30.40940439824827,
+          "median_absolute_error": 21.780517578125,
+          "rmse": 43.291011170151606,
+          "mape_percent": 1.1626687208383049,
+          "direction_accuracy_percent": 10.380622837370241,
+          "within_2_rupees_percent": 8.996539792387544,
+          "within_5_rupees_percent": 15.916955017301039,
+          "within_10_rupees_percent": 26.297577854671278
+        },
+        "baseline": {
+          "mae": 30.40940439824827,
+          "median_absolute_error": 21.780517578125,
+          "rmse": 43.291011170151606,
+          "mape_percent": 1.1626687208383049,
+          "direction_accuracy_percent": 10.380622837370241,
+          "within_2_rupees_percent": 8.996539792387544,
+          "within_5_rupees_percent": 15.916955017301039,
+          "within_10_rupees_percent": 26.297577854671278
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      },
+      "WIPRO.NS": {
+        "samples": 289,
+        "model": {
+          "mae": 2.406548523160413,
+          "median_absolute_error": 1.8312530517578125,
+          "rmse": 3.372691130883032,
+          "mape_percent": 1.116141796455904,
+          "direction_accuracy_percent": 8.650519031141869,
+          "within_2_rupees_percent": 52.24913494809689,
+          "within_5_rupees_percent": 88.23529411764706,
+          "within_10_rupees_percent": 98.6159169550173
+        },
+        "baseline": {
+          "mae": 2.406548523160413,
+          "median_absolute_error": 1.8312530517578125,
+          "rmse": 3.372691130883032,
+          "mape_percent": 1.116141796455904,
+          "direction_accuracy_percent": 8.650519031141869,
+          "within_2_rupees_percent": 52.24913494809689,
+          "within_5_rupees_percent": 88.23529411764706,
+          "within_10_rupees_percent": 98.6159169550173
+        },
+        "mae_improvement_vs_baseline_percent": 0.0,
+        "beats_baseline": false
+      }
+    }
+  },
+  "walk_forward": {
+    "fold_count": 4,
+    "samples": 12991,
+    "folds_beating_baseline": 0,
+    "model": {
+      "mae": 20.04893047552114,
+      "median_absolute_error": 7.65869140625,
+      "rmse": 48.28996413837346,
+      "mape_percent": 0.98013156812915,
+      "direction_accuracy_percent": 8.629050881379415,
+      "within_2_rupees_percent": 19.128627511354015,
+      "within_5_rupees_percent": 38.542067585251324,
+      "within_10_rupees_percent": 57.47055653914248
+    },
+    "baseline": {
+      "mae": 20.04893047552114,
+      "median_absolute_error": 7.65869140625,
+      "rmse": 48.28996413837346,
+      "mape_percent": 0.98013156812915,
+      "direction_accuracy_percent": 8.629050881379415,
+      "within_2_rupees_percent": 19.128627511354015,
+      "within_5_rupees_percent": 38.542067585251324,
+      "within_10_rupees_percent": 57.47055653914248
+    },
+    "mae_improvement_vs_baseline_percent": 0.0,
+    "folds": [
+      {
+        "fold": 1,
+        "test_start": "2023-02-17",
+        "test_end": "2024-01-04",
+        "samples": 3240,
+        "model": {
+          "mae": 13.376464589436848,
+          "median_absolute_error": 5.7490692138671875,
+          "rmse": 28.443118170486688,
+          "mape_percent": 0.8390157878336638,
+          "direction_accuracy_percent": 8.518518518518519,
+          "within_2_rupees_percent": 23.333333333333332,
+          "within_5_rupees_percent": 46.04938271604938,
+          "within_10_rupees_percent": 66.88271604938272
+        },
+        "baseline": {
+          "mae": 13.376464589436848,
+          "median_absolute_error": 5.7490692138671875,
+          "rmse": 28.443118170486688,
+          "mape_percent": 0.8390157878336638,
+          "direction_accuracy_percent": 8.518518518518519,
+          "within_2_rupees_percent": 23.333333333333332,
+          "within_5_rupees_percent": 46.04938271604938,
+          "within_10_rupees_percent": 66.88271604938272
+        },
+        "beats_baseline": false,
+        "calibration": {
+          "hist_weight": 0.0,
+          "gbr_weight": 0.0,
+          "ridge_weight": 0.0,
+          "baseline_weight": 1.0,
+          "shrinkage": 0.0,
+          "bias_normalized": 0.0,
+          "normalized_cap": null,
+          "validation_mae": 14.3867486559389,
+          "baseline_validation_mae": 14.3867486559389,
+          "validation_improvement_percent": 0.0,
+          "accepted": false
+        }
+      },
+      {
+        "fold": 2,
+        "test_start": "2024-01-05",
+        "test_end": "2024-11-22",
+        "samples": 3240,
+        "model": {
+          "mae": 22.253004012873145,
+          "median_absolute_error": 8.737640380859375,
+          "rmse": 51.83705679072647,
+          "mape_percent": 1.071245831349759,
+          "direction_accuracy_percent": 7.716049382716049,
+          "within_2_rupees_percent": 16.697530864197528,
+          "within_5_rupees_percent": 34.5679012345679,
+          "within_10_rupees_percent": 53.95061728395062
+        },
+        "baseline": {
+          "mae": 22.253004012873145,
+          "median_absolute_error": 8.737640380859375,
+          "rmse": 51.83705679072647,
+          "mape_percent": 1.071245831349759,
+          "direction_accuracy_percent": 7.716049382716049,
+          "within_2_rupees_percent": 16.697530864197528,
+          "within_5_rupees_percent": 34.5679012345679,
+          "within_10_rupees_percent": 53.95061728395062
+        },
+        "beats_baseline": false,
+        "calibration": {
+          "hist_weight": 0.0,
+          "gbr_weight": 0.0,
+          "ridge_weight": 0.0,
+          "baseline_weight": 1.0,
+          "shrinkage": 0.0,
+          "bias_normalized": 0.0,
+          "normalized_cap": null,
+          "validation_mae": 13.48179815002761,
+          "baseline_validation_mae": 13.48179815002761,
+          "validation_improvement_percent": 0.0,
+          "accepted": false
+        }
+      },
+      {
+        "fold": 3,
+        "test_start": "2024-11-25",
+        "test_end": "2025-10-06",
+        "samples": 3226,
+        "model": {
+          "mae": 20.55241151869999,
+          "median_absolute_error": 8.052978515625,
+          "rmse": 48.716746580742864,
+          "mape_percent": 0.9585209926117454,
+          "direction_accuracy_percent": 8.648481091134531,
+          "within_2_rupees_percent": 17.730936143831368,
+          "within_5_rupees_percent": 37.042777433354,
+          "within_10_rupees_percent": 56.416615003099814
+        },
+        "baseline": {
+          "mae": 20.55241151869999,
+          "median_absolute_error": 8.052978515625,
+          "rmse": 48.716746580742864,
+          "mape_percent": 0.9585209926117454,
+          "direction_accuracy_percent": 8.648481091134531,
+          "within_2_rupees_percent": 17.730936143831368,
+          "within_5_rupees_percent": 37.042777433354,
+          "within_10_rupees_percent": 56.416615003099814
+        },
+        "beats_baseline": false,
+        "calibration": {
+          "hist_weight": 0.0,
+          "gbr_weight": 0.0,
+          "ridge_weight": 0.0,
+          "baseline_weight": 1.0,
+          "shrinkage": 0.0,
+          "bias_normalized": 0.0,
+          "normalized_cap": null,
+          "validation_mae": 21.9722493854517,
+          "baseline_validation_mae": 21.9722493854517,
+          "validation_improvement_percent": 0.0,
+          "accepted": false
+        }
+      },
+      {
+        "fold": 4,
+        "test_start": "2025-10-07",
+        "test_end": "2026-08-26",
+        "samples": 3285,
+        "model": {
+          "mae": 23.961673661091194,
+          "median_absolute_error": 8.988037109375,
+          "rmse": 58.67722490571121,
+          "mape_percent": 1.0506705732864559,
+          "direction_accuracy_percent": 9.619482496194825,
+          "within_2_rupees_percent": 18.751902587519027,
+          "within_5_rupees_percent": 36.5296803652968,
+          "within_10_rupees_percent": 52.694063926940636
+        },
+        "baseline": {
+          "mae": 23.961673661091194,
+          "median_absolute_error": 8.988037109375,
+          "rmse": 58.67722490571121,
+          "mape_percent": 1.0506705732864559,
+          "direction_accuracy_percent": 9.619482496194825,
+          "within_2_rupees_percent": 18.751902587519027,
+          "within_5_rupees_percent": 36.5296803652968,
+          "within_10_rupees_percent": 52.694063926940636
+        },
+        "beats_baseline": false,
+        "calibration": {
+          "hist_weight": 0.0,
+          "gbr_weight": 0.0,
+          "ridge_weight": 0.0,
+          "baseline_weight": 1.0,
+          "shrinkage": 0.0,
+          "bias_normalized": 0.0,
+          "normalized_cap": null,
+          "validation_mae": 21.110415388361044,
+          "baseline_validation_mae": 21.110415388361044,
+          "validation_improvement_percent": 0.0,
+          "accepted": false
+        }
+      }
+    ]
+  },
+  "acceptance": {
+    "validation_accepted": false,
+    "holdout_overall_beats_baseline": false,
+    "walk_forward_overall_beats_baseline": false,
+    "at_least_3_of_4_folds_beat_baseline": false,
+    "majority_holdout_stocks_beat_baseline": false
+  },
+  "notes": [
+    "Target is next-day close residual divided by current ATR14.",
+    "All stock/date splits are chronological by date.",
+    "Same future dates are never randomly split across stocks.",
+    "Historical prices use auto-adjusted data to reduce corporate-action distortion.",
+    "Previous close is explicit zero-move baseline.",
+    "Rs 1-2 next-day error is measured, never guaranteed."
+  ]
+}
