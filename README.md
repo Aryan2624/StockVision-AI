@@ -2,9 +2,9 @@
 
 ### AI-Powered Stock Forecasting & Market Intelligence Platform
 
-StockVision AI is a full-stack stock market analytics and forecasting platform built using **React, FastAPI, Machine Learning, Deep Learning and real market data**.
+**StockVision AI** is a full-stack stock market analytics and forecasting platform built using **React, FastAPI, Machine Learning, Deep Learning, and real market data**.
 
-The project combines live stock analytics, technical indicators, BiLSTM forecasting, relative-strength intelligence, prediction-history validation, uncertainty estimation, news sentiment, alerts and walk-forward model evaluation inside a modern interactive dashboard.
+The project combines live stock analytics, technical indicators, **BiLSTM forecasting, relative-strength intelligence, prediction-history validation, uncertainty estimation, news sentiment, alerts, and walk-forward model evaluation** inside a modern interactive dashboard.
 
 > ⚠️ **StockVision AI is an educational and research project. It is not financial or investment advice.**
 
@@ -12,326 +12,576 @@ The project combines live stock analytics, technical indicators, BiLSTM forecast
 
 ## 🚀 Project Overview
 
-StockVision AI was developed as a complete market intelligence platform instead of relying on one prediction model.
+StockVision AI was developed as a complete **market intelligence platform** instead of relying on only one prediction model.
 
 The platform combines:
 
 - Live stock market data
 - Searchable NSE stock universe
-- Interactive candlestick and price charts
-- Technical indicators
-- Next-day prediction
-- Multi-horizon BiLSTM forecasting
-- V9 Relative Strength Intelligence
-- NIFTY 50 benchmarking
-- Walk-forward backtesting
-- Prediction uncertainty ranges
-- Automatic prediction-history capture
-- Predicted vs Actual validation
-- Direction Accuracy
-- MAE / Avg Error %
-- Range Coverage
-- Previous-close baseline comparison
-- LIVE vs REPLAY evaluation
-- News & Sentiment
-- Watchlist and Stock Comparison
-- Alerts
-- Full-screen prediction-history chart
-- Modern React dashboard
+- AI-based stock forecasting
+- Bidirectional LSTM model
+- Technical indicator analysis
+- Relative strength analysis
+- Prediction history tracking
+- Forecast validation
+- Model uncertainty estimation
+- News sentiment analysis
+- Market alerts
+- Walk-forward evaluation
+- Interactive financial charts
+- Modern responsive dashboard
 
----
-
-# 🧠 AI Architecture
-
-```text
-                         STOCKVISION AI
-
-                        Live Market Data
-                               │
-                               ▼
-                        Yahoo Finance
-                               │
-                               ▼
-                       FastAPI Backend
-                               │
-          ┌────────────────────┼────────────────────┐
-          │                    │                    │
-          ▼                    ▼                    ▼
- Technical Engine       Price Forecasting      V9 Relative AI
-          │                    │                    │
- RSI / MACD             BiLSTM / Hybrid      Performance vs NIFTY
- SMA / EMA              1D / 3D / 5D / 10D       │
- Volatility             Uncertainty Range     ┌────┼────┐
-                                                ▼    ▼    ▼
-                                             UNDER NEUTRAL OUT
-          │                    │                    │
-          └────────────────────┴────────────────────┘
-                               │
-                               ▼
-                    Prediction History Engine
-                               │
-               ┌───────────────┼───────────────┐
-               ▼               ▼               ▼
-          LIVE Capture     Historical      Validation
-                           REPLAY          Metrics
-               │               │               │
-               └───────────────┴───────────────┘
-                               │
-                               ▼
-                      Market Intelligence
-                               │
-                               ▼
-                        React Dashboard
-```
+The goal is to provide users with a single platform where they can **search, analyze, compare, and study stocks using both financial indicators and AI-powered forecasting**.
 
 ---
 
 # ✨ Main Features
 
-## 📊 Live Market Dashboard
-- Current price
-- Open / High / Low
-- Volume
-- Intraday candlestick data
-- Technical indicators
-- Real-time style market dashboard
+## 📊 Live Stock Market Data
 
-## 🔎 NSE Stock Search
-Dynamic NSE stock universe with searchable stock selection.
+StockVision AI fetches real stock market information using **Yahoo Finance (`yfinance`)**.
 
-## 📈 Technical Indicators
-- SMA
-- EMA
-- RSI
-- MACD
-- MACD Signal
-- Daily Return
-- Volatility features
+The application can retrieve:
 
----
+- Open Price
+- High Price
+- Low Price
+- Close Price
+- Adjusted Close
+- Trading Volume
+- Historical Price Data
+- Daily Price Movement
 
-# 🤖 Forecasting Engine
-
-## BiLSTM Forecasting
-The BiLSTM pipeline uses historical prices and technical indicators.
-
-Main features:
-- Open
-- High
-- Low
-- Close
-- Volume
-- SMA20
-- EMA20
-- RSI14
-- MACD
-- MACD Signal
-- Daily Return
-
-Multi-horizon forecasts:
-- 1 Day
-- 3 Days
-- 5 Days
-- 10 Days
-
----
-
-# 🧠 V9 Relative Strength Intelligence
-
-V9 predicts stock performance relative to NIFTY 50.
-
-Classes:
+Example supported ticker symbols:
 
 ```text
-0 → UNDERPERFORM
-1 → NEUTRAL
-2 → OUTPERFORM
+RELIANCE.NS
+TCS.NS
+INFY.NS
+HDFCBANK.NS
+ICICIBANK.NS
+SBIN.NS
+ITC.NS
+AAPL
+MSFT
+GOOGL
+TSLA
 ```
-
-Walk-forward evaluation:
-
-- Future test samples: **17,086**
-- Majority baseline: **32.51%**
-- Relative-momentum baseline: **33.48%**
-- V9 accuracy: **36.37%**
-- Macro F1: **35.27%**
-- Balanced accuracy: **35.90%**
-
-> Training accuracy is not treated as real-world evaluation.
 
 ---
 
-# 🕒 Automatic Prediction History
+## 🔎 Searchable Stock Universe
 
-Each saved prediction can include:
+Users can search for different stocks directly from the StockVision dashboard.
 
-- Prediction Date
-- Target Date
-- Predicted Price
-- Actual Price
-- Difference
-- Error %
-- Expected Range
-- Direction
-- Range Result
-- Status
+Instead of being limited to one stock, the architecture is designed to support analysis for **multiple stocks dynamically**.
 
 Example:
 
 ```text
-Prediction Date | Predicted | Actual | Difference | Status
------------------------------------------------------------
-28 Aug          | ₹223.50   | ₹221.80 | -₹1.70   | RESOLVED
-31 Aug          | ₹224.10   | --      | --        | PENDING
+Search Stock
+      ↓
+RELIANCE.NS
+      ↓
+Fetch Market Data
+      ↓
+Calculate Indicators
+      ↓
+Load / Train Model
+      ↓
+Generate Prediction
+      ↓
+Display Dashboard
 ```
 
 ---
 
-# 🌐 Full NSE Daily Capture
+# 🤖 AI Stock Forecasting
 
-The full-universe batch can:
+The main forecasting model used in StockVision AI is a:
 
-- Process the current NSE universe
-- Save one immutable prediction per stock/date
-- Resolve older pending rows
-- Avoid duplicates
-- Track processed/captured/failed counts
-- Resume after restart
-- Rate-limit market-data requests
+## Bidirectional Long Short-Term Memory Network
 
-Some very new, suspended or data-poor securities may remain unavailable. StockVision does not fabricate values when data is missing.
+```text
+Bi-LSTM
+```
+
+A traditional LSTM learns patterns from sequential financial data.
+
+A **Bidirectional LSTM** uses forward and backward sequence-processing layers during training, allowing the network to learn richer relationships within the historical input window.
+
+The model analyzes historical stock patterns and generates the predicted stock price.
 
 ---
 
-# 🗂 LIVE vs REPLAY History
+# 🧠 Model Input
 
-## 🟢 LIVE
-A genuine forecast actually captured by StockVision at that time.
+The current AI model uses:
 
-## 🔵 REPLAY
-Historical model replay using the frozen model and information available on that historical base date.
+```text
+Sequence Length : 60 Trading Days
+Features        : 11
+Model           : Bidirectional LSTM
+```
 
-Replay is useful for backtesting, but is clearly labelled and is **not presented as an original live forecast**.
+The main input features are:
+
+```text
+Open
+High
+Low
+Close
+Volume
+SMA20
+EMA20
+RSI14
+MACD
+SIGNAL
+DAILY_RETURN
+```
+
+---
+
+# ⚙️ Prediction Pipeline
+
+```text
+Yahoo Finance
+      ↓
+Historical Stock Data
+      ↓
+Data Cleaning
+      ↓
+Feature Engineering
+      ↓
+Technical Indicators
+      ↓
+Feature Scaling
+      ↓
+60-Day Sequence
+      ↓
+Bi-LSTM Model
+      ↓
+Price Forecast
+      ↓
+Inverse Scaling
+      ↓
+FastAPI Backend
+      ↓
+React Dashboard
+```
+
+---
+
+# 📈 Technical Indicators
+
+StockVision AI uses multiple technical indicators to provide additional market context to the prediction system.
+
+---
+
+## 📉 SMA — Simple Moving Average
+
+The **Simple Moving Average** calculates the average closing price over a selected number of trading days.
+
+Current indicator:
+
+```text
+SMA20
+```
+
+Formula:
+
+```text
+SMA = Sum of Closing Prices / Number of Periods
+```
+
+SMA helps identify the overall market trend.
+
+---
+
+## 📈 EMA — Exponential Moving Average
+
+The **Exponential Moving Average** gives greater importance to recent price movements.
+
+Current indicator:
+
+```text
+EMA20
+```
+
+EMA reacts faster to recent price changes compared to SMA.
+
+---
+
+## ⚡ RSI — Relative Strength Index
+
+StockVision uses:
+
+```text
+RSI14
+```
+
+RSI measures the strength and momentum of recent price movements.
+
+Common interpretation:
+
+```text
+RSI > 70
+Potentially Overbought
+
+RSI < 30
+Potentially Oversold
+```
+
+---
+
+## 📊 MACD
+
+MACD is used to understand momentum and trend changes.
+
+StockVision calculates:
+
+```text
+MACD
+SIGNAL
+```
+
+The relationship between these values can help identify possible bullish or bearish momentum.
+
+---
+
+## 📈 Daily Return
+
+Daily return measures the percentage movement of the stock compared with the previous trading session.
+
+```text
+Daily Return =
+(Current Close - Previous Close)
+/
+Previous Close
+```
+
+---
+
+# 🧭 Relative Strength Intelligence
+
+StockVision AI also includes **relative-strength based analysis**.
+
+Instead of analyzing only the predicted price, the system can compare stock momentum and market behavior to provide additional context.
+
+This helps reduce dependence on a single AI forecast.
+
+The intelligence layer can combine information such as:
+
+```text
+Price Movement
++
+Technical Indicators
++
+Momentum
++
+Relative Strength
++
+AI Forecast
++
+Market Sentiment
+=
+Market Intelligence
+```
+
+---
+
+# 📰 News Sentiment Analysis
+
+Stock prices can be affected by market news and investor sentiment.
+
+StockVision AI is designed to include a **news sentiment layer** where financial headlines can be analyzed to identify:
+
+```text
+Positive Sentiment
+Neutral Sentiment
+Negative Sentiment
+```
+
+This information can be displayed along with technical and forecasting results.
+
+---
+
+# 🎯 Prediction History Validation
+
+One major challenge with stock forecasting projects is that predictions are usually shown without checking later whether they were correct.
+
+StockVision AI addresses this using **prediction history tracking**.
+
+The system can store:
+
+```text
+Prediction Date
+Stock Symbol
+Current Price
+Predicted Price
+Actual Future Price
+Prediction Error
+Direction Prediction
+Direction Result
+```
+
+This allows historical AI predictions to be validated against real market outcomes.
 
 ---
 
 # 📊 Model Evaluation
 
-StockVision does not use one vague “accuracy” number.
+The current **RELIANCE.NS** model produced the following experimental test results:
 
-## Direction Accuracy
-```text
-Correct Directions / Total Direction Samples × 100
-```
+| Metric | Result |
+|---|---:|
+| MAE | ₹79.60 |
+| RMSE | ₹89.24 |
+| R² Score | 0.0106 |
+| MAPE | 5.60% |
+| Direction Accuracy | 49.05% |
 
-## MAE
-```text
-Average(|Actual Price - Predicted Price|)
-```
+These results are intentionally shown transparently because StockVision AI is an **experimental AI forecasting system**.
 
-## Avg Error %
-```text
-|Actual - Predicted| / Actual × 100
-```
-
-## Range Coverage
-```text
-Actual Inside Expected Range / Resolved Samples × 100
-```
-
-## Baseline Comparison
-```text
-Baseline Prediction = Current / Previous Close
-```
-
-## Vs Baseline
-```text
-(Baseline MAE - Model MAE) / Baseline MAE × 100
-```
-
-Positive = model MAE is lower.  
-Negative = previous-close baseline is better.
-
-LIVE and REPLAY metrics are displayed separately.
+The objective of the project is not to claim perfect stock prediction, but to build a platform where model performance can be **measured, validated, monitored, and improved**.
 
 ---
 
-# 📉 Prediction History Chart
+# 🎲 Prediction Uncertainty
 
-The chart shows:
+Stock market predictions contain uncertainty.
 
-- Predicted Value
-- Actual Value
-- Difference
-- Final / Resolved Value
-- Expected Range
+Instead of presenting the AI forecast as a guaranteed value, StockVision AI is designed to provide prediction context such as:
 
-Filters:
-- 7D
-- 30D
-- 3M
-- 6M
-- 1Y
-- All Dates
+```text
+Predicted Price
+Prediction Range
+Model Confidence
+Historical Error
+Market Trend
+Risk Context
+```
 
-Also supports **Full Screen mode**.
+This creates a more realistic representation of AI forecasting.
 
 ---
 
-# 📰 News & Sentiment
+# 🔄 Walk-Forward Model Evaluation
 
-- Recent stock/company news
-- Relevance filtering
-- Positive / Neutral / Negative sentiment
-- Sentiment trend
-- Topics and sources
+StockVision AI is designed to support **walk-forward evaluation**.
+
+Unlike random train-test splitting, walk-forward evaluation respects the chronological nature of financial data.
+
+Example:
+
+```text
+Train
+2018 ─────────── 2022
+
+Test
+2023
+
+        ↓
+
+Train
+2018 ─────────────── 2023
+
+Test
+2024
+
+        ↓
+
+Train
+2018 ─────────────────── 2024
+
+Test
+2025
+```
+
+This approach provides a more realistic evaluation of how a forecasting model may behave when exposed to future unseen data.
 
 ---
 
-# 🔔 Alerts
+# 🔔 Stock Alerts
 
-Supports:
-- Price above threshold
-- Price below threshold
-- Model/signal alerts
+The platform is designed to support alerts based on conditions such as:
+
+```text
+Stock Price Target
+RSI Level
+Large Price Movement
+AI Forecast Change
+Technical Indicator Signal
+Market Risk
+```
+
+This makes StockVision AI more than a simple prediction application.
+
+---
+
+# 📊 Interactive Dashboard
+
+The StockVision frontend provides a modern trading-dashboard style interface.
+
+The dashboard can include:
+
+- Stock Search
+- Current Price
+- Price Change
+- Historical Chart
+- AI Forecast
+- Technical Indicators
+- RSI
+- MACD
+- SMA
+- EMA
+- Watchlist
+- Prediction History
+- News Sentiment
+- Market Intelligence
+- Alerts
+
+---
+
+# 📉 Interactive Charts
+
+The frontend uses:
+
+```text
+Recharts
+```
+
+for responsive stock market visualizations.
+
+Charts can represent:
+
+```text
+Historical Closing Price
+Predicted Price
+Price Trends
+Technical Indicators
+Market Movement
+Prediction History
+```
 
 ---
 
 # ⭐ Watchlist
-Save stocks for quick monitoring.
 
-# ⚖️ Stock Comparison
-Compare selected stocks using market and technical information.
+StockVision includes a watchlist-style interface where important stocks can be monitored.
+
+Future versions can allow users to create persistent personalized watchlists.
+
+Example:
+
+```text
+My Watchlist
+
+RELIANCE.NS
+TCS.NS
+INFY.NS
+HDFCBANK.NS
+SBIN.NS
+```
 
 ---
 
-# 🛠 Tech Stack
+# 🏗️ System Architecture
 
-## Frontend
-- React
-- Vite
-- Tailwind CSS
-- Recharts
-- ApexCharts
-- Lucide React
+```text
+                 ┌─────────────────────────┐
+                 │      Yahoo Finance      │
+                 │        yfinance         │
+                 └────────────┬────────────┘
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │ Historical Market Data  │
+                 │      OHLCV Prices       │
+                 └────────────┬────────────┘
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │   Feature Engineering   │
+                 │                         │
+                 │ SMA / EMA / RSI / MACD  │
+                 │      Daily Return       │
+                 └────────────┬────────────┘
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │    Data Preprocessing   │
+                 │        Scaling          │
+                 └────────────┬────────────┘
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │      Bi-LSTM Model      │
+                 │    Price Forecasting    │
+                 └────────────┬────────────┘
+                              │
+              ┌───────────────┼────────────────┐
+              │               │                │
+              ▼               ▼                ▼
+      ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+      │  Prediction  │ │  Technical   │ │    Market    │
+      │   History    │ │ Intelligence │ │  Sentiment   │
+      └──────┬───────┘ └──────┬───────┘ └──────┬───────┘
+             │                │                │
+             └────────────────┼────────────────┘
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │     FastAPI Backend     │
+                 │     REST API Layer      │
+                 └────────────┬────────────┘
+                              │
+                              ▼
+                 ┌─────────────────────────┐
+                 │      React + Vite       │
+                 │   StockVision Dashboard │
+                 └─────────────────────────┘
+```
 
-## Backend
-- FastAPI
-- Uvicorn
-- Python
-- Pandas
-- NumPy
-- yfinance
+---
 
-## ML / DL
-- TensorFlow
-- Keras
-- Scikit-learn
-- BiLSTM
-- Gradient Boosting
-- Ridge Regression
-- Histogram Gradient Boosting
-- Walk-Forward Validation
+# 🛠️ Technology Stack
+
+## 💻 Frontend
+
+| Technology | Purpose |
+|---|---|
+| React | Frontend UI |
+| Vite | Development & Build Tool |
+| Tailwind CSS | Styling |
+| Recharts | Financial Charts |
+| Lucide React | Icons |
+| JavaScript | Frontend Logic |
+
+---
+
+## ⚡ Backend
+
+| Technology | Purpose |
+|---|---|
+| Python | Backend & AI |
+| FastAPI | REST API |
+| Uvicorn | ASGI Server |
+| yfinance | Market Data |
+| Pandas | Data Processing |
+| NumPy | Numerical Computing |
+
+---
+
+## 🤖 Machine Learning
+
+| Technology | Purpose |
+|---|---|
+| TensorFlow | Deep Learning |
+| Keras | Neural Network Development |
+| Bi-LSTM | Time-Series Forecasting |
+| Scikit-learn | Data Preprocessing |
+| Joblib | Scaler / Model Utilities |
 
 ---
 
@@ -339,185 +589,506 @@ Compare selected stocks using market and technical information.
 
 ```text
 StockVision-AI/
+│
 ├── backend/
+│   │
 │   ├── main.py
-│   ├── data/
-│   └── ml/
-│       ├── model_manager.py
-│       ├── universal_precision_v3.py
-│       ├── train_universal_v3.py
-│       ├── train_x1.py
-│       ├── train_x2.py
-│       ├── x1_model.py
-│       ├── x2_live_predictor.py
-│       ├── x2_probabilistic.py
-│       └── models/
+│   │
+│   ├── requirements.txt
+│   │
+│   ├── models/
+│   │   ├── RELIANCE_NS.keras
+│   │   └── ...
+│   │
+│   ├── scalers/
+│   │   └── ...
+│   │
+│   ├── services/
+│   │   └── ...
+│   │
+│   └── utils/
+│       └── ...
+│
 ├── frontend/
+│   │
+│   ├── src/
+│   │   ├── components/
+│   │   ├── assets/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── public/
 │   ├── package.json
-│   └── src/
-│       ├── App.jsx
-│       ├── CandlestickStockChart.jsx
-│       └── components/
-│           └── PredictionHistoryChart.jsx
+│   └── vite.config.js
+│
+├── models/
+│   └── ...
+│
 ├── .gitignore
-├── LICENSE
-└── README.md
+│
+├── README.md
+│
+└── LICENSE
 ```
+
+> Project structure may change as StockVision AI continues to develop.
 
 ---
 
 # ⚙️ Installation
 
-## Backend
-```cmd
-cd /d E:\StockVision-AI\backend
-ml_venv\Scripts\activate
-python -m uvicorn main:app
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/Aryan2624/StockVision-AI.git
 ```
 
-Backend:
-```text
-http://127.0.0.1:8000
+Enter the project:
+
+```bash
+cd StockVision-AI
 ```
 
-## Frontend
-```cmd
-cd /d E:\StockVision-AI\frontend
+---
+
+# 🐍 Backend Setup
+
+Go to the backend directory:
+
+```bash
+cd backend
+```
+
+Create a Python virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+If installing manually:
+
+```bash
+pip install fastapi uvicorn yfinance pandas numpy scikit-learn tensorflow joblib
+```
+
+Start the FastAPI backend:
+
+```bash
+uvicorn main:app --reload
+```
+
+---
+
+# ⚛️ Frontend Setup
+
+Open another terminal and move into the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
+
+Start the React application:
+
+```bash
 npm run dev
 ```
 
-Frontend:
+The frontend normally runs at:
+
 ```text
 http://localhost:5173
 ```
 
 ---
 
-# 🔌 Important API Endpoints
+# 🚀 Run Complete StockVision AI
+
+Use two terminals.
+
+## Terminal 1 — Backend
+
+```bash
+cd backend
+venv\Scripts\activate
+uvicorn main:app --reload
+```
+
+## Terminal 2 — Frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+Then open:
 
 ```text
-GET  /
-GET  /stocks
-GET  /stock/{symbol}
-GET  /stock-candles/{symbol}
-GET  /prediction-history/{symbol}
-GET  /prediction-history-overview
-GET  /prediction-full-universe/status
-POST /prediction-full-universe/start
-POST /prediction-full-universe/restart
+http://localhost:5173
 ```
 
 ---
 
-# 🖥 Dashboard Modules
+# 🔄 Application Workflow
 
 ```text
-Dashboard
-Markets
-Watchlist
-Stock Comparison
-AI Prediction
-Future Forecast
-Model Analytics
-News & Sentiment
-Alerts
-Settings
+User Opens StockVision
+          ↓
+Searches Stock Symbol
+          ↓
+React Sends API Request
+          ↓
+FastAPI Receives Symbol
+          ↓
+Yahoo Finance Data Downloaded
+          ↓
+Data Cleaning
+          ↓
+Technical Indicators Generated
+          ↓
+Features Scaled
+          ↓
+Last 60 Trading Days Selected
+          ↓
+Bi-LSTM Model Loaded
+          ↓
+Stock Price Predicted
+          ↓
+Prediction Inverse Scaled
+          ↓
+Technical Analysis Generated
+          ↓
+Market Intelligence Generated
+          ↓
+API Returns Results
+          ↓
+React Dashboard Updated
 ```
 
 ---
 
-# ✅ Current Project Status
+# 🎯 Project Objectives
+
+StockVision AI was built to:
+
+- Develop an end-to-end AI application
+- Combine AI with full-stack development
+- Work with real financial market data
+- Implement time-series forecasting
+- Apply Deep Learning to financial data
+- Develop a Bi-LSTM model
+- Perform technical stock analysis
+- Track prediction performance
+- Measure forecasting uncertainty
+- Build a modern interactive UI
+- Support multiple stocks
+- Create a scalable market-intelligence platform
+- Improve practical AI engineering skills
+
+---
+
+# 🧪 Model Development
+
+The model development process includes:
 
 ```text
-Live Market Dashboard         ✅
-NSE Stock Search              ✅
-Technical Indicators          ✅
-BiLSTM Forecasting            ✅
-Multi-Horizon Forecasting     ✅
-V9 Relative Strength AI       ✅
-Walk-Forward Evaluation       ✅
-Prediction History            ✅
-Full NSE History Capture      ✅
-LIVE / REPLAY History         ✅
-Model Performance Metrics     ✅
-Baseline Comparison           ✅
-Prediction History Chart      ✅
-Full-Screen Chart             ✅
-News & Sentiment              ✅
-Watchlist                     ✅
-Stock Comparison              ✅
-Alerts                        ✅
-GitHub Repository             ✅
+Collect Historical Data
+        ↓
+Clean Dataset
+        ↓
+Generate Technical Indicators
+        ↓
+Select Features
+        ↓
+Scale Features
+        ↓
+Create 60-Day Sequences
+        ↓
+Split Data Chronologically
+        ↓
+Train Bi-LSTM
+        ↓
+Fine Tune Model
+        ↓
+Evaluate Model
+        ↓
+Save Model
+        ↓
+Save Scaler
+        ↓
+Serve Through FastAPI
 ```
 
 ---
 
-# 🎯 Project Goal
+# 📊 Evaluation Metrics
 
-The goal is not to claim perfect stock-market prediction.
+StockVision uses multiple metrics because relying only on accuracy is not suitable for stock price forecasting.
 
-StockVision AI demonstrates an end-to-end AI engineering workflow combining:
+## MAE
 
-- Data engineering
-- Machine learning
-- Deep learning
-- Model validation
-- Backend APIs
-- Frontend development
-- Real-world market data
-- Honest evaluation
-- Production-style UI design
+```text
+Mean Absolute Error
+```
+
+Measures the average absolute difference between the predicted price and actual price.
 
 ---
 
-# ⚠️ Limitations
+## RMSE
 
-Stock predictions are affected by:
-- News
-- Macroeconomic events
-- Sentiment
-- Liquidity
-- Corporate actions
-- Unexpected shocks
-- Third-party data availability
+```text
+Root Mean Squared Error
+```
 
-Some price models may not consistently outperform a simple previous-close baseline.
+Penalizes larger forecasting errors more heavily.
 
-Historical REPLAY results are backtesting evidence, not original live predictions.
+---
+
+## MAPE
+
+```text
+Mean Absolute Percentage Error
+```
+
+Measures forecasting error as a percentage.
+
+---
+
+## R² Score
+
+Measures how well the model explains variation in stock prices.
+
+---
+
+## Direction Accuracy
+
+Direction accuracy checks whether the model correctly predicts whether the stock moves:
+
+```text
+UP
+or
+DOWN
+```
+
+This is particularly useful for evaluating financial forecasting models.
+
+---
+
+# 💾 Model Storage
+
+Trained models are stored in `.keras` format.
+
+Example:
+
+```text
+models/
+└── RELIANCE_NS.keras
+```
+
+Associated scalers and model metadata can also be stored for each stock.
+
+Generated per-stock metadata files are excluded from Git tracking where required using:
+
+```text
+.gitignore
+```
+
+This keeps the repository clean and prevents unnecessary generated files from being committed.
 
 ---
 
 # 🔮 Future Improvements
 
-- Cloud deployment
-- Persistent server-side alert scheduler
-- More market-data providers
-- Fundamental analysis
-- Portfolio analytics
-- Better uncertainty calibration
-- Model monitoring
-- Experiment tracking
-- Improved live validation
+- [ ] Improve directional prediction accuracy
+- [ ] Improve model generalization
+- [ ] Train models for more NSE stocks
+- [ ] Automatic model training for new stocks
+- [ ] Automatic model retraining
+- [ ] Add GRU model comparison
+- [ ] Add Transformer forecasting model
+- [ ] Add ensemble forecasting
+- [ ] Add candlestick charts
+- [ ] Add Bollinger Bands
+- [ ] Add ATR
+- [ ] Add ADX
+- [ ] Add volume indicators
+- [ ] Improve relative-strength engine
+- [ ] Improve prediction confidence
+- [ ] Add forecast confidence intervals
+- [ ] Expand prediction-history validation
+- [ ] Improve walk-forward evaluation
+- [ ] Add financial news APIs
+- [ ] Improve sentiment analysis
+- [ ] Add company fundamentals
+- [ ] Add sector comparison
+- [ ] Add market benchmark comparison
+- [ ] Add stock screener
+- [ ] Add portfolio tracker
+- [ ] Add portfolio analytics
+- [ ] Add persistent watchlist
+- [ ] Add user authentication
+- [ ] Add database integration
+- [ ] Add notification system
+- [ ] Add price alerts
+- [ ] Add AI-generated market summaries
+- [ ] Add explainable AI
+- [ ] Deploy frontend
+- [ ] Deploy backend
+- [ ] Improve mobile experience
+
+---
+
+# ⚠️ Limitations
+
+Financial markets are affected by many factors including:
+
+```text
+Economic Events
+Company Performance
+Interest Rates
+Market Sentiment
+Global Events
+Government Policies
+Institutional Activity
+Liquidity
+Unexpected News
+Investor Psychology
+```
+
+Historical stock data alone cannot perfectly predict future prices.
+
+The current Bi-LSTM model is experimental and its forecasts should not be treated as guaranteed market outcomes.
+
+---
+
+# ⚠️ Disclaimer
+
+StockVision AI is created for:
+
+```text
+Education
+Research
+Machine Learning Experimentation
+Portfolio Development
+```
+
+It is **not a financial advisory system**.
+
+The predictions, indicators, sentiment results, or market intelligence generated by StockVision AI should not be considered investment recommendations.
+
+Always perform your own research before making financial decisions.
+
+---
+
+# 💡 What I Learned
+
+Building StockVision AI provided practical experience with:
+
+```text
+Python
+Machine Learning
+Deep Learning
+TensorFlow
+Keras
+LSTM
+Bidirectional LSTM
+Time-Series Forecasting
+Feature Engineering
+Technical Analysis
+Model Evaluation
+Walk-Forward Testing
+FastAPI
+REST APIs
+React
+Vite
+Tailwind CSS
+Recharts
+Yahoo Finance
+Git
+GitHub
+Full-Stack AI Development
+```
 
 ---
 
 # 👨‍💻 Author
 
-**Aryan Dubey**
+## Aryan Dubey
 
-B.Tech Artificial Intelligence & Machine Learning Student
+**B.Tech Artificial Intelligence & Machine Learning Student**
+
+### Aspiring AI Engineer | Building Real-World AI Solutions
+
+Interested in:
+
+```text
+Artificial Intelligence
+Machine Learning
+Deep Learning
+Computer Vision
+Natural Language Processing
+Large Language Models
+Time-Series Forecasting
+Generative AI
+AI Engineering
+Full-Stack AI Applications
+```
 
 ---
 
-# 📜 License
+# 🔗 GitHub
 
-Licensed under the **MIT License**.
+```text
+https://github.com/Aryan2624
+```
 
 ---
 
-# ⭐ Support
+# 📂 StockVision AI Repository
 
-If you find StockVision AI useful or interesting, consider giving the repository a ⭐ on GitHub.
+```text
+https://github.com/Aryan2624/StockVision-AI
+```
 
-> **StockVision AI — AI-powered stock forecasting and market intelligence with real market data, model validation and a proper interactive UI.**
+---
+
+# ⭐ Support StockVision AI
+
+If you find this project interesting or useful, consider giving the repository a **⭐ Star**.
+
+It supports the project and motivates future improvements.
+
+---
+
+<div align="center">
+
+# 📈 StockVision AI
+
+### AI-Powered Stock Forecasting & Market Intelligence
+
+**React • FastAPI • Python • TensorFlow • Bi-LSTM • Tailwind CSS**
+
+### Turning Real Market Data Into AI-Powered Insights
+
+⭐ **Star the repository if you like StockVision AI**
+
+</div>
