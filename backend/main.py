@@ -20,6 +20,8 @@ import shutil
 import time
 import urllib.request
 import urllib.parse
+import html
+import xml.etree.ElementTree as ET
 
 import numpy as np
 import pandas as pd
@@ -43,7 +45,7 @@ from ml.analytics_manager import get_model_analytics
 
 app = FastAPI(
     title="StockVision AI API",
-    version="2.14.1",
+    version="2.15.0",
     description=(
         "StockVision AI backend for live market data, technical indicators, "
         "BiLSTM forecasting, V9 relative-strength intelligence, model analytics, "
@@ -738,12 +740,125 @@ NEWS_RELEVANCE_ALIASES = {
 NEWS_LOOKBACK_DAYS = 45
 
 
-def _news_aliases_for_symbol(
+def _news_company_identity(
     symbol: str,
 ):
+    """
+    Resolve a current NSE symbol to its human-readable company name.
+
+    This is important because many news headlines say e.g.
+    "20 Microns Limited" while the ticker is "20MICRONS.NS".
+    A symbol-only relevance filter would reject those valid articles.
+    """
     normalized = normalize_symbol(
         symbol
     )
+
+    short = normalized.replace(
+        ".NS",
+        "",
+    )
+
+    company_name = ""
+
+    try:
+        stocks, _ = load_nse_stock_universe()
+
+        match = next(
+            (
+                item
+                for item in stocks
+                if normalize_symbol(
+                    item.get(
+                        "symbol",
+                        "",
+                    )
+                )
+                == normalized
+            ),
+            None,
+        )
+
+        if match:
+            company_name = str(
+                match.get(
+                    "name",
+                    "",
+                )
+            ).strip()
+
+    except Exception:
+        company_name = ""
+
+    # Yahoo metadata is only a secondary fallback. Do not make the entire
+    # news endpoint fail if Yahoo quote metadata is unavailable.
+    if not company_name:
+        try:
+            info = yf.Ticker(
+                normalized
+            ).get_info()
+
+            if isinstance(
+                info,
+                dict,
+            ):
+                company_name = str(
+                    info.get(
+                        "longName"
+                    )
+                    or info.get(
+                        "shortName"
+                    )
+                    or ""
+                ).strip()
+
+        except Exception:
+            company_name = ""
+
+    return {
+        "symbol": normalized,
+        "short": short,
+        "company_name": company_name,
+    }
+
+
+def _news_company_base_name(
+    company_name: str,
+):
+    value = re.sub(
+        r"\s+",
+        " ",
+        str(
+            company_name or ""
+        ).strip(),
+    )
+
+    if not value:
+        return ""
+
+    # Remove only legal/corporate suffixes, not meaningful business words.
+    value = re.sub(
+        r"\b(?:limited|ltd\.?|private limited|pvt\.?\s*ltd\.?)\b\.?$",
+        "",
+        value,
+        flags=re.IGNORECASE,
+    ).strip(
+        " ,.-"
+    )
+
+    return value
+
+
+def _news_aliases_for_symbol(
+    symbol: str,
+):
+    identity = _news_company_identity(
+        symbol
+    )
+
+    normalized = identity[
+        "symbol"
+    ]
 
     aliases = set(
         NEWS_RELEVANCE_ALIASES.get(
@@ -752,19 +867,53 @@ def _news_aliases_for_symbol(
         )
     )
 
-    short = normalized.replace(
-        ".NS",
-        "",
-    ).lower()
+    short = identity[
+        "short"
+    ].lower()
 
     aliases.add(
         short
     )
 
+    company_name = identity.get(
+        "company_name",
+        "",
+    )
+
+    if company_name:
+        aliases.add(
+            company_name.lower()
+        )
+
+        base_name = _news_company_base_name(
+            company_name
+        )
+
+        if base_name:
+            aliases.add(
+                base_name.lower()
+            )
+
+        # Also support punctuation-normalized company names.
+        normalized_name = re.sub(
+            r"[^a-z0-9]+",
+            " ",
+            company_name.lower(),
+        ).strip()
+
+        if normalized_name:
+            aliases.add(
+                normalized_name
+            )
+
     return {
         alias.lower().strip()
         for alias in aliases
         if alias
+        and len(
+            alias.strip()
+        )
+        >= 2
     }
 
 
@@ -1262,6 +1411,284 @@ def _extract_yfinance_news(
     return unique
 
 
+
+def _strip_html_text(
+    value,
+):
+    raw = str(
+        value or ""
+    )
+
+    raw = re.sub(
+        r"<[^>]+>",
+        " ",
+        raw,
+    )
+
+    raw = html.unescape(
+        raw
+    )
+
+    return re.sub(
+        r"\s+",
+        " ",
+        raw,
+    ).strip()
+
+
+def _extract_google_news_rss(
+    symbol: str,
+    limit: int = 30,
+):
+    """
+    Google News RSS fallback for NSE stocks.
+
+    No API key is required. The query uses the actual NSE company name when
+    available, which greatly improves coverage for stocks whose Yahoo Finance
+    ticker feed has little or no direct company news.
+    """
+    identity = _news_company_identity(
+        symbol
+    )
+
+    company_name = identity.get(
+        "company_name",
+        "",
+    )
+
+    base_name = _news_company_base_name(
+        company_name
+    )
+
+    short = identity.get(
+        "short",
+        "",
+    )
+
+    search_name = (
+        base_name
+        or company_name
+        or short
+    )
+
+    if not search_name:
+        return []
+
+    query = (
+        f'"{search_name}" '
+        f'(stock OR shares OR NSE OR company) '
+        f'when:{NEWS_LOOKBACK_DAYS}d'
+    )
+
+    url = (
+        "https://news.google.com/rss/search?"
+        + urllib.parse.urlencode(
+            {
+                "q": query,
+                "hl": "en-IN",
+                "gl": "IN",
+                "ceid": "IN:en",
+            }
+        )
+    )
+
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/152.0.0.0 Safari/537.36"
+            ),
+            "Accept": (
+                "application/rss+xml,application/xml,text/xml,"
+                "text/html,*/*"
+            ),
+        },
+    )
+
+    try:
+        with urllib.request.urlopen(
+            request,
+            timeout=15,
+        ) as response:
+            payload = response.read()
+
+        root = ET.fromstring(
+            payload
+        )
+
+    except Exception:
+        return []
+
+    parsed = []
+
+    for item in root.findall(
+        ".//item"
+    )[
+        :limit
+    ]:
+        title = _clean_news_text(
+            item.findtext(
+                "title"
+            )
+        )
+
+        if not title:
+            continue
+
+        link = _clean_news_text(
+            item.findtext(
+                "link"
+            )
+        )
+
+        description = _strip_html_text(
+            item.findtext(
+                "description"
+            )
+        )
+
+        pub_date = _clean_news_text(
+            item.findtext(
+                "pubDate"
+            )
+        )
+
+        source_node = item.find(
+            "source"
+        )
+
+        source = ""
+
+        if source_node is not None:
+            source = _clean_news_text(
+                source_node.text
+            )
+
+        # Google RSS commonly appends " - Publisher" to the headline.
+        # Keep the original title but use the explicit <source> when present.
+        parsed.append(
+            {
+                "title": title,
+                "summary": description,
+                "source": (
+                    source
+                    or "Google News"
+                ),
+                "url": link,
+                "published_at_utc": (
+                    _extract_news_timestamp(
+                        pub_date
+                    )
+                ),
+                "feed_source": (
+                    "GOOGLE_NEWS_RSS"
+                ),
+            }
+        )
+
+    return parsed
+
+
+def _dedupe_news_items(
+    items,
+):
+    unique = []
+    seen_titles = set()
+    seen_urls = set()
+
+    for item in items:
+        title_key = re.sub(
+            r"[^a-z0-9]+",
+            " ",
+            str(
+                item.get(
+                    "title",
+                    "",
+                )
+            ).lower(),
+        ).strip()
+
+        url_key = str(
+            item.get(
+                "url",
+                "",
+            )
+        ).strip()
+
+        if (
+            title_key
+            and title_key
+            in seen_titles
+        ):
+            continue
+
+        if (
+            url_key
+            and url_key
+            in seen_urls
+        ):
+            continue
+
+        if title_key:
+            seen_titles.add(
+                title_key
+            )
+
+        if url_key:
+            seen_urls.add(
+                url_key
+            )
+
+        unique.append(
+            item
+        )
+
+    def sort_key(
+        item,
+    ):
+        value = item.get(
+            "published_at_utc"
+        )
+
+        if not value:
+            return pd.Timestamp(
+                "1970-01-01",
+                tz="UTC",
+            )
+
+        try:
+            timestamp = pd.Timestamp(
+                value
+            )
+
+            if timestamp.tzinfo is None:
+                timestamp = timestamp.tz_localize(
+                    "UTC"
+                )
+            else:
+                timestamp = timestamp.tz_convert(
+                    "UTC"
+                )
+
+            return timestamp
+
+        except Exception:
+            return pd.Timestamp(
+                "1970-01-01",
+                tz="UTC",
+            )
+
+    unique.sort(
+        key=sort_key,
+        reverse=True,
+    )
+
+    return unique
+
+
+
 def _score_news_sentiment(
     title: str,
     summary: str,
@@ -1367,14 +1794,18 @@ def build_news_sentiment_payload(
         symbol
     )
 
-    news_items = _extract_yfinance_news(
+    identity = _news_company_identity(
+        normalized
+    )
+
+    yahoo_items = _extract_yfinance_news(
         normalized,
         limit=50,
     )
 
-    relevant_items = [
+    yahoo_relevant = [
         item
-        for item in news_items
+        for item in yahoo_items
         if _article_is_relevant(
             normalized,
             item.get(
@@ -1392,6 +1823,49 @@ def build_news_sentiment_payload(
             )
         )
     ]
+
+    # Always try Google News RSS as a second source. This is especially
+    # important for smaller NSE companies, where Yahoo ticker news can be
+    # sparse or unrelated recommendation content.
+    google_items = _extract_google_news_rss(
+        normalized,
+        limit=35,
+    )
+
+    google_relevant = [
+        item
+        for item in google_items
+        if _article_is_relevant(
+            normalized,
+            item.get(
+                "title",
+                "",
+            ),
+            item.get(
+                "summary",
+                "",
+            ),
+        )
+        and _article_is_recent(
+            item.get(
+                "published_at_utc"
+            )
+        )
+    ]
+
+    news_items = _dedupe_news_items(
+        [
+            *yahoo_items,
+            *google_items,
+        ]
+    )
+
+    relevant_items = _dedupe_news_items(
+        [
+            *yahoo_relevant,
+            *google_relevant,
+        ]
+    )
 
     analyzed = []
 
@@ -1675,8 +2149,9 @@ def build_news_sentiment_payload(
 
     if total == 0:
         mood_summary = (
-            "No recent Yahoo Finance news items "
-            "were available for this stock."
+            "No directly relevant recent company news passed the relevance "
+            "filter from Yahoo Finance or Google News RSS. The system did "
+            "not invent sentiment from unrelated articles."
         )
 
     elif (
@@ -1721,7 +2196,43 @@ def build_news_sentiment_payload(
     return {
         "symbol": normalized,
         "source": (
-            "Yahoo Finance via yfinance"
+            "Yahoo Finance + Google News RSS"
+        ),
+        "company_name": (
+            identity.get(
+                "company_name",
+                "",
+            )
+        ),
+        "news_sources_attempted": [
+            "Yahoo Finance",
+            "Google News RSS",
+        ],
+        "raw_yahoo_articles": int(
+            len(
+                yahoo_items
+            )
+        ),
+        "raw_google_articles": int(
+            len(
+                google_items
+            )
+        ),
+        "relevant_yahoo_articles": int(
+            len(
+                yahoo_relevant
+            )
+        ),
+        "relevant_google_articles": int(
+            len(
+                google_relevant
+            )
+        ),
+        "google_fallback_used": bool(
+            len(
+                google_items
+            )
+            > 0
         ),
         "sentiment_method": (
             "Rule-based relevance-filtered headline/summary lexicon. "
@@ -1730,6 +2241,33 @@ def build_news_sentiment_payload(
         "raw_articles_received": int(
             len(
                 news_items
+            )
+        ),
+        "news_status": (
+            "READY"
+            if total
+            else "NO_RELEVANT_NEWS"
+        ),
+        "filter_message": (
+            (
+                f"{total} directly relevant recent article"
+                + (
+                    "s"
+                    if total != 1
+                    else ""
+                )
+                + " passed the company relevance filter."
+            )
+            if total
+            else (
+                f"{len(news_items)} recent article"
+                + (
+                    "s were"
+                    if len(news_items) != 1
+                    else " was"
+                )
+                + " fetched across Yahoo Finance and Google News RSS, "
+                  "but none directly matched the selected company."
             )
         ),
         "relevant_articles_analyzed": int(
@@ -1849,7 +2387,7 @@ def stocks(force_refresh: bool = False):
 def root():
     return {
         "message": "StockVision API is running",
-        "version": "2.14.1",
+        "version": "2.15.0",
         "engines": {
             "live_market": "ready",
             "candlestick_market": "ready",
@@ -1857,7 +2395,7 @@ def root():
             "v3_multi_horizon": "available",
             "v9_relative_strength": "available",
             "model_analytics": "available",
-            "news_sentiment": "ready",
+            "news_sentiment": "Yahoo + Google News RSS multi-source",
             "prediction_history": "live/replay history + aligned direction evaluation + full-NSE auto capture",
         },
     }

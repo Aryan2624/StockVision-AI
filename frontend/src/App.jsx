@@ -46,6 +46,7 @@ import {
   LineChart,
   Area,
   Bar,
+  Brush,
   Line,
   XAxis,
   YAxis,
@@ -3035,6 +3036,26 @@ function PredictionContent({
 // =========================================================
 // APPLICATION
 // =========================================================
+
+// =======================================================
+// STABLE NESTED PAGE RENDERER
+// =======================================================
+//
+// AIPredictionPage is defined inside App because it uses many App-level
+// values/functions. Rendering it directly as <AIPredictionPage /> gives React
+// a newly-created component function whenever App re-renders.
+//
+// This stable outer renderer keeps one React component identity and executes
+// the latest page render function inside it, so the page's hook state survives
+// normal parent App refreshes.
+//
+function StableNestedPageRenderer({
+  renderPage,
+}) {
+
+  return renderPage();
+}
+
 
 export default function App() {
 
@@ -8399,10 +8420,54 @@ export default function App() {
 
 
     const [
+      selectedHistoryRow,
+      setSelectedHistoryRow,
+    ] = useState(
+      null
+    );
+
+
+    const [
       historyChartExpanded,
       setHistoryChartExpanded,
     ] = useState(
       false
+    );
+
+
+    const [
+      historyBrushRange,
+      setHistoryBrushRange,
+    ] = useState({
+      startIndex:
+        0,
+      endIndex:
+        0,
+    });
+
+
+    const [
+      historySeriesVisibility,
+      setHistorySeriesVisibility,
+    ] = useState({
+      predicted:
+        true,
+      actual:
+        true,
+      difference:
+        false,
+      finalValue:
+        false,
+      range:
+        true,
+    });
+
+
+    const [
+      historyTableSearch,
+      setHistoryTableSearch,
+    ] = useState(
+      ""
     );
 
 
@@ -8661,6 +8726,363 @@ export default function App() {
     );
 
 
+    const selectedDateGraph =
+      useMemo(
+        () => {
+
+          if (
+            !selectedHistoryRow
+          ) {
+
+            return null;
+          }
+
+
+          const toFiniteOrNull =
+            (
+              value
+            ) => {
+
+              if (
+                value === null ||
+                value === undefined ||
+                value === ""
+              ) {
+
+                return null;
+              }
+
+
+              const number =
+                Number(
+                  value
+                );
+
+
+              return Number.isFinite(
+                number
+              )
+                ? number
+                : null;
+            };
+
+
+          const baseClose =
+            toFiniteOrNull(
+              selectedHistoryRow.current_close ??
+              selectedHistoryRow.base_close
+            );
+
+
+          const predicted =
+            toFiniteOrNull(
+              selectedHistoryRow.forecast_point_price ??
+              selectedHistoryRow.experimental_x2_point_price ??
+              selectedHistoryRow.predicted_price
+            );
+
+
+          const actual =
+            toFiniteOrNull(
+              selectedHistoryRow.actual_close
+            );
+
+
+          const difference =
+            predicted !==
+              null &&
+            actual !==
+              null
+              ? (
+                  actual -
+                  predicted
+                )
+              : null;
+
+
+          const rangeLow =
+            toFiniteOrNull(
+              selectedHistoryRow.expected_range_lower
+            );
+
+
+          const rangeHigh =
+            toFiniteOrNull(
+              selectedHistoryRow.expected_range_upper
+            );
+
+
+          const points = [
+            {
+              label:
+                "Base Close",
+              price:
+                baseClose,
+            },
+            {
+              label:
+                "Predicted",
+              price:
+                predicted,
+            },
+            {
+              label:
+                "Actual",
+              price:
+                actual,
+            },
+          ].filter(
+            (
+              item
+            ) =>
+              item.price !==
+              null
+          );
+
+
+          return {
+            baseClose,
+            predicted,
+            actual,
+            difference,
+            rangeLow,
+            rangeHigh,
+            points,
+          };
+
+        },
+        [
+          selectedHistoryRow,
+        ]
+      );
+
+
+    const selectedDateWindowData =
+      useMemo(
+        () => {
+
+          if (
+            !selectedHistoryRow ||
+            !Array.isArray(
+              predictionValidation?.history
+            )
+          ) {
+
+            return [];
+          }
+
+
+          const toFiniteOrNull =
+            (
+              value
+            ) => {
+
+              if (
+                value === null ||
+                value === undefined ||
+                value === ""
+              ) {
+
+                return null;
+              }
+
+
+              const number =
+                Number(
+                  value
+                );
+
+
+              return Number.isFinite(
+                number
+              )
+                ? number
+                : null;
+            };
+
+
+          const rows =
+            [...predictionValidation.history]
+              .filter(
+                (
+                  row
+                ) =>
+                  row.base_date ||
+                  row.target_date
+              )
+              .sort(
+                (
+                  a,
+                  b
+                ) =>
+                  new Date(
+                    `${a.base_date || a.target_date}T00:00:00`
+                  ) -
+                  new Date(
+                    `${b.base_date || b.target_date}T00:00:00`
+                  )
+              );
+
+
+          const selectedKey =
+            selectedHistoryRow.base_date ||
+            selectedHistoryRow.target_date;
+
+
+          let selectedIndex =
+            rows.findIndex(
+              (
+                row
+              ) =>
+                (
+                  row.base_date ||
+                  row.target_date
+                ) ===
+                selectedKey
+            );
+
+
+          if (
+            selectedIndex <
+            0
+          ) {
+
+            selectedIndex =
+              Math.max(
+                0,
+                rows.length -
+                  1
+              );
+          }
+
+
+          const start =
+            Math.max(
+              0,
+              selectedIndex -
+                5
+            );
+
+
+          const end =
+            Math.min(
+              rows.length,
+              selectedIndex +
+                6
+            );
+
+
+          return rows
+            .slice(
+              start,
+              end
+            )
+            .map(
+              (
+                row
+              ) => {
+
+                const rawDate =
+                  row.base_date ||
+                  row.target_date ||
+                  "";
+
+
+                const parsed =
+                  rawDate
+                    ? new Date(
+                        `${rawDate}T00:00:00`
+                      )
+                    : null;
+
+
+                const dateLabel =
+                  parsed &&
+                  !Number.isNaN(
+                    parsed.getTime()
+                  )
+                    ? parsed.toLocaleDateString(
+                        [],
+                        {
+                          day:
+                            "2-digit",
+                          month:
+                            "short",
+                        }
+                      )
+                    : rawDate;
+
+
+                const baseClose =
+                  toFiniteOrNull(
+                    row.current_close ??
+                    row.base_close
+                  );
+
+
+                const predicted =
+                  toFiniteOrNull(
+                    row.forecast_point_price ??
+                    row.experimental_x2_point_price ??
+                    row.predicted_price
+                  );
+
+
+                const actual =
+                  toFiniteOrNull(
+                    row.actual_close
+                  );
+
+
+                const rangeLow =
+                  toFiniteOrNull(
+                    row.expected_range_lower
+                  );
+
+
+                const rangeHigh =
+                  toFiniteOrNull(
+                    row.expected_range_upper
+                  );
+
+
+                return {
+                  rawDate,
+                  date:
+                    dateLabel ||
+                    "--",
+                  baseClose,
+                  predicted,
+                  actual,
+                  rangeLow,
+                  rangeHigh,
+                  rangeBand:
+                    rangeLow !==
+                      null &&
+                    rangeHigh !==
+                      null
+                      ? [
+                          rangeLow,
+                          rangeHigh,
+                        ]
+                      : null,
+                  row,
+                  selected:
+                    rawDate ===
+                    selectedKey,
+                };
+              }
+            );
+
+        },
+        [
+          selectedHistoryRow,
+          predictionValidation
+            ?.history,
+        ]
+      );
+
+
     const historyChartData =
       useMemo(
         () => {
@@ -8804,6 +9226,16 @@ export default function App() {
                   finalValue,
                   rangeLow,
                   rangeHigh,
+                  rangeBand:
+                    rangeLow !==
+                      null &&
+                    rangeHigh !==
+                      null
+                      ? [
+                          rangeLow,
+                          rangeHigh,
+                        ]
+                      : null,
                 };
               }
             )
@@ -8814,6 +9246,142 @@ export default function App() {
           filteredPredictionHistory,
         ]
       );
+
+
+    const latestHistorySnapshot =
+      useMemo(
+        () => {
+
+          const rows =
+            Array.isArray(
+              predictionValidation?.history
+            )
+              ? predictionValidation.history
+              : [];
+
+
+          return (
+            rows[
+              0
+            ] ||
+            null
+          );
+
+        },
+        [
+          predictionValidation
+            ?.history,
+        ]
+      );
+
+
+    const historyTableRows =
+      useMemo(
+        () => {
+
+          const query =
+            historyTableSearch
+              .trim()
+              .toLowerCase();
+
+
+          if (
+            !query
+          ) {
+
+            return filteredPredictionHistory;
+          }
+
+
+          return filteredPredictionHistory.filter(
+            (
+              row
+            ) => {
+
+              const searchable =
+                [
+                  row.base_date,
+                  row.target_date,
+                  row.history_source,
+                  row.status,
+                ]
+                  .filter(
+                    Boolean
+                  )
+                  .join(
+                    " "
+                  )
+                  .toLowerCase();
+
+
+              return searchable.includes(
+                query
+              );
+            }
+          );
+
+        },
+        [
+          filteredPredictionHistory,
+          historyTableSearch,
+        ]
+      );
+
+
+    useEffect(
+      () => {
+
+        const total =
+          historyChartData.length;
+
+
+        if (
+          total <=
+          0
+        ) {
+
+          setHistoryBrushRange({
+            startIndex:
+              0,
+            endIndex:
+              0,
+          });
+
+          return;
+        }
+
+
+        // For a long All-Dates series, begin with the latest 60 points so the
+        // graph is readable. The Brush still has access to the entire history.
+        const visiblePoints =
+          historyDateRange ===
+          "ALL"
+            ? Math.min(
+                60,
+                total
+              )
+            : total;
+
+
+        setHistoryBrushRange({
+          startIndex:
+            Math.max(
+              0,
+              total -
+                visiblePoints
+            ),
+          endIndex:
+            total -
+            1,
+        });
+
+      },
+      [
+        historyChartData.length,
+        historyDateRange,
+        historySymbol,
+      ]
+    );
 
 
     const historyPerformance =
@@ -9609,6 +10177,10 @@ export default function App() {
 
       setHistoryDateRange(
         "ALL"
+      );
+
+      setSelectedHistoryRow(
+        null
       );
 
       setHistorySearch(
@@ -13072,47 +13644,167 @@ export default function App() {
             predictionValidation.history.length >
               0 && (
 
-              <div className="mt-4 rounded-xl border border-white/5 bg-[#0b1018] p-4">
+              <div className={`mt-4 border border-[#1a2940] bg-[#0a1019] shadow-2xl shadow-black/20 ${historyChartExpanded ? "fixed inset-0 z-[120] flex h-screen w-screen flex-col overflow-hidden rounded-none p-6" : "rounded-2xl p-4"}`}>
 
-                <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+                <div className="rounded-xl border border-white/5 bg-[#0a0f17] p-4">
 
-                  <div>
+                  <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex min-w-0 items-center gap-3">
 
-                      <LineChartIcon
-                        size={15}
-                        className="text-violet-400"
-                      />
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-blue-500/20 bg-gradient-to-br from-blue-500/20 to-violet-500/20 text-sm font-black text-blue-200">
+                        {historyStockInfo.short
+                          ?.slice(
+                            0,
+                            3
+                          )
+                          .toUpperCase()}
+                      </div>
 
-                      <h3 className="text-xs font-semibold text-white">
-                        {historyDateRange ===
-                        "ALL"
-                          ? "All-Date Prediction History Chart"
-                          : `${historyDateRange} Prediction History Chart`}
-                      </h3>
+
+                      <div className="min-w-0">
+
+                        <div className="flex items-center gap-2">
+
+                          <LineChartIcon
+                            size={15}
+                            className="text-blue-400"
+                          />
+
+                          <h3 className="truncate text-sm font-semibold text-white">
+                            Prediction History — {historyStockInfo.short}
+                          </h3>
+
+                        </div>
+
+                        <p className="mt-1 truncate text-[9px] text-gray-600">
+                          {historyStockInfo.name}
+                        </p>
+
+                      </div>
 
                     </div>
 
-                    <div className="mt-1 flex flex-wrap items-center gap-2">
 
-                      <p className="text-[9px] text-gray-600">
-                      {historyDateRange ===
-                      "ALL"
-                        ? historyChartExpanded
-                          ? "Full-screen view: all saved dates with predicted value, actual value, difference and final value. Press Esc to exit."
-                          : "All saved dates are plotted: predicted value, actual value, difference and final value. Use Full Screen for a wide detailed view."
-                        : `Showing ${historyDateRange} only. Click All Dates below to show the complete saved history.`}
-                      </p>
+                    <div className="grid flex-1 gap-2 sm:grid-cols-2 xl:max-w-3xl xl:grid-cols-4">
+
+                      <div className="rounded-xl border border-white/5 bg-[#080d14] px-4 py-3">
+                        <p className="text-[8px] uppercase tracking-wide text-gray-700">
+                          Latest Prediction
+                        </p>
+                        <p className="mt-1 text-base font-bold text-white">
+                          {formatPrice(
+                            latestHistorySnapshot?.forecast_point_price ??
+                            latestHistorySnapshot?.predicted_price
+                          )}
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-white/5 bg-[#080d14] px-4 py-3">
+                        <p className="text-[8px] uppercase tracking-wide text-gray-700">
+                          Total Predictions
+                        </p>
+                        <p className="mt-1 text-base font-bold text-white">
+                          {predictionValidation?.history?.length ||
+                            0}
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-green-500/10 bg-green-500/[0.03] px-4 py-3">
+                        <p className="text-[8px] uppercase tracking-wide text-gray-700">
+                          Resolved
+                        </p>
+                        <p className="mt-1 text-base font-bold text-green-400">
+                          {predictionValidation?.metrics?.resolved_predictions ||
+                            0}
+                        </p>
+                      </div>
+
+                      <div className="rounded-xl border border-amber-500/10 bg-amber-500/[0.03] px-4 py-3">
+                        <p className="text-[8px] uppercase tracking-wide text-gray-700">
+                          Pending
+                        </p>
+                        <p className="mt-1 text-base font-bold text-amber-400">
+                          {predictionValidation?.metrics?.pending_predictions ||
+                            0}
+                        </p>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="mt-4 flex flex-col justify-between gap-3 border-t border-white/5 pt-4 lg:flex-row lg:items-center">
+
+                    <div className="flex flex-wrap items-center gap-2">
+
+                      {[
+                        "7D",
+                        "30D",
+                        "3M",
+                        "6M",
+                        "1Y",
+                        "ALL",
+                      ].map(
+                        (
+                          range
+                        ) => {
+
+                          const active =
+                            historyDateRange ===
+                            range;
+
+
+                          return (
+                            <button
+                              key={
+                                range
+                              }
+                              onClick={() =>
+                                setHistoryDateRange(
+                                  range
+                                )
+                              }
+                              className={`rounded-lg border px-3 py-2 text-[9px] font-semibold transition ${
+                                active
+                                  ? "border-blue-500 bg-blue-500 text-white shadow-lg shadow-blue-500/15"
+                                  : "border-white/5 bg-[#080d14] text-gray-500 hover:border-blue-500/20 hover:text-gray-300"
+                              }`}
+                            >
+                              {range ===
+                              "ALL"
+                                ? "ALL"
+                                : range}
+                            </button>
+                          );
+                        }
+                      )}
+
+                    </div>
+
+
+                    <div className="flex flex-wrap items-center gap-2 text-[8px] text-gray-600">
+
+                      <CalendarDays
+                        size={12}
+                        className="text-blue-400"
+                      />
+
+                      <span>
+                        {predictionValidation?.history_start_date
+                          ? `Data from ${predictionValidation.history_start_date}`
+                          : "Saved prediction history"}
+                      </span>
 
                       {predictionValidationLoading && (
 
-                        <span className="inline-flex items-center gap-1 rounded-full border border-white/5 bg-white/[0.025] px-2 py-1 text-[8px] text-gray-600">
+                        <span className="inline-flex items-center gap-1 rounded-full border border-white/5 bg-white/[0.025] px-2 py-1">
                           <LoaderCircle
                             size={10}
                             className="animate-spin"
                           />
-                          Updating data
+                          Updating
                         </span>
 
                       )}
@@ -13121,33 +13813,122 @@ export default function App() {
 
                   </div>
 
+                </div>
 
-                  <div className="flex flex-wrap items-center gap-3 text-[9px]">
 
-                    <span className="flex items-center gap-1.5 text-blue-300">
-                      <span className="h-2 w-2 rounded-full bg-blue-400" />
-                      Predicted Value
-                    </span>
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
 
-                    <span className="flex items-center gap-1.5 text-green-300">
-                      <span className="h-2 w-2 rounded-full bg-green-400" />
-                      Actual Value
-                    </span>
+                  <div className="flex flex-wrap items-center gap-2 text-[9px]">
 
-                    <span className="flex items-center gap-1.5 text-amber-300">
-                      <span className="h-2 w-2 rounded-full bg-amber-400" />
-                      Difference
-                    </span>
+                    {[
+                      {
+                        key:
+                          "predicted",
+                        label:
+                          "Predicted Price",
+                        dot:
+                          "bg-blue-400",
+                        text:
+                          "text-blue-300",
+                      },
+                      {
+                        key:
+                          "actual",
+                        label:
+                          "Actual Price",
+                        dot:
+                          "bg-green-400",
+                        text:
+                          "text-green-300",
+                      },
+                      {
+                        key:
+                          "difference",
+                        label:
+                          "Difference",
+                        dot:
+                          "bg-amber-400",
+                        text:
+                          "text-amber-300",
+                      },
+                      {
+                        key:
+                          "finalValue",
+                        label:
+                          "Final Value",
+                        dot:
+                          "bg-violet-400",
+                        text:
+                          "text-violet-300",
+                      },
+                      {
+                        key:
+                          "range",
+                        label:
+                          "80% Range",
+                        dot:
+                          "bg-pink-400",
+                        text:
+                          "text-pink-300",
+                      },
+                    ].map(
+                      (
+                        item
+                      ) => {
 
-                    <span className="flex items-center gap-1.5 text-violet-300">
-                      <span className="h-2 w-2 rounded-full bg-violet-400" />
-                      Final Value
-                    </span>
+                        const active =
+                          historySeriesVisibility[
+                            item.key
+                          ];
 
-                    <span className="flex items-center gap-1.5 text-sky-300">
-                      <span className="h-[2px] w-4 bg-sky-400" />
-                      80% Range
-                    </span>
+
+                        return (
+                          <button
+                            key={
+                              item.key
+                            }
+                            type="button"
+                            onClick={() =>
+                              setHistorySeriesVisibility(
+                                (
+                                  current
+                                ) => ({
+                                  ...current,
+                                  [item.key]:
+                                    !current[
+                                      item.key
+                                    ],
+                                })
+                              )
+                            }
+                            className={`inline-flex items-center gap-2 rounded-lg border px-2.5 py-2 transition ${
+                              active
+                                ? "border-white/10 bg-white/[0.04]"
+                                : "border-white/5 bg-transparent opacity-45"
+                            }`}
+                          >
+                            <span className={`flex h-4 w-4 items-center justify-center rounded border ${
+                              active
+                                ? "border-blue-500/40 bg-blue-500/20"
+                                : "border-gray-700 bg-[#080d14]"
+                            }`}>
+                              {active && (
+                                <CheckCircle2
+                                  size={11}
+                                  className="text-blue-400"
+                                />
+                              )}
+                            </span>
+
+                            <span className={`h-2 w-2 rounded-full ${item.dot}`} />
+
+                            <span className={item.text}>
+                              {item.label}
+                            </span>
+                          </button>
+                        );
+                      }
+                    )}
 
 
                     <button
@@ -13189,11 +13970,81 @@ export default function App() {
                 </div>
 
 
+                <div className="mt-3 flex flex-col justify-between gap-2 rounded-lg border border-blue-500/10 bg-blue-500/[0.025] px-3 py-2.5 sm:flex-row sm:items-center">
+
+                  <div className="flex flex-wrap items-center gap-2 text-[8px]">
+
+                    <span className="font-semibold uppercase tracking-[0.12em] text-blue-400">
+                      Timeline Navigator
+                    </span>
+
+                    <span className="text-gray-600">
+                      Drag either handle below to zoom · drag the selected window to move through history
+                    </span>
+
+                  </div>
+
+
+                  <div className="flex flex-wrap items-center gap-2">
+
+                    <span className="rounded-full border border-white/5 bg-[#080d14] px-2.5 py-1 text-[8px] text-gray-500">
+                      Showing {historyChartData.length > 0
+                        ? Math.max(
+                            0,
+                            historyBrushRange.endIndex -
+                              historyBrushRange.startIndex +
+                              1
+                          )
+                        : 0} of {historyChartData.length} points
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+
+                        const total =
+                          historyChartData.length;
+
+                        const visiblePoints =
+                          historyDateRange ===
+                          "ALL"
+                            ? Math.min(
+                                60,
+                                total
+                              )
+                            : total;
+
+
+                        setHistoryBrushRange({
+                          startIndex:
+                            Math.max(
+                              0,
+                              total -
+                                visiblePoints
+                            ),
+                          endIndex:
+                            Math.max(
+                              0,
+                              total -
+                                1
+                            ),
+                        });
+                      }}
+                      className="rounded-lg border border-blue-500/20 bg-blue-500/[0.06] px-3 py-1.5 text-[8px] font-semibold text-blue-300 transition hover:bg-blue-500/10"
+                    >
+                      Reset Zoom
+                    </button>
+
+                  </div>
+
+                </div>
+
+
                 <div
                   className={
                     historyChartExpanded
-                      ? "mt-5 min-h-0 flex-1 w-full"
-                      : "mt-4 h-[440px] w-full xl:h-[500px]"
+                      ? "mt-3 min-h-0 flex-1 w-full"
+                      : "mt-3 h-[440px] w-full xl:h-[500px]"
                   }
                 >
 
@@ -13354,6 +14205,25 @@ export default function App() {
                       />
 
 
+                      {historySeriesVisibility.range && (
+
+                        <Area
+                          type="monotone"
+                          yAxisId="price"
+                          dataKey="rangeBand"
+                          name="80% Range"
+                          stroke="#ec4899"
+                          fill="#ec4899"
+                          fillOpacity={0.12}
+                          strokeOpacity={0.25}
+                          isAnimationActive={false}
+                        />
+
+                      )}
+
+
+                      {historySeriesVisibility.range && (
+
                       <Line
                         type="monotone"
                         yAxisId="price"
@@ -13374,6 +14244,10 @@ export default function App() {
                         }
                       />
 
+                      )}
+
+
+                      {historySeriesVisibility.range && (
 
                       <Line
                         type="monotone"
@@ -13395,6 +14269,10 @@ export default function App() {
                         }
                       />
 
+                      )}
+
+
+                      {historySeriesVisibility.predicted && (
 
                       <Line
                         yAxisId="price"
@@ -13419,6 +14297,10 @@ export default function App() {
                         }
                       />
 
+                      )}
+
+
+                      {historySeriesVisibility.actual && (
 
                       <Line
                         yAxisId="price"
@@ -13443,6 +14325,10 @@ export default function App() {
                         }
                       />
 
+                      )}
+
+
+                      {historySeriesVisibility.difference && (
 
                       <Line
                         yAxisId="difference"
@@ -13464,6 +14350,10 @@ export default function App() {
                         }
                       />
 
+                      )}
+
+
+                      {historySeriesVisibility.finalValue && (
 
                       <Line
                         yAxisId="price"
@@ -13484,11 +14374,83 @@ export default function App() {
                         }
                       />
 
+                      )}
+
+
+                      <Brush
+                        dataKey="date"
+                        height={34}
+                        travellerWidth={10}
+                        gap={1}
+                        stroke="#3b82f6"
+                        fill="#080d14"
+                        startIndex={
+                          Math.min(
+                            historyBrushRange.startIndex,
+                            Math.max(
+                              0,
+                              historyChartData.length -
+                                1
+                            )
+                          )
+                        }
+                        endIndex={
+                          Math.min(
+                            historyBrushRange.endIndex,
+                            Math.max(
+                              0,
+                              historyChartData.length -
+                                1
+                            )
+                          )
+                        }
+                        onChange={
+                          (
+                            range
+                          ) => {
+
+                            if (
+                              range &&
+                              Number.isFinite(
+                                range.startIndex
+                              ) &&
+                              Number.isFinite(
+                                range.endIndex
+                              )
+                            ) {
+
+                              setHistoryBrushRange({
+                                startIndex:
+                                  range.startIndex,
+                                endIndex:
+                                  range.endIndex,
+                              });
+                            }
+                          }
+                        }
+                        tickFormatter={
+                          (
+                            value
+                          ) =>
+                            value
+                        }
+                      />
+
                     </ComposedChart>
 
                   </ResponsiveContainer>
 
                 </div>
+
+
+                {!historyChartExpanded &&
+                historyChartData.length > 60 && (
+
+                  <p className="mt-2 text-[8px] leading-4 text-blue-400/70">
+                    Tip: All Dates keeps the complete history loaded. The blue navigator controls only the visible window, so zooming does not remove or modify any saved prediction records.
+                  </p>
+
+                )}
 
 
                 {!historyChartExpanded &&
@@ -13642,42 +14604,898 @@ export default function App() {
               </div>
 
 
-              <div className="mt-4 overflow-hidden rounded-xl border border-white/5 bg-[#0a0f17]">
+              <div className="mt-4 rounded-xl border border-white/5 bg-[#0a0f17] px-4 py-3">
 
-                <div className="border-b border-white/5 bg-[#0b111a] px-4 py-3">
+                <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
 
-                  <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                  <div>
 
-                    <div>
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-blue-400">
+                      History Source
+                    </p>
 
-                      <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-violet-400">
-                        Price Comparison
-                      </p>
+                    <p className="mt-1 text-[9px] leading-4 text-gray-500">
+                      <span className="font-semibold text-green-400">
+                        LIVE CAPTURE
+                      </span>{" "}
+                      means StockVision actually saved that forecast before its target trading day. The date can be old now and still remain a genuine live capture.{" "}
+                      <span className="font-semibold text-blue-400">
+                        REPLAY
+                      </span>{" "}
+                      means the model was run later on historical data for backtesting.
+                    </p>
 
-                      <h4 className="mt-1 text-xs font-semibold text-white">
-                        Predicted Price vs Actual Price
-                      </h4>
+                  </div>
 
-                      <p className="mt-1 text-[9px] text-gray-600">
-                        Difference = Actual Price − Predicted Price
+
+                  <span className="w-fit rounded-full border border-violet-500/15 bg-violet-500/[0.05] px-3 py-1.5 text-[9px] text-violet-300">
+                    Click any date row to open its graph
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              {selectedHistoryRow &&
+              selectedDateGraph && (
+
+                <div
+                  data-selected-history-graph
+                  className="mt-4 overflow-hidden rounded-2xl border border-[#183252] bg-gradient-to-b from-[#0a1320] to-[#080d14] shadow-2xl shadow-black/20"
+                >
+
+                  <div className="border-b border-white/5 px-4 py-4">
+
+                    <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
+
+                      <div>
+
+                        <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-blue-400">
+                          Prediction vs Actual
+                        </p>
+
+                        <h3 className="mt-1 text-base font-semibold text-white">
+                          {historyStockInfo.short} — {selectedHistoryRow.base_date || selectedHistoryRow.target_date || "--"}
+                        </h3>
+
+                        <p className="mt-1 text-[9px] text-gray-600">
+                          Base Close vs Predicted vs Actual with Expected Range
+                        </p>
+
+                      </div>
+
+
+                      <div className="flex flex-wrap items-center gap-2">
+
+                        <span className={`rounded-full border px-2.5 py-1 text-[8px] font-semibold ${
+                          selectedHistoryRow.history_source ===
+                          "BACKFILLED_MODEL_REPLAY"
+                            ? "border-blue-500/15 bg-blue-500/[0.06] text-blue-400"
+                            : "border-green-500/15 bg-green-500/[0.06] text-green-400"
+                        }`}>
+                          {selectedHistoryRow.history_source ===
+                          "BACKFILLED_MODEL_REPLAY"
+                            ? "REPLAY"
+                            : "LIVE CAPTURE"}
+                        </span>
+
+                        <span className="rounded-full border border-white/5 bg-white/[0.025] px-2.5 py-1 text-[8px] text-gray-500">
+                          Target: {selectedHistoryRow.target_date || "Next trading day"}
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-5">
+
+                    <div className="rounded-xl border border-blue-500/20 bg-blue-500/[0.035] px-4 py-4 shadow-inner shadow-blue-500/[0.02]">
+
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
+                          <BarChart3
+                            size={17}
+                          />
+                        </div>
+
+                        <div>
+                          <p className="text-[8px] uppercase tracking-wide text-gray-600">
+                            Base Close
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-white">
+                            {selectedDateGraph.baseClose !==
+                            null
+                              ? formatPrice(
+                                  selectedDateGraph.baseClose
+                                )
+                              : "--"}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="mt-2 text-[8px] text-gray-700">
+                        Previous / model base close
                       </p>
 
                     </div>
 
 
-                    <div className="flex flex-wrap items-center gap-2 text-[8px]">
+                    <div className="rounded-xl border border-violet-500/25 bg-violet-500/[0.045] px-4 py-4 shadow-inner shadow-violet-500/[0.03]">
 
-                      <span className="rounded-full border border-violet-500/15 bg-violet-500/[0.05] px-2.5 py-1 text-violet-300">
-                        Predicted
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/10 text-violet-400">
+                          <Bot
+                            size={17}
+                          />
+                        </div>
 
-                      <span className="rounded-full border border-green-500/15 bg-green-500/[0.05] px-2.5 py-1 text-green-300">
-                        Actual
-                      </span>
+                        <div>
+                          <p className="text-[8px] uppercase tracking-wide text-violet-500">
+                            Predicted Price
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-violet-300">
+                            {selectedDateGraph.predicted !==
+                            null
+                              ? formatPrice(
+                                  selectedDateGraph.predicted
+                                )
+                              : "--"}
+                          </p>
+                        </div>
+                      </div>
 
-                      <span className="rounded-full border border-blue-500/15 bg-blue-500/[0.05] px-2.5 py-1 text-blue-300">
-                        Difference
-                      </span>
+                      <p className="mt-2 text-[8px] text-violet-400/60">
+                        AI saved forecast
+                      </p>
+
+                    </div>
+
+
+                    <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] px-4 py-4 shadow-inner shadow-emerald-500/[0.03]">
+
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
+                          <TrendingUp
+                            size={17}
+                          />
+                        </div>
+
+                        <div>
+                          <p className="text-[8px] uppercase tracking-wide text-emerald-600">
+                            Actual Price
+                          </p>
+                          <p className="mt-1 text-lg font-bold text-emerald-300">
+                            {selectedDateGraph.actual !==
+                            null
+                              ? formatPrice(
+                                  selectedDateGraph.actual
+                                )
+                              : "--"}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="mt-2 text-[8px] text-emerald-500/60">
+                        Resolved actual close
+                      </p>
+
+                    </div>
+
+
+                    <div className="rounded-xl border border-sky-500/20 bg-sky-500/[0.035] px-4 py-4 shadow-inner shadow-sky-500/[0.02]">
+
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/10 text-sky-400">
+                          <GitCompareArrows
+                            size={17}
+                          />
+                        </div>
+
+                        <div>
+                          <p className="text-[8px] uppercase tracking-wide text-sky-600">
+                            Difference
+                          </p>
+                          <p className={`mt-1 text-lg font-bold ${
+                            selectedDateGraph.difference ===
+                            null
+                              ? "text-gray-500"
+                              : selectedDateGraph.difference >=
+                                0
+                              ? "text-emerald-300"
+                              : "text-red-400"
+                          }`}>
+                            {selectedDateGraph.difference !==
+                            null
+                              ? `${selectedDateGraph.difference >=
+                                0
+                                  ? "+"
+                                  : "-"}${formatPrice(
+                                  Math.abs(
+                                    selectedDateGraph.difference
+                                  )
+                                )}`
+                              : "--"}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="mt-2 text-[8px] text-gray-700">
+                        Actual − Predicted
+                      </p>
+
+                    </div>
+
+
+                    <div className="rounded-xl border border-fuchsia-500/20 bg-fuchsia-500/[0.035] px-4 py-4 shadow-inner shadow-fuchsia-500/[0.02]">
+
+                      <div className="flex items-center gap-2">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-fuchsia-500/10 text-fuchsia-400">
+                          <Gauge
+                            size={17}
+                          />
+                        </div>
+
+                        <div className="min-w-0">
+                          <p className="text-[8px] uppercase tracking-wide text-fuchsia-600">
+                            Expected Range
+                          </p>
+                          <p className="mt-1 truncate text-[11px] font-bold text-fuchsia-300">
+                            {selectedDateGraph.rangeLow !==
+                              null &&
+                            selectedDateGraph.rangeHigh !==
+                              null
+                              ? `${formatPrice(
+                                  selectedDateGraph.rangeLow
+                                )} – ${formatPrice(
+                                  selectedDateGraph.rangeHigh
+                                )}`
+                              : "--"}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="mt-2 text-[8px] text-gray-700">
+                        Model uncertainty interval
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  <div className="px-4 pb-4">
+
+                    <div className="rounded-2xl border border-[#17304d] bg-[#07101b] p-4">
+
+                      <div className="flex flex-col justify-between gap-3 md:flex-row md:items-center">
+
+                        <div>
+                          <h4 className="text-sm font-semibold text-white">
+                            Price Comparison
+                          </h4>
+                          <p className="mt-1 text-[9px] text-gray-600">
+                            Selected date centered with nearby saved prediction dates
+                          </p>
+                        </div>
+
+
+                        <div className="flex flex-wrap items-center gap-3 text-[8px]">
+
+                          <span className="flex items-center gap-1.5 text-blue-300">
+                            <span className="h-2 w-2 rounded-full bg-blue-400" />
+                            Base Close
+                          </span>
+
+                          <span className="flex items-center gap-1.5 text-violet-300">
+                            <span className="h-2 w-2 rounded-full bg-violet-400" />
+                            Predicted Price
+                          </span>
+
+                          <span className="flex items-center gap-1.5 text-emerald-300">
+                            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                            Actual Price
+                          </span>
+
+                          <span className="flex items-center gap-1.5 text-fuchsia-300">
+                            <span className="h-3 w-5 rounded-sm border border-fuchsia-400/40 bg-fuchsia-400/10" />
+                            Expected Range
+                          </span>
+
+                        </div>
+
+                      </div>
+
+
+                      <div className="mt-4 h-[430px] w-full">
+
+                        <ResponsiveContainer
+                          width="100%"
+                          height="100%"
+                          debounce={100}
+                        >
+
+                          <ComposedChart
+                            data={
+                              selectedDateWindowData
+                            }
+                            margin={{
+                              top:
+                                16,
+                              right:
+                                24,
+                              bottom:
+                                10,
+                              left:
+                                4,
+                            }}
+                          >
+
+                            <CartesianGrid
+                              strokeDasharray="3 3"
+                              stroke="#17243a"
+                              vertical={true}
+                            />
+
+
+                            <XAxis
+                              dataKey="date"
+                              tick={{
+                                fill:
+                                  "#7690b0",
+                                fontSize:
+                                  9,
+                              }}
+                              axisLine={{
+                                stroke:
+                                  "#24405f",
+                              }}
+                              tickLine={false}
+                            />
+
+
+                            <YAxis
+                              tick={{
+                                fill:
+                                  "#7690b0",
+                                fontSize:
+                                  9,
+                              }}
+                              axisLine={false}
+                              tickLine={false}
+                              width={58}
+                              tickFormatter={
+                                (
+                                  value
+                                ) =>
+                                  `₹${Number(
+                                    value
+                                  ).toLocaleString(
+                                    "en-IN",
+                                    {
+                                      maximumFractionDigits:
+                                        0,
+                                    }
+                                  )}`
+                              }
+                              domain={[
+                                "auto",
+                                "auto",
+                              ]}
+                            />
+
+
+                            <Tooltip
+                              cursor={{
+                                stroke:
+                                  "#60a5fa",
+                                strokeDasharray:
+                                  "3 3",
+                              }}
+                              contentStyle={{
+                                background:
+                                  "#0b1422",
+                                border:
+                                  "1px solid #24405f",
+                                borderRadius:
+                                  "12px",
+                                color:
+                                  "#e5e7eb",
+                                fontSize:
+                                  "10px",
+                              }}
+                              labelStyle={{
+                                color:
+                                  "#ffffff",
+                                fontWeight:
+                                  700,
+                              }}
+                              formatter={
+                                (
+                                  value,
+                                  name
+                                ) => {
+
+                                  if (
+                                    Array.isArray(
+                                      value
+                                    )
+                                  ) {
+
+                                    return [
+                                      `${formatPrice(
+                                        value[
+                                          0
+                                        ]
+                                      )} – ${formatPrice(
+                                        value[
+                                          1
+                                        ]
+                                      )}`,
+                                      name,
+                                    ];
+                                  }
+
+
+                                  if (
+                                    value ===
+                                    null ||
+                                    value ===
+                                    undefined
+                                  ) {
+
+                                    return [
+                                      "--",
+                                      name,
+                                    ];
+                                  }
+
+
+                                  return [
+                                    formatPrice(
+                                      Number(
+                                        value
+                                      )
+                                    ),
+                                    name,
+                                  ];
+                                }
+                              }
+                            />
+
+
+                            <Area
+                              type="monotone"
+                              dataKey="rangeBand"
+                              name="Expected Range"
+                              stroke="#a855f7"
+                              fill="#a855f7"
+                              fillOpacity={0.10}
+                              strokeOpacity={0.25}
+                              isAnimationActive={false}
+                            />
+
+
+                            <Line
+                              type="monotone"
+                              dataKey="baseClose"
+                              name="Base Close"
+                              stroke="#3b82f6"
+                              strokeWidth={2}
+                              dot={{
+                                r:
+                                  3,
+                                fill:
+                                  "#3b82f6",
+                              }}
+                              activeDot={{
+                                r:
+                                  6,
+                              }}
+                              connectNulls
+                              isAnimationActive={false}
+                            />
+
+
+                            <Line
+                              type="monotone"
+                              dataKey="predicted"
+                              name="Predicted Price"
+                              stroke="#a855f7"
+                              strokeWidth={2.4}
+                              dot={{
+                                r:
+                                  3.5,
+                                fill:
+                                  "#a855f7",
+                              }}
+                              activeDot={{
+                                r:
+                                  6,
+                              }}
+                              connectNulls
+                              isAnimationActive={false}
+                            />
+
+
+                            <Line
+                              type="monotone"
+                              dataKey="actual"
+                              name="Actual Price"
+                              stroke="#10b981"
+                              strokeWidth={2.4}
+                              dot={{
+                                r:
+                                  3.5,
+                                fill:
+                                  "#10b981",
+                              }}
+                              activeDot={{
+                                r:
+                                  6,
+                              }}
+                              connectNulls
+                              isAnimationActive={false}
+                            />
+
+
+                            <ReferenceLine
+                              x={
+                                selectedHistoryRow.base_date ||
+                                selectedHistoryRow.target_date
+                                  ? (
+                                      selectedDateWindowData.find(
+                                        (
+                                          item
+                                        ) =>
+                                          item.selected
+                                      )?.date ||
+                                      ""
+                                    )
+                                  : ""
+                              }
+                              stroke="#8b5cf6"
+                              strokeDasharray="4 4"
+                              strokeWidth={1.5}
+                            />
+
+                          </ComposedChart>
+
+                        </ResponsiveContainer>
+
+                      </div>
+
+
+                      <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1">
+
+                        {selectedDateWindowData.map(
+                          (
+                            item
+                          ) => {
+
+                            const row =
+                              item.row;
+
+
+                            const actual =
+                              item.actual;
+
+
+                            const base =
+                              item.baseClose;
+
+
+                            const returnPct =
+                              actual !==
+                                null &&
+                              base !==
+                                null &&
+                              base !==
+                                0
+                                ? (
+                                    (
+                                      actual -
+                                      base
+                                    ) /
+                                    Math.abs(
+                                      base
+                                    )
+                                  ) *
+                                  100
+                                : null;
+
+
+                            return (
+                              <button
+                                key={
+                                  item.rawDate
+                                }
+                                type="button"
+                                onClick={() =>
+                                  setSelectedHistoryRow(
+                                    row
+                                  )
+                                }
+                                className={`min-w-[128px] rounded-xl border px-3 py-3 text-left transition ${
+                                  item.selected
+                                    ? "border-violet-500 bg-violet-500/[0.10] shadow-lg shadow-violet-500/10"
+                                    : "border-white/5 bg-[#0a111c] hover:border-blue-500/20 hover:bg-blue-500/[0.03]"
+                                }`}
+                              >
+
+                                <p className={`text-[9px] font-semibold ${
+                                  item.selected
+                                    ? "text-white"
+                                    : "text-gray-400"
+                                }`}>
+                                  {item.rawDate}
+                                </p>
+
+                                <p className="mt-1 text-[9px] font-bold text-gray-300">
+                                  {actual !==
+                                  null
+                                    ? formatPrice(
+                                        actual
+                                      )
+                                    : item.predicted !==
+                                      null
+                                    ? formatPrice(
+                                        item.predicted
+                                      )
+                                    : "--"}
+                                </p>
+
+                                <p className={`mt-1 text-[8px] font-semibold ${
+                                  returnPct ===
+                                  null
+                                    ? "text-gray-700"
+                                    : returnPct >=
+                                      0
+                                    ? "text-emerald-400"
+                                    : "text-red-400"
+                                }`}>
+                                  {returnPct !==
+                                  null
+                                    ? `${returnPct >=
+                                      0
+                                        ? "+"
+                                        : ""}${returnPct.toFixed(
+                                      2
+                                    )}%`
+                                    : row.status ===
+                                      "PENDING"
+                                    ? "PENDING"
+                                    : "--"}
+                                </p>
+
+                              </button>
+                            );
+                          }
+                        )}
+
+                      </div>
+
+
+                      <div className="mt-3 flex flex-col justify-between gap-2 rounded-lg border border-blue-500/10 bg-blue-500/[0.025] px-3 py-2.5 sm:flex-row sm:items-center">
+
+                        <p className="text-[8px] leading-4 text-gray-600">
+                          Click any nearby date card to update this chart instantly. The shaded area is the model's expected range; it is not a guaranteed future price interval.
+                        </p>
+
+                        <span className={`w-fit rounded-full border px-2.5 py-1 text-[8px] font-semibold ${
+                          selectedHistoryRow.status ===
+                          "RESOLVED"
+                            ? "border-green-500/15 bg-green-500/[0.06] text-green-400"
+                            : "border-amber-500/15 bg-amber-500/[0.06] text-amber-400"
+                        }`}>
+                          {selectedHistoryRow.status ===
+                          "RESOLVED"
+                            ? "RESOLVED"
+                            : "PENDING"}
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              )}
+
+
+              <div className="mt-5 overflow-hidden rounded-2xl border border-[#1a2940] bg-[#0a0f17] shadow-xl shadow-black/10">
+
+                <div className="border-b border-white/5 bg-[#0b111a] px-4 py-4">
+
+                  <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
+
+                    <div>
+
+                      <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-blue-400">
+                        Prediction History ({historyTableRows.length} records)
+                      </p>
+
+                      <h4 className="mt-1 text-sm font-semibold text-white">
+                        Predicted Price vs Actual Price
+                      </h4>
+
+                      <p className="mt-1 text-[9px] text-gray-600">
+                        Click any date or View button to inspect its detailed graph and analysis
+                      </p>
+
+                    </div>
+
+
+                    <div className="flex w-full flex-col gap-2 sm:flex-row lg:w-auto">
+
+                      <div className="relative min-w-0 sm:w-[260px]">
+
+                        <Search
+                          size={13}
+                          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"
+                        />
+
+                        <input
+                          value={
+                            historyTableSearch
+                          }
+                          onChange={
+                            (
+                              event
+                            ) =>
+                              setHistoryTableSearch(
+                                event.target.value
+                              )
+                          }
+                          placeholder="Search date, source, status..."
+                          className="w-full rounded-lg border border-white/5 bg-[#080d14] py-2.5 pl-9 pr-3 text-[9px] text-gray-300 outline-none transition placeholder:text-gray-700 focus:border-blue-500/30"
+                        />
+
+                      </div>
+
+
+                      <button
+                        type="button"
+                        onClick={() => {
+
+                          const escapeCsv =
+                            (
+                              value
+                            ) =>
+                              `"${String(
+                                value ??
+                                ""
+                              ).replace(
+                                /"/g,
+                                '""'
+                              )}"`;
+
+
+                          const rows =
+                            historyTableRows.map(
+                              (
+                                row
+                              ) => {
+
+                                const predicted =
+                                  row.forecast_point_price ??
+                                  row.experimental_x2_point_price ??
+                                  row.predicted_price ??
+                                  "";
+
+                                const actual =
+                                  row.actual_close ??
+                                  "";
+
+                                const difference =
+                                  actual !==
+                                    "" &&
+                                  predicted !==
+                                    ""
+                                    ? Number(
+                                        actual
+                                      ) -
+                                      Number(
+                                        predicted
+                                      )
+                                    : "";
+
+                                return [
+                                  row.base_date,
+                                  row.history_source ===
+                                  "BACKFILLED_MODEL_REPLAY"
+                                    ? "REPLAY"
+                                    : "LIVE CAPTURE",
+                                  predicted,
+                                  actual,
+                                  difference,
+                                  row.forecast_error_percent ??
+                                  row.percentage_error ??
+                                  "",
+                                  row.status,
+                                ];
+                              }
+                            );
+
+
+                          const csv =
+                            [
+                              [
+                                "Prediction Date",
+                                "Source",
+                                "Predicted Price",
+                                "Actual Price",
+                                "Difference",
+                                "Error %",
+                                "Status",
+                              ],
+                              ...rows,
+                            ]
+                              .map(
+                                (
+                                  row
+                                ) =>
+                                  row
+                                    .map(
+                                      escapeCsv
+                                    )
+                                    .join(
+                                      ","
+                                    )
+                              )
+                              .join(
+                                "\n"
+                              );
+
+
+                          const blob =
+                            new Blob(
+                              [
+                                csv,
+                              ],
+                              {
+                                type:
+                                  "text/csv;charset=utf-8;",
+                              }
+                            );
+
+
+                          const url =
+                            URL.createObjectURL(
+                              blob
+                            );
+
+
+                          const anchor =
+                            document.createElement(
+                              "a"
+                            );
+
+
+                          anchor.href =
+                            url;
+
+                          anchor.download =
+                            `${historyStockInfo.short}_prediction_history.csv`;
+
+                          anchor.click();
+
+                          URL.revokeObjectURL(
+                            url
+                          );
+                        }}
+                        className="inline-flex items-center justify-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-[9px] font-semibold text-blue-300 transition hover:bg-blue-500/15"
+                      >
+                        <Download
+                          size={13}
+                        />
+                        Export CSV
+                      </button>
 
                     </div>
 
@@ -13738,6 +15556,10 @@ export default function App() {
                           Range
                         </th>
 
+                        <th className="sticky right-0 z-20 min-w-[90px] border-l border-white/5 bg-[#080d14] px-3 py-3 text-right font-medium">
+                          Action
+                        </th>
+
                       </tr>
 
                     </thead>
@@ -13745,13 +15567,13 @@ export default function App() {
 
                     <tbody>
 
-                      {filteredPredictionHistory.length ===
+                      {historyTableRows.length ===
                       0 ? (
 
                         <tr>
 
                           <td
-                            colSpan={11}
+                            colSpan={12}
                             className="px-4 py-10 text-center"
                           >
 
@@ -13774,7 +15596,7 @@ export default function App() {
 
                         </tr>
 
-                      ) : filteredPredictionHistory.map(
+                      ) : historyTableRows.map(
                         (
                           row,
                           index
@@ -13898,12 +15720,73 @@ export default function App() {
                               key={
                                 `${row.symbol}-${row.base_date}-${index}`
                               }
-                              className="border-b border-white/[0.035] text-[10px] last:border-0 hover:bg-white/[0.025]"
+                              onClick={() => {
+
+                                setSelectedHistoryRow(
+                                  row
+                                );
+
+                                setTimeout(
+                                  () => {
+                                    document
+                                      .querySelector(
+                                        "[data-selected-history-graph]"
+                                      )
+                                      ?.scrollIntoView({
+                                        behavior:
+                                          "smooth",
+                                        block:
+                                          "center",
+                                      });
+                                  },
+                                  50
+                                );
+                              }}
+                              title="Click to view this date graph"
+                              className={`cursor-pointer border-b border-white/[0.035] text-[10px] last:border-0 transition ${
+                                selectedHistoryRow?.base_date ===
+                                row.base_date
+                                  ? "bg-violet-500/[0.07]"
+                                  : "hover:bg-white/[0.03]"
+                              }`}
                             >
 
-                              <td className="sticky left-0 z-10 border-r border-white/5 bg-[#0a0f17] px-4 py-3 font-semibold text-gray-300">
-                                {row.base_date ||
-                                  "--"}
+                              <td className="sticky left-0 z-10 border-r border-white/5 bg-[#0a0f17] px-4 py-3">
+                                <button
+                                  type="button"
+                                  onClick={
+                                    (
+                                      event
+                                    ) => {
+                                      event.stopPropagation();
+
+                                      setSelectedHistoryRow(
+                                        row
+                                      );
+
+                                      setTimeout(
+                                        () => {
+                                          document
+                                            .querySelector(
+                                              "[data-selected-history-graph]"
+                                            )
+                                            ?.scrollIntoView({
+                                              behavior:
+                                                "smooth",
+                                              block:
+                                                "center",
+                                            });
+                                        },
+                                        50
+                                      );
+                                    }
+                                  }
+                                  className="font-semibold text-blue-300 underline decoration-blue-500/30 underline-offset-4 transition hover:text-blue-200"
+                                  title="Open graph for this prediction date"
+                                >
+                                  {row.base_date ||
+                                    "--"}
+                                </button>
                               </td>
 
 
@@ -13918,8 +15801,11 @@ export default function App() {
 
                                 ) : (
 
-                                  <span className="inline-flex rounded-full border border-green-500/15 bg-green-500/[0.06] px-2 py-1 text-[8px] font-semibold text-green-400">
-                                    LIVE
+                                  <span
+                                    className="inline-flex rounded-full border border-green-500/15 bg-green-500/[0.06] px-2 py-1 text-[8px] font-semibold text-green-400"
+                                    title="Forecast originally captured before its target trading day"
+                                  >
+                                    LIVE CAPTURE
                                   </span>
 
                                 )}
@@ -14094,6 +15980,45 @@ export default function App() {
                                     --
                                   </span>
                                 )}
+                              </td>
+
+
+                              <td className="sticky right-0 border-l border-white/5 bg-[#0a0f17] px-3 py-3 text-right">
+
+                                <button
+                                  type="button"
+                                  onClick={
+                                    (
+                                      event
+                                    ) => {
+                                      event.stopPropagation();
+
+                                      setSelectedHistoryRow(
+                                        row
+                                      );
+
+                                      setTimeout(
+                                        () => {
+                                          document
+                                            .querySelector(
+                                              "[data-selected-history-graph]"
+                                            )
+                                            ?.scrollIntoView({
+                                              behavior:
+                                                "smooth",
+                                              block:
+                                                "center",
+                                            });
+                                        },
+                                        50
+                                      );
+                                    }
+                                  }
+                                  className="rounded-lg border border-blue-500/25 bg-blue-500/10 px-3 py-1.5 text-[8px] font-semibold text-blue-300 transition hover:bg-blue-500/20"
+                                >
+                                  View
+                                </button>
+
                               </td>
 
                             </tr>
@@ -18866,6 +20791,38 @@ export default function App() {
       [];
 
 
+    const rawYahooArticles =
+      Number(
+        newsData
+          ?.raw_yahoo_articles ||
+        0
+      );
+
+
+    const rawGoogleArticles =
+      Number(
+        newsData
+          ?.raw_google_articles ||
+        0
+      );
+
+
+    const relevantYahooArticles =
+      Number(
+        newsData
+          ?.relevant_yahoo_articles ||
+        0
+      );
+
+
+    const relevantGoogleArticles =
+      Number(
+        newsData
+          ?.relevant_google_articles ||
+        0
+      );
+
+
     const maxPage =
       Math.max(
         1,
@@ -19143,9 +21100,25 @@ export default function App() {
               Track stock news, sentiment trends, and market mood.
             </p>
 
-            <p className="mt-1 text-[10px] text-gray-700">
-              Only directly relevant recent articles are included in sentiment.
-            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-[9px]">
+
+              <span className="rounded-full border border-purple-500/15 bg-purple-500/[0.04] px-2.5 py-1 text-purple-300">
+                Yahoo Finance
+              </span>
+
+              <span className="text-gray-700">
+                +
+              </span>
+
+              <span className="rounded-full border border-blue-500/15 bg-blue-500/[0.04] px-2.5 py-1 text-blue-300">
+                Google News RSS
+              </span>
+
+              <span className="text-gray-700">
+                · only directly relevant recent company articles are analyzed
+              </span>
+
+            </div>
 
           </div>
 
@@ -19323,7 +21296,7 @@ export default function App() {
             <p className="mt-1 text-[10px] text-gray-600">
               {totalArticles} relevant of{" "}
               {newsData?.raw_articles_received ??
-                totalArticles} fetched
+                totalArticles} fetched · Y:{rawYahooArticles} G:{rawGoogleArticles}
             </p>
 
           </div>
@@ -19394,13 +21367,41 @@ export default function App() {
                     className="mx-auto text-gray-700"
                   />
 
-                  <p className="mt-3 text-sm font-medium text-gray-400">
-                    No recent news available
+                  <p className="mt-3 text-sm font-medium text-gray-300">
+                    No directly relevant recent news found
                   </p>
 
-                  <p className="mt-1 text-[11px] text-gray-600">
-                    Try another stock or refresh later.
+                  <p className="mx-auto mt-2 max-w-md text-[11px] leading-5 text-gray-600">
+                    {newsData?.filter_message ||
+                      "StockVision checked Yahoo Finance and Google News RSS but did not find a recent article that directly matched this company."}
                   </p>
+
+
+                  <div className="mx-auto mt-4 flex max-w-md flex-wrap justify-center gap-2">
+
+                    <span className="rounded-full border border-purple-500/15 bg-purple-500/[0.05] px-3 py-1.5 text-[9px] text-purple-300">
+                      Yahoo: {rawYahooArticles} fetched / {relevantYahooArticles} relevant
+                    </span>
+
+                    <span className="rounded-full border border-blue-500/15 bg-blue-500/[0.05] px-3 py-1.5 text-[9px] text-blue-300">
+                      Google News: {rawGoogleArticles} fetched / {relevantGoogleArticles} relevant
+                    </span>
+
+                  </div>
+
+
+                  <button
+                    type="button"
+                    onClick={
+                      loadNewsSentiment
+                    }
+                    className="mt-4 inline-flex items-center gap-2 rounded-lg border border-violet-500/20 bg-violet-500/[0.07] px-4 py-2 text-[10px] font-semibold text-violet-300 transition hover:bg-violet-500/12"
+                  >
+                    <RefreshCw
+                      size={12}
+                    />
+                    Refresh Multi-Source News
+                  </button>
 
                 </div>
 
@@ -21941,7 +23942,11 @@ export default function App() {
 
             {activePage ===
               "AI Prediction" && (
-              <AIPredictionPage />
+              <StableNestedPageRenderer
+                renderPage={
+                  AIPredictionPage
+                }
+              />
             )}
 
 
