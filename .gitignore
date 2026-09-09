@@ -82,3 +82,7 @@ backend/ml/models/RELIANCE_NS_precision-v2_metadata.json
 backend/ml/models/RELIANCE_NS_precision-x1_metadata.json
 backend/ml/models/RELIANCE_NS_precision-x2_metadata.json
 backend/ml/models/RELIANCE_NS_precision_metadata.json
+
+# Generated per-stock model metadata
+backend/ml/models/*_multi_calibration.json
+backend/ml/models/*_multi_metrics.json
